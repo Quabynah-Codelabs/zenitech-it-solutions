@@ -85,8 +85,9 @@
     <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign In"
+            android:text="@string/sign_in"
             android:id="@+id/sign_in"
+            android:onClick="navHome"
             app:layout_constraintTop_toBottomOf="@id/content"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/spacing_large"
@@ -95,7 +96,7 @@
     <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create a new account"
+            android:text="@string/create_a_new_account"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             app:layout_constraintTop_toBottomOf="@id/content"
             app:layout_constraintEnd_toStartOf="@id/sign_in"

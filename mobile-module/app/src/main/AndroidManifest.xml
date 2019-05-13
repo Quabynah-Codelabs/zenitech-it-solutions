@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
+            android:name=".core.ZenitechApp"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/zenitech_app_name"
@@ -24,6 +25,7 @@
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
+        <activity android:name=".ui.HomeActivity"/>
     </application>
 
 </manifest>
