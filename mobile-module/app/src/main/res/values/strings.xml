@@ -1,3 +1,5 @@
 <resources>
     <string name="zenitech_app_name">Zenitech© IT Solutions</string>
+    <string name="password">Password</string>
+    <string name="zenitech_app_desc">Your one stop shop for all your IT issues…</string>
 </resources>
