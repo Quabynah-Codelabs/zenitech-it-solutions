@@ -60,10 +60,14 @@ class ProductDetailsActivity : BaseActivity() {
             R.id.menu_cart_add -> {
                 addToCart = !addToCart
                 invalidateOptionsMenu()
+
+                //todo: cart
             }
             R.id.menu_fav -> {
                 addToFav = !addToFav
                 invalidateOptionsMenu()
+
+                //todo: wish list
             }
         }
         return super.onOptionsItemSelected(item)
