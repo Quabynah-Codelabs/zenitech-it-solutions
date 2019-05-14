@@ -18,13 +18,13 @@ abstract class BaseActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (application as ZenitechApp).preferenceRepository.nightModeLive.observe(this, Observer { nightMode ->
+        (application as ZenitechApp).preferenceRepository.nightModeLive.observeForever { nightMode ->
             nightMode?.let { delegate.localNightMode = it }
-        })
+        }
 
-        (application as ZenitechApp).preferenceRepository.isDarkThemeLive.observe(this, Observer {
+        (application as ZenitechApp).preferenceRepository.isDarkThemeLive.observeForever {
             debugLog("Dark Theme: $it")
-        })
+        }
     }
 
 }

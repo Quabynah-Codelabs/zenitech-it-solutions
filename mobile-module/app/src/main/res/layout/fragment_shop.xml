@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
 
     </data>
@@ -7,5 +8,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:id="@+id/products_grid"
+                                                   android:scrollbars="vertical"
+                                                   android:scrollbarStyle="outsideOverlay"
+                                                   tools:itemCount="4"
+                                                   app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                                   tools:listitem="@layout/item_product"/>
+
+        <!--        app:fastScrollEnabled="true"-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
