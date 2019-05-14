@@ -1,15 +1,18 @@
 package io.codelabs.zenitech.ui.recyclerview
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.glide.GlideApp
 import io.codelabs.sdk.util.toast
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.data.Product
+import io.codelabs.zenitech.ui.ProductDetailsActivity
 import kotlinx.android.synthetic.main.item_product.view.*
 
 class ProductAdapter constructor(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -21,11 +24,13 @@ class ProductAdapter constructor(private val context: Context) : RecyclerView.Ad
 
     private val dataSource = mutableListOf<Product>()
     private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private var parent: ViewGroup? = null
 
     override fun getItemViewType(position: Int): Int = if (dataSource.isEmpty()) EMPTY else PRODUCT
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        this.parent = parent
+
         return when (viewType) {
             EMPTY -> EmptyViewHolder(inflater.inflate(EMPTY, parent, false))
             PRODUCT -> ProductViewHolder(inflater.inflate(PRODUCT, parent, false))
@@ -60,13 +65,20 @@ class ProductAdapter constructor(private val context: Context) : RecyclerView.Ad
             .into(holder.v.product_image)
 
         holder.v.product_add_cart.setOnClickListener {
-            //todo: add to cart
-            context.toast("${product.name} added to cart")
+            if (parent == null) {
+                context.toast("${product.name} added to cart")
+            } else {
+                Snackbar.make(parent!!, "${product.name} added to cart", Snackbar.LENGTH_SHORT).setAction("Undo") {
+                    context.toast("${product.name} removed from cart")
+                }.show()
+            }
         }
 
         holder.v.setOnClickListener {
-            //todo: view product details
-            context.toast("Cannot view details of ${product.name}")
+            context.startActivity(Intent(context, ProductDetailsActivity::class.java).apply {
+                putExtra(ProductDetailsActivity.EXTRA_PRODUCT, product)
+                putExtra(ProductDetailsActivity.EXTRA_PRODUCT_ID, product.key)
+            })
         }
     }
 
