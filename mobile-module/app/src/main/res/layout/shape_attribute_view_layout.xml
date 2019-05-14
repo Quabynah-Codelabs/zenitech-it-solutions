@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/shape_attribute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginEnd="72dp"
+            android:text="\?shapeAppearanceSmallComponent"
+            android:textAppearance="?textAppearanceBody1"
+            android:alpha="?alphaEmphasisMedium" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/shape_preview"
+            android:layout_width="56dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|center_vertical"
+            android:text="@string/shape_appearance_small_label"
+            android:textAppearance="?textAppearanceBody1"
+            android:gravity="center" />
+
+</merge>

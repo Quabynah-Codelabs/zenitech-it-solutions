@@ -7,4 +7,31 @@
     <string name="tab_title_cart">My Cart</string>
     <string name="tab_title_history">History</string>
     <string name="tab_title_shop">Shop</string>
+
+
+
+
+    <!--Theme Summary-->
+    <string name="label_color_scheme_title">Color scheme</string>
+
+    <string name="label_shape_system_title">Shape system</string>
+    <string name="shape_appearance_small_label">S</string>
+    <string name="shape_appearance_medium_label">M</string>
+    <string name="shape_appearance_large_label">L</string>
+
+    <string name="label_typography_scale_title">Typography scale</string>
+    <string name="text_appearance_h1_label">H1</string>
+    <string name="text_appearance_h2_label">H2</string>
+    <string name="text_appearance_h3_label">H3</string>
+    <string name="text_appearance_h4_label">H4</string>
+    <string name="text_appearance_h5_label">H5</string>
+    <string name="text_appearance_h6_label">H6</string>
+    <string name="text_appearance_subtitle_1_label">Subtitle 1</string>
+    <string name="text_appearance_subtitle_2_label">Subtitle 2</string>
+    <string name="text_appearance_body_1_label">Body 1</string>
+    <string name="text_appearance_body_2_label">Body 2</string>
+    <string name="text_appearance_button_label">Button</string>
+    <string name="text_appearance_caption_label">Caption</string>
+    <string name="text_appearance_overline_label">Overline</string>
+    <string name="open_url">Show on website</string>
 </resources>

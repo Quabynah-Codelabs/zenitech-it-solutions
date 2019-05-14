@@ -37,5 +37,7 @@ class HomeActivity : BaseActivity() {
 
     fun editProfile(view: View) {}
 
+    fun postIssue(view: View) {}
+
 
 }

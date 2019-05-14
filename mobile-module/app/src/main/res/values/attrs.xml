@@ -10,9 +10,9 @@
 
     <!--Label view attributes-->
     <declare-styleable name="LabelLinkView">
-        <attr name="android:text" />
-        <attr name="leadingIcon" format="integer" />
-        <attr name="linkUrl" format="string" />
+        <attr name="android:text"/>
+        <attr name="leadingIcon" format="integer"/>
+        <attr name="linkUrl" format="string"/>
     </declare-styleable>
 
     <!--Color attribute view attributes-->

@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.glide.GlideApp
-import io.codelabs.sdk.util.toast
+import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.data.Product
 import io.codelabs.zenitech.ui.ProductDetailsActivity
@@ -25,6 +26,7 @@ class ProductAdapter constructor(private val context: Context) : RecyclerView.Ad
     private val dataSource = mutableListOf<Product>()
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var parent: ViewGroup? = null
+    private var tappedProduct: Product? = null
 
     override fun getItemViewType(position: Int): Int = if (dataSource.isEmpty()) EMPTY else PRODUCT
 
@@ -65,12 +67,24 @@ class ProductAdapter constructor(private val context: Context) : RecyclerView.Ad
             .into(holder.v.product_image)
 
         holder.v.product_add_cart.setOnClickListener {
-            if (parent == null) {
-                context.toast("${product.name} added to cart")
-            } else {
-                Snackbar.make(parent!!, "${product.name} added to cart", Snackbar.LENGTH_SHORT).setAction("Undo") {
-                    context.toast("${product.name} removed from cart")
-                }.show()
+            
+            if (parent != null) {
+                var isUndo = false
+                this.tappedProduct = product
+                val snackbar =
+                    Snackbar.make(parent!!, "${product.name} added to cart", Snackbar.LENGTH_LONG).setAction("Undo") {
+                        isUndo = true
+                        tappedProduct = null
+                    }
+                snackbar.show()
+                snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar?>() {
+                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                        if (!isUndo && tappedProduct != null) {
+                            //todo: add to cart
+                            debugLog("Tapped on: $tappedProduct")
+                        }
+                    }
+                })
             }
         }
 

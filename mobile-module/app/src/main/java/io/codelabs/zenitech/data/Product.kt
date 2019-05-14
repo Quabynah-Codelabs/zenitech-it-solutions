@@ -16,6 +16,7 @@ data class Product(
     var price: Double,
     var desc: String,
     var image: String?,
+    var url: String? = "https://codelabs.netlify.com/products/$key",
     var uploadTime: Long = System.currentTimeMillis(),
     var quantity: Long = 0L,
     var category: String = Category.OTHER

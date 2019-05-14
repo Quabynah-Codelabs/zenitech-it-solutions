@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="Add to cart"
+          android:icon="@drawable/twotone_add_shopping_cart_24px"
+          android:id="@+id/menu_cart_add"
+          app:showAsAction="ifRoom"/>
+
+    <item android:title="Add to favorites"
+          android:icon="@drawable/twotone_favorite_border_24px"
+          android:id="@+id/menu_fav"
+          app:showAsAction="ifRoom"/>
+
+</menu>

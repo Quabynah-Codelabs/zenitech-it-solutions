@@ -25,8 +25,13 @@
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.HomeActivity"/>
-        <activity android:name=".ui.ProductDetailsActivity"/>
+        <activity android:name=".ui.HomeActivity"
+                  android:label="@string/empty"
+                  android:configChanges="orientation|screenLayout|screenSize"/>
+
+        <activity android:name=".ui.ProductDetailsActivity"
+                  android:configChanges="orientation|screenLayout|screenSize"
+                  android:label="@string/empty"/>
     </application>
 
 </manifest>
