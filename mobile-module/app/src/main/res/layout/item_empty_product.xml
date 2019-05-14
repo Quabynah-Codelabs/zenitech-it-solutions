@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   android:layout_margin="@dimen/spacing_micro"
+                                                   xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:paddingBottom="@dimen/padding_normal">
+
+    <io.codelabs.widget.ForegroundImageView android:layout_width="match_parent"
+                                            android:layout_height="@dimen/navigation_drawer_width"
+                                            android:src="@drawable/sample_image"
+                                            android:scaleType="centerCrop"
+                                            app:layout_constraintTop_toTopOf="parent"
+                                            android:id="@+id/product_image"/>
+
+    <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/navigation_drawer_width"
+                                            android:layout_height="@dimen/padding_large"
+                                            android:paddingTop="@dimen/padding_large"
+                                            android:paddingBottom="@dimen/spacing_micro"
+                                            android:background="@color/mid_grey"
+                                            android:layout_marginStart="@dimen/spacing_micro"
+                                            android:layout_marginTop="@dimen/spacing_normal"
+                                            app:layout_constraintTop_toBottomOf="@id/product_image"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            android:id="@+id/product_name"/>
+
+    <io.codelabs.widget.ForegroundImageView android:layout_width="300dp"
+                                            android:background="@color/mid_grey"
+                                            android:layout_height="@dimen/spacing_xlarge"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            android:layout_marginStart="@dimen/spacing_micro"
+                                            android:layout_marginTop="@dimen/spacing_normal"
+                                            app:layout_constraintTop_toBottomOf="@id/product_name"
+                                            android:id="@+id/product_desc"/>
+
+
+    <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/spacing_xlarge"
+                                            android:layout_height="@dimen/avatar_bounds"
+                                            android:background="@color/mid_grey"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintTop_toBottomOf="@id/product_desc"
+                                            android:layout_marginEnd="@dimen/fab_margin"
+                                            android:id="@+id/product_price"/>
+
+    <include
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/product_price"
+            layout="@layout/loading"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

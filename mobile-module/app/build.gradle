@@ -74,6 +74,6 @@ dependencies {
     implementation "androidx.room:room-coroutines:2.1.0-alpha04"
 //    implementation "androidx.room:room-ktx:$room_version"
 
-    implementation 'com.afollestad:recyclical:0.7.2'
+//    implementation 'com.afollestad:recyclical:0.7.2'
 
 }

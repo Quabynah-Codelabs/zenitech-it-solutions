@@ -13,11 +13,11 @@
         <androidx.appcompat.widget.AppCompatImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackgroundBorderless"
+                android:foreground="@color/transparent"
                 android:src="@drawable/twotone_add_shopping_cart_24px"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:elevation="@dimen/z_fab"
+                android:elevation="1dp"
                 android:padding="@dimen/fab_margin"
                 android:id="@+id/product_add_cart"
                 android:layout_margin="@dimen/spacing_micro"
@@ -42,7 +42,7 @@
                                                  android:ellipsize="end"
                                                  tools:text="Hp 13-inch Laptop (Refurbished)"
                                                  android:id="@+id/product_name"
-                                                 style="@style/TextAppearance.MyTheme.Headline6"/>
+                                                 android:textAppearance="?textAppearanceHeadline6"/>
 
         <io.codelabs.widget.BaselineGridTextView android:layout_width="wrap_content"
                                                  android:layout_height="wrap_content"
