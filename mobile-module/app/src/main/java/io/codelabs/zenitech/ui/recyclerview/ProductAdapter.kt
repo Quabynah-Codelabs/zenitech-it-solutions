@@ -67,7 +67,7 @@ class ProductAdapter constructor(private val context: Context) : RecyclerView.Ad
             .into(holder.v.product_image)
 
         holder.v.product_add_cart.setOnClickListener {
-            
+
             if (parent != null) {
                 var isUndo = false
                 this.tappedProduct = product
@@ -77,6 +77,7 @@ class ProductAdapter constructor(private val context: Context) : RecyclerView.Ad
                         tappedProduct = null
                     }
                 snackbar.show()
+
                 snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar?>() {
                     override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                         if (!isUndo && tappedProduct != null) {

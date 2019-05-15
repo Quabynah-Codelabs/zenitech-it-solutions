@@ -11,4 +11,9 @@
           android:id="@+id/menu_fav"
           app:showAsAction="ifRoom"/>
 
+    <item android:title="Browse Web"
+          android:icon="@drawable/twotone_public_24px"
+          android:id="@+id/menu_browse"
+          app:showAsAction="ifRoom"/>
+
 </menu>

@@ -13,7 +13,6 @@ import org.koin.androidx.viewmodel.ext.viewModel
 
 abstract class BaseActivity : BaseActivity() {
     val prefs: Preferences by inject()
-    //    val repository: UserRepository by inject()
     val userViewModel: UserViewModel by viewModel(USER_VM)
 
     override fun onCreate(savedInstanceState: Bundle?) {

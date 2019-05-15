@@ -34,4 +34,6 @@
     <string name="text_appearance_caption_label">Caption</string>
     <string name="text_appearance_overline_label">Overline</string>
     <string name="open_url">Show on website</string>
+    <string name="instructions_enable_dark_title">Toggle Dark Theme</string>
+    <string name="tab_title_settings">Settings</string>
 </resources>

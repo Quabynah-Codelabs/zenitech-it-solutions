@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+
+    </data>
+    <io.codelabs.widget.ForegroundLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_normal"
+            android:orientation="vertical">
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/keyline_5">
+
+            <androidx.appcompat.widget.AppCompatImageView android:layout_width="wrap_content"
+                                                          android:layout_height="wrap_content"
+                                                          android:visibility="gone"
+                                                          android:src="@drawable/twotone_brightness_6_24px"
+                                                          android:layout_gravity="center_vertical"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/dark_theme_title_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:text="@string/instructions_enable_dark_title"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:alpha="?alphaEmphasisMedium"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/dark_theme_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"/>
+
+        </FrameLayout>
+
+    </io.codelabs.widget.ForegroundLinearLayout>
+</layout>

@@ -26,13 +26,14 @@ class Preferences constructor(ctx: Context) {
     var key: String? = null
         get() = prefs.getString(USER_KEY, null)
         set(value) {
-            field = value
+            if (field == value) return
 
             isLoggedIn = !key.isNullOrEmpty()
             prefs.edit {
                 putString(USER_KEY, value)
-                commit()
+                apply()
             }
+            field = value
         }
 
     init {

@@ -12,9 +12,10 @@
             tools:context=".ui.ProductDetailsActivity">
 
         <com.google.android.material.appbar.AppBarLayout
-                style="@style/Widget.MaterialComponents.AppBarLayout.Surface"
+                style="?appBarLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/about_peek_height"
+                android:id="@+id/app_bar"
                 android:translationZ="@dimen/elevation_default_top_app_bar">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -23,6 +24,7 @@
                     app:contentScrim="@color/app_scrim"
                     app:toolbarId="@id/toolbar"
                     app:titleEnabled="false"
+                    android:id="@+id/collapsing_toolbar"
                     android:minHeight="@dimen/nav_header_height"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -37,6 +39,7 @@
                 <androidx.appcompat.widget.Toolbar android:layout_width="match_parent"
                                                    android:layout_height="?actionBarSize"
                                                    style="?toolbarStyle"
+                                                   android:translationZ="@dimen/zero_spacing"
                                                    android:background="@color/transparent"
                                                    app:navigationIcon="@drawable/twotone_clear_24px"
                                                    android:id="@+id/toolbar"
@@ -77,19 +80,17 @@
                                                          android:textAppearance="?textAppearanceBody2"
                                                          android:ellipsize="end"/>
 
-                <!--<io.codelabs.zenitech.widget.LabelLinkView
-                        android:id="@+id/label"
-                        android:layout_width="wrap_content"
-                        android:text="@string/open_url"
-                        android:layout_margin="@dimen/padding_normal"
-                        android:layout_height="wrap_content"
-                        app:linkUrl="@{product.url}"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>-->
-
             </io.codelabs.widget.ForegroundLinearLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+       <!-- <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/twotone_euro_symbol_24px"
+                android:text="@{String.valueOf(product.price)}"
+                app:layout_anchorGravity="bottom|end"
+                app:layout_anchor="@id/app_bar"/>-->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

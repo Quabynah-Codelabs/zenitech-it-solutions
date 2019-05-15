@@ -1,5 +1,7 @@
 package io.codelabs.zenitech.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.data.Product
+import io.codelabs.zenitech.data.User
 import io.codelabs.zenitech.databinding.ActivityProductBinding
 
 class ProductDetailsActivity : BaseActivity() {
@@ -36,6 +39,7 @@ class ProductDetailsActivity : BaseActivity() {
         } else if (intent.hasExtra(EXTRA_PRODUCT_ID)) {
 
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -69,8 +73,15 @@ class ProductDetailsActivity : BaseActivity() {
 
                 //todo: wish list
             }
+            R.id.menu_browse -> {
+                launchUrl((binding.product as? Product)?.url)
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun launchUrl(urlString: String?) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(urlString)))
     }
 
 }

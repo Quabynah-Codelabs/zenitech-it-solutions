@@ -14,7 +14,8 @@ class MainPagerAdapter(
     enum class MainFragments(val titleRes: Int) {
         SHOP(R.string.tab_title_shop),
         HISTORY(R.string.tab_title_history),
-        CART(R.string.tab_title_cart)
+        CART(R.string.tab_title_cart),
+        SETTINGS(R.string.tab_title_settings)
     }
 
     override fun getItem(position: Int): Fragment {
@@ -22,6 +23,7 @@ class MainPagerAdapter(
             MainFragments.SHOP -> ShopFragment()
             MainFragments.HISTORY -> HistoryFragment()
             MainFragments.CART -> CartFragment()
+            MainFragments.SETTINGS -> SettingsFragment()
         }
     }
 
