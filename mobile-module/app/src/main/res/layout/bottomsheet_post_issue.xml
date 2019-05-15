@@ -30,33 +30,10 @@
                 android:firstBaselineToTopHeight="36dp"
                 android:text="@string/post_issue_desc"/>
 
-
         <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:id="@+id/username_label"
+                android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/padding_large"
-                android:layout_width="match_parent"
-                android:hint="@string/issue_title"
-                android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView android:layout_width="match_parent"
-                                                                     android:layout_height="wrap_content"
-                                                                     android:padding="@dimen/padding_normal"
-                                                                     android:inputType="textCapSentences|textAutoCorrect|textAutoComplete"
-                                                                     android:id="@+id/category"/>
-
-            <!--<com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:inputType="textCapSentences|textAutoComplete|textAutoCorrect"/>-->
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/spacing_normal"
                 android:hint="@string/description"
                 android:layout_height="wrap_content">
 
@@ -69,14 +46,50 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?textAppearanceBody1"
+                android:alpha="?alphaEmphasisMedium"
+                android:gravity="center_horizontal"
+                android:firstBaselineToTopHeight="36dp"
+                android:text="@string/select_a_category"/>
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/button_group"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                app:checkedButton="@id/button_other"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/keyline_5">
+
+            <com.google.android.material.button.MaterialButton
+                    style="?materialButtonOutlinedStyle"
+                    android:id="@+id/button_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/other_category"/>
+
+            <com.google.android.material.button.MaterialButton
+                    style="?materialButtonOutlinedStyle"
+                    android:id="@+id/button_laptop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/laptop_category"/>
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/post"
                 android:id="@+id/post_issue"
-                app:iconGravity="end"
-                style="@style/Widget.MaterialComponents.Button"
-                android:layout_marginTop="@dimen/padding_large"
+                app:iconGravity="textEnd"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                app:iconPadding="@dimen/padding_normal"
+                android:layout_marginTop="@dimen/padding_normal"
                 android:layout_gravity="center_horizontal"
                 app:icon="@drawable/twotone_send_24px"/>
 

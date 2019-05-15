@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   style="?materialCardViewStyle"
+                                                   android:layout_margin="@dimen/spacing_micro"
+                                                   xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                       android:layout_height="wrap_content">
+
+
+        <io.codelabs.widget.BaselineGridTextView android:layout_width="0dp"
+                                                 android:layout_height="wrap_content"
+                                                 tools:text="@tools:sample/lorem/random"
+                                                 app:layout_constraintStart_toStartOf="parent"
+                                                 android:id="@+id/issue_name"
+                                                 android:maxLines="4"
+                                                 android:ellipsize="end"
+                                                 android:paddingStart="@dimen/padding_normal"
+                                                 android:paddingEnd="@dimen/spacing_normal"
+                                                 android:paddingTop="@dimen/padding_normal"
+                                                 android:paddingBottom="@dimen/spacing_micro"
+                                                 android:textAppearance="?textAppearanceBody1"
+                                                 app:layout_constraintTop_toTopOf="parent"
+                                                 app:layout_constraintEnd_toEndOf="parent"
+                                                 android:gravity="start"/>
+
+        <io.codelabs.widget.BaselineGridTextView android:layout_width="wrap_content"
+                                                 android:layout_height="wrap_content"
+                                                 android:paddingTop="@dimen/spacing_normal"
+                                                 android:paddingBottom="@dimen/spacing_normal"
+                                                 android:paddingStart="@dimen/padding_normal"
+                                                 android:paddingEnd="@dimen/padding_normal"
+                                                 tools:text="@string/dummy_reg_date"
+                                                 android:maxLines="1"
+                                                 app:layout_constraintEnd_toEndOf="parent"
+                                                 android:gravity="end|center_vertical"
+                                                 app:layout_constraintTop_toBottomOf="@id/issue_name"
+                                                 android:textAppearance="?textAppearanceCaption"
+                                                 android:ellipsize="end"
+                                                 android:id="@+id/issue_timestamp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

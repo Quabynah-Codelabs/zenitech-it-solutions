@@ -15,6 +15,7 @@ class MainPagerAdapter(
         SHOP(R.string.tab_title_shop),
         HISTORY(R.string.tab_title_history),
         CART(R.string.tab_title_cart),
+        ISSUES(R.string.tab_title_issues),
         SETTINGS(R.string.tab_title_settings)
     }
 
@@ -23,6 +24,7 @@ class MainPagerAdapter(
             MainFragments.SHOP -> ShopFragment()
             MainFragments.HISTORY -> HistoryFragment()
             MainFragments.CART -> CartFragment()
+            MainFragments.ISSUES -> IssuesFragment()
             MainFragments.SETTINGS -> SettingsFragment()
         }
     }

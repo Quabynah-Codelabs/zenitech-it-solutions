@@ -46,4 +46,8 @@
     <string name="email">Email Address</string>
     <string name="created_at">Account creation date</string>
     <string name="account_information">Account information</string>
+    <string name="other_category">Other</string>
+    <string name="laptop_category">Laptop</string>
+    <string name="select_a_category">Select a category</string>
+    <string name="tab_title_issues">Posted Issues</string>
 </resources>

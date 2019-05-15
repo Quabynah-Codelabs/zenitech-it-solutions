@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                         xmlns:app="http://schemas.android.com/apk/res-auto"
+                                         android:layout_width="match_parent"
+                                         android:id="@+id/issue_shimmer_container"
+                                         android:layout_height="wrap_content">
+
+    <io.codelabs.widget.ForegroundLinearLayout android:layout_width="match_parent"
+                                               android:orientation="vertical"
+                                               android:paddingTop="@dimen/spacing_micro"
+                                               android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                           android:layout_marginTop="@dimen/spacing_micro"
+                                                           android:layout_height="wrap_content">
+
+
+            <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/navigation_drawer_width"
+                                                    android:layout_height="@dimen/large_avatar_size"
+                                                    android:background="@color/mid_grey"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    android:id="@+id/empty_issue_name_1"
+                                                    app:layout_constraintTop_toTopOf="parent"
+                                                    android:gravity="start"/>
+
+            <io.codelabs.widget.ForegroundImageView android:layout_width="150dp"
+                                                    android:background="@color/mid_grey"
+                                                    android:layout_height="@dimen/avatar_size"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    android:gravity="end|center_vertical"
+                                                    android:layout_margin="@dimen/spacing_micro"
+                                                    app:layout_constraintTop_toBottomOf="@id/empty_issue_name_1"
+                                                    android:id="@+id/empty_issue_timestamp_1"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                           android:layout_marginTop="@dimen/spacing_micro"
+                                                           android:layout_height="wrap_content">
+
+
+            <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/navigation_drawer_width"
+                                                    android:layout_height="@dimen/large_avatar_size"
+                                                    android:background="@color/mid_grey"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    android:id="@+id/empty_issue_name_2"
+                                                    app:layout_constraintTop_toTopOf="parent"
+                                                    android:gravity="start"/>
+
+            <io.codelabs.widget.ForegroundImageView android:layout_width="150dp"
+                                                    android:background="@color/mid_grey"
+                                                    android:layout_height="@dimen/avatar_size"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    android:gravity="end|center_vertical"
+                                                    android:layout_margin="@dimen/spacing_micro"
+                                                    app:layout_constraintTop_toBottomOf="@id/empty_issue_name_2"
+                                                    android:id="@+id/empty_issue_timestamp_2"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                           android:layout_height="wrap_content">
+
+
+            <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/navigation_drawer_width"
+                                                    android:layout_height="@dimen/large_avatar_size"
+                                                    android:background="@color/mid_grey"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    android:id="@+id/empty_issue_name"
+                                                    app:layout_constraintTop_toTopOf="parent"
+                                                    android:gravity="start"/>
+
+            <io.codelabs.widget.ForegroundImageView android:layout_width="150dp"
+                                                    android:background="@color/mid_grey"
+                                                    android:layout_height="@dimen/avatar_size"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    android:gravity="end|center_vertical"
+                                                    android:layout_margin="@dimen/spacing_micro"
+                                                    app:layout_constraintTop_toBottomOf="@id/empty_issue_name"
+                                                    android:id="@+id/empty_issue_timestamp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </io.codelabs.widget.ForegroundLinearLayout>
+
+
+</com.facebook.shimmer.ShimmerFrameLayout>

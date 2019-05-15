@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.util.toast
@@ -28,21 +27,18 @@ class PostIssueFragment : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            resources.getStringArray(R.array.category)
-        )
-        category.setAdapter(adapter)
-        category.setText(Product.Category.OTHER)
-        if (category.hasFocus()) category.showDropDown()
 
         post_issue.setOnClickListener {
-            if (category.isNotEmpty() && description.isNotEmpty()) {
+            if (description.isNotEmpty()) {
+                val category: String = when (button_group.checkedButtonId) {
+                    R.id.button_laptop -> Product.Category.LAPTOP
+                    else -> Product.Category.OTHER
+                }
+
                 repository.addIssue(
                     Issue(
                         System.currentTimeMillis().toString(),
-                        description.text.toString(), category.text.toString()
+                        description.text.toString(), category
                     )
                 )
 
