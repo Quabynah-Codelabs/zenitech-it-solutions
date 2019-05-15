@@ -3,6 +3,7 @@ package io.codelabs.zenitech.ui
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.DEFAULT_AVATAR
@@ -37,6 +38,7 @@ class HomeActivity : BaseActivity() {
         uiScope.launch {
             repository.getAllProducts().observeForever {
                 debugLog("Products in DAO: $it")
+                showDialog()
             }
         }
     }
@@ -45,5 +47,13 @@ class HomeActivity : BaseActivity() {
 
     fun postIssue(view: View) {}
 
+    private fun showDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.zenitech_app_name)
+            .setMessage(R.string.lorem_ipsum)
+            .setPositiveButton("Next", null)
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
 
 }
