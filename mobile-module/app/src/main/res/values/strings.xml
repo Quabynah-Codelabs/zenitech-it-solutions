@@ -45,4 +45,5 @@
     </string>
     <string name="email">Email Address</string>
     <string name="created_at">Account creation date</string>
+    <string name="account_information">Account information</string>
 </resources>

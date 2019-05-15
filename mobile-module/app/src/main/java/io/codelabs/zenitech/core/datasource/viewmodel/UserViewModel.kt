@@ -10,12 +10,9 @@ import kotlinx.coroutines.launch
 
 class UserViewModel constructor(private val repository: UserRepository) : ViewModel() {
 
-    private val _liveUser: MutableLiveData<User> = MutableLiveData()
+    private var _liveUser: MutableLiveData<User> = MutableLiveData()
 
-    suspend fun getCurrentUser(): LiveData<User> {
-        _liveUser.postValue(repository.getCurrentUser().value)
-        return _liveUser
-    }
+    fun getCurrentUser(): LiveData<User> = _liveUser
 
     fun updateUser(user: User) = repository.updateUser(user)
 
@@ -25,7 +22,7 @@ class UserViewModel constructor(private val repository: UserRepository) : ViewMo
 
     init {
         GlobalScope.launch {
-            _liveUser.postValue(getCurrentUser().value)
+            _liveUser.postValue(repository.getCurrentUser())
         }
     }
 

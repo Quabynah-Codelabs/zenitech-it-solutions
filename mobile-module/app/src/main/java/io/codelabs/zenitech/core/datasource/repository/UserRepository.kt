@@ -1,7 +1,5 @@
 package io.codelabs.zenitech.core.datasource.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import io.codelabs.zenitech.core.datasource.room.RoomAppDao
 import io.codelabs.zenitech.data.User
 import kotlinx.coroutines.Dispatchers
@@ -9,32 +7,29 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class UserRepository constructor(private val dao: RoomAppDao, private val prefs: Preferences) {
+class UserRepository constructor(
+    private val dao: RoomAppDao,
+    private val prefs: Preferences/*todo: add remote datasource here*/
+) {
 
-    suspend fun getCurrentUser(): LiveData<User> {
-        val liveUser: MutableLiveData<User> = MutableLiveData()
+    suspend fun getCurrentUser(): User? {
+        var user: User? = null
         withContext(Dispatchers.IO) {
-            if (prefs.isLoggedIn) liveUser.postValue(dao.getUser(prefs.key!!))
+            user = dao.getUser(prefs.key!!)
         }
-        return liveUser
+        return user
     }
 
-    fun updateUser(user: User) {
-        GlobalScope.launch {
-            dao.updateUser(user)
-        }
+    fun updateUser(user: User) = GlobalScope.launch {
+        dao.updateUser(user)
     }
 
-    fun addUser(user: User) {
-        GlobalScope.launch {
-            dao.addUser(user)
-        }
+    fun addUser(user: User) = GlobalScope.launch {
+        dao.addUser(user)
     }
 
-    fun removeUser(user: User) {
-        GlobalScope.launch {
-            dao.deleteUser(user)
-        }
+    fun removeUser(user: User) = GlobalScope.launch {
+        dao.deleteUser(user)
     }
 
 }

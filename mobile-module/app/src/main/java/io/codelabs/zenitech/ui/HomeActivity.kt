@@ -8,6 +8,7 @@ import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.databinding.ActivityHomeBinding
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HomeActivity : BaseActivity() {
@@ -22,14 +23,11 @@ class HomeActivity : BaseActivity() {
         binding.viewPager.adapter = adapter
         binding.userHeaderContainer.startShimmer()
 
-        ioScope.launch {
-            val liveData = userViewModel.getCurrentUser()
-
-            uiScope.launch {
-                liveData.observeForever {
-                    binding.user = it
-                    debugLog("Current User: $it")
-                }
+        uiScope.launch {
+            delay(2000)
+            userViewModel.getCurrentUser().observeForever {
+                binding.user = it
+                debugLog("Current User: $it")
             }
         }
 
