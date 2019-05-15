@@ -14,13 +14,13 @@ import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.datasource.repository.ProductRepository
 import io.codelabs.zenitech.core.theme.BaseFragment
 import io.codelabs.zenitech.databinding.FragmentCartBinding
-import io.codelabs.zenitech.ui.recyclerview.ProductAdapter
+import io.codelabs.zenitech.ui.recyclerview.CartAdapter
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class CartFragment : BaseFragment() {
     private lateinit var binding: FragmentCartBinding
-    private lateinit var adapter: ProductAdapter
+    private lateinit var adapter: CartAdapter
     private val repository: ProductRepository by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -31,7 +31,7 @@ class CartFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = ProductAdapter(requireContext(), repository)
+        adapter = CartAdapter(requireContext(), repository)
 
         binding.grid.adapter = adapter
         binding.grid.layoutManager = LinearLayoutManager(requireContext()) as RecyclerView.LayoutManager?

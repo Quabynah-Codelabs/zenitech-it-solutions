@@ -10,13 +10,14 @@ import com.google.android.material.snackbar.Snackbar
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.data.Product
-import io.codelabs.zenitech.data.User
 import io.codelabs.zenitech.databinding.ActivityProductBinding
 
 class ProductDetailsActivity : BaseActivity() {
     companion object {
         const val EXTRA_PRODUCT = "extra_product"
         const val EXTRA_PRODUCT_ID = "extra_product_id"
+        const val EXTRA_PRODUCT_IN_CART = "extra_product_cart"
+        const val EXTRA_PRODUCT_IN_FAV = "extra_product_fav"
     }
 
     private var addToCart: Boolean = false
@@ -30,6 +31,9 @@ class ProductDetailsActivity : BaseActivity() {
         binding.toolbar.setNavigationOnClickListener { onBackPressed() }
 
         if (intent.hasExtra(EXTRA_PRODUCT)) {
+            addToCart = intent.getBooleanExtra(EXTRA_PRODUCT_IN_CART, false)
+            addToFav = intent.getBooleanExtra(EXTRA_PRODUCT_IN_FAV, false)
+
             binding.product = intent.getParcelableExtra<Product>(EXTRA_PRODUCT)
             Snackbar.make(
                 binding.container,
@@ -65,13 +69,14 @@ class ProductDetailsActivity : BaseActivity() {
                 addToCart = !addToCart
                 invalidateOptionsMenu()
 
-                //todo: cart
+                if (addToCart) repository.addProduct(binding.product as Product) else repository.removeProduct(binding.product as Product)
             }
             R.id.menu_fav -> {
                 addToFav = !addToFav
                 invalidateOptionsMenu()
 
                 //todo: wish list
+//                if (addToFav) repository.addFavorite(binding.product as Product) else repository.removeFavorite(binding.product as Product)
             }
             R.id.menu_browse -> {
                 launchUrl((binding.product as? Product)?.url)

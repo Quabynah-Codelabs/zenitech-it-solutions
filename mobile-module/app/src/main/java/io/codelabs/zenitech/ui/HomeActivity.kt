@@ -6,11 +6,8 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
-import io.codelabs.zenitech.core.DEFAULT_AVATAR
 import io.codelabs.zenitech.core.theme.BaseActivity
-import io.codelabs.zenitech.data.User
 import io.codelabs.zenitech.databinding.ActivityHomeBinding
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class HomeActivity : BaseActivity() {
@@ -23,6 +20,7 @@ class HomeActivity : BaseActivity() {
         binding.tabLayout.setupWithViewPager(binding.viewPager)
         val adapter = MainPagerAdapter(this, supportFragmentManager)
         binding.viewPager.adapter = adapter
+        binding.userHeaderContainer.startShimmer()
 
         ioScope.launch {
             val liveData = userViewModel.getCurrentUser()
@@ -35,11 +33,8 @@ class HomeActivity : BaseActivity() {
             }
         }
 
-        uiScope.launch {
-            repository.getAllProducts().observeForever {
-                debugLog("Products in DAO: $it")
-                showDialog()
-            }
+        repository.getAllProducts().observeForever {
+            debugLog("Products in DAO: $it")
         }
     }
 
