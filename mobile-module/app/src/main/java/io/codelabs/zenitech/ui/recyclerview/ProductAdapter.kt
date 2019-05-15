@@ -15,7 +15,12 @@ import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.datasource.repository.ProductRepository
 import io.codelabs.zenitech.data.Product
 import io.codelabs.zenitech.ui.ProductDetailsActivity
+import kotlinx.android.synthetic.main.item_empty_product.view.*
 import kotlinx.android.synthetic.main.item_product.view.*
+import kotlinx.android.synthetic.main.item_product.view.product_desc
+import kotlinx.android.synthetic.main.item_product.view.product_image
+import kotlinx.android.synthetic.main.item_product.view.product_name
+import kotlinx.android.synthetic.main.item_product.view.product_price
 
 class ProductAdapter constructor(
     private val context: Context,
@@ -48,10 +53,13 @@ class ProductAdapter constructor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            EMPTY -> {
-            }
+            EMPTY -> bindEmptyView(holder as EmptyViewHolder)
             PRODUCT -> bindProducts(holder as ProductViewHolder, position)
         }
+    }
+
+    private fun bindEmptyView(holder: EmptyViewHolder) {
+        holder.v.shimmer_container.startShimmer()
     }
 
     private fun bindProducts(holder: ProductViewHolder, position: Int) {
