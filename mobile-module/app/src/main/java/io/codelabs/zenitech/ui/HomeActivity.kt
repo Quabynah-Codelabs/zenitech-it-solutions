@@ -38,9 +38,11 @@ class HomeActivity : BaseActivity() {
         }
     }
 
-    fun editProfile(view: View) {}
+    fun editProfile(view: View) {
+        //todo: edit user's profile information
+    }
 
-    fun postIssue(view: View) {}
+    fun postIssue(view: View) = PostIssueFragment().show(supportFragmentManager, PostIssueFragment.FRAGMENT_TAG)
 
     private fun showDialog() {
         MaterialAlertDialogBuilder(this)

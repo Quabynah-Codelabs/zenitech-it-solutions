@@ -31,8 +31,8 @@ data class Product(
     constructor() : this("", "", 0.00, "", "")
 
     object Category {
-        const val LAPTOP = "laptop"
-        const val OTHER = "other"
+        const val LAPTOP = "Laptop"
+        const val OTHER = "Other"
     }
 
     companion object {

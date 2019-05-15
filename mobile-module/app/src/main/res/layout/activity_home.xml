@@ -64,6 +64,7 @@
 
                         <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/avatar_bounds"
                                                                 android:layout_height="@dimen/avatar_bounds"
+                                                                tools:src="@drawable/avatar_placeholder"
                                                                 app:imageUrl="@{user.avatar}"
                                                                 android:visibility="@{user != null ? View.VISIBLE : View.GONE}"
                                                                 android:layout_marginEnd="@dimen/padding_normal"
@@ -145,6 +146,7 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 android:background="?selectableItemBackgroundBorderless"
                                 android:tint="?colorPrimary"
+                                android:visibility="@{user != null ? View.VISIBLE : View.GONE}"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 android:onClick="editProfile"/>
 

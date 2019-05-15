@@ -1,5 +1,6 @@
 package io.codelabs.zenitech.core
 
+import io.codelabs.zenitech.core.datasource.repository.IssueRepository
 import io.codelabs.zenitech.core.datasource.repository.Preferences
 import io.codelabs.zenitech.core.datasource.repository.ProductRepository
 import io.codelabs.zenitech.core.datasource.repository.UserRepository
@@ -19,6 +20,8 @@ val roomModule = module {
     single { UserRepository(get(), get()) }
 
     single { ProductRepository(get()) }
+
+    single { IssueRepository(get()) }
 
     viewModel(USER_VM) { UserViewModel(get()) }
 }

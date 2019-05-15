@@ -5,15 +5,93 @@
                                          android:id="@+id/cart_shimmer_container"
                                          android:layout_height="wrap_content">
 
-    <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="?materialCardViewStyle"
-            android:layout_margin="@dimen/spacing_micro"
-            xmlns:tools="http://schemas.android.com/tools">
+    <io.codelabs.widget.ForegroundLinearLayout android:layout_width="match_parent"
+                                               android:paddingTop="@dimen/spacing_micro"
+                                               android:layout_height="match_parent"
+                                               android:orientation="vertical">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                                                           android:layout_height="wrap_content">
+                                                           android:layout_height="wrap_content"
+                                                           android:layout_margin="@dimen/spacing_micro">
+
+            <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/large_avatar_size"
+                                                    android:layout_height="@dimen/large_avatar_size"
+                                                    android:src="@drawable/sample_image"
+                                                    android:id="@+id/product_image_one"
+                                                    android:scaleType="centerCrop"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toTopOf="parent"
+                                                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/nav_header_height"
+                                                    android:layout_height="@dimen/avatar_size"
+                                                    app:layout_constraintStart_toEndOf="@id/product_image_one"
+                                                    android:id="@+id/product_name_one"
+                                                    android:layout_marginStart="@dimen/padding_normal"
+                                                    android:paddingTop="@dimen/padding_normal"
+                                                    android:paddingBottom="@dimen/spacing_micro"
+                                                    android:background="@color/mid_grey"
+                                                    app:layout_constraintTop_toTopOf="parent"
+                                                    android:gravity="start"/>
+
+            <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/avatar_header"
+                                                    android:layout_height="@dimen/avatar_size"
+                                                    android:layout_marginBottom="@dimen/padding_normal"
+                                                    android:layout_marginStart="@dimen/padding_normal"
+                                                    android:background="@color/mid_grey"
+                                                    android:layout_marginTop="@dimen/padding_normal"
+                                                    app:layout_constraintStart_toEndOf="@id/product_image_one"
+                                                    app:layout_constraintTop_toBottomOf="@id/product_name_one"
+                                                    android:textAppearance="?textAppearanceHeadline6"
+                                                    android:ellipsize="end"
+                                                    android:id="@+id/product_price_one"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                           android:layout_height="wrap_content"
+                                                           android:layout_margin="@dimen/spacing_micro">
+
+            <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/large_avatar_size"
+                                                    android:layout_height="@dimen/large_avatar_size"
+                                                    android:src="@drawable/sample_image"
+                                                    android:id="@+id/product_image_two"
+                                                    android:scaleType="centerCrop"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toTopOf="parent"
+                                                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/nav_header_height"
+                                                    android:layout_height="@dimen/avatar_size"
+                                                    app:layout_constraintStart_toEndOf="@id/product_image_two"
+                                                    android:id="@+id/product_name_two"
+                                                    android:layout_marginStart="@dimen/padding_normal"
+                                                    android:paddingTop="@dimen/padding_normal"
+                                                    android:paddingBottom="@dimen/spacing_micro"
+                                                    android:background="@color/mid_grey"
+                                                    app:layout_constraintTop_toTopOf="parent"
+                                                    android:gravity="start"/>
+
+            <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/avatar_header"
+                                                    android:layout_height="@dimen/avatar_size"
+                                                    android:layout_marginBottom="@dimen/padding_normal"
+                                                    android:layout_marginStart="@dimen/padding_normal"
+                                                    android:background="@color/mid_grey"
+                                                    android:layout_marginTop="@dimen/padding_normal"
+                                                    app:layout_constraintStart_toEndOf="@id/product_image_two"
+                                                    app:layout_constraintTop_toBottomOf="@id/product_name_two"
+                                                    android:textAppearance="?textAppearanceHeadline6"
+                                                    android:ellipsize="end"
+                                                    android:id="@+id/product_price_two"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                           android:layout_height="wrap_content"
+                                                           android:layout_margin="@dimen/spacing_micro">
 
             <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/large_avatar_size"
                                                     android:layout_height="@dimen/large_avatar_size"
@@ -25,15 +103,15 @@
                                                     app:layout_constraintBottom_toBottomOf="parent"/>
 
             <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/nav_header_height"
-                                                     android:layout_height="@dimen/avatar_size"
-                                                     app:layout_constraintStart_toEndOf="@id/product_image"
-                                                     android:id="@+id/product_name"
-                                                     android:layout_marginStart="@dimen/padding_normal"
-                                                     android:paddingTop="@dimen/padding_normal"
-                                                     android:paddingBottom="@dimen/spacing_micro"
-                                                     android:background="@color/mid_grey"
-                                                     app:layout_constraintTop_toTopOf="parent"
-                                                     android:gravity="start"/>
+                                                    android:layout_height="@dimen/avatar_size"
+                                                    app:layout_constraintStart_toEndOf="@id/product_image"
+                                                    android:id="@+id/product_name"
+                                                    android:layout_marginStart="@dimen/padding_normal"
+                                                    android:paddingTop="@dimen/padding_normal"
+                                                    android:paddingBottom="@dimen/spacing_micro"
+                                                    android:background="@color/mid_grey"
+                                                    app:layout_constraintTop_toTopOf="parent"
+                                                    android:gravity="start"/>
 
             <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/avatar_header"
                                                     android:layout_height="@dimen/avatar_size"
@@ -50,6 +128,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </io.codelabs.widget.ForegroundLinearLayout>
 
 </com.facebook.shimmer.ShimmerFrameLayout>

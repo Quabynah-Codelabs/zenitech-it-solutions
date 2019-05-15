@@ -84,7 +84,7 @@ class ProductAdapter constructor(
                 var isUndo = false
                 this.tappedProduct = product
                 val snackbar =
-                    Snackbar.make(parent!!, "${product.name} added to cart", Snackbar.LENGTH_LONG).setAction("Undo") {
+                    Snackbar.make(parent!!, "${product.name} added to cart", Snackbar.LENGTH_SHORT).setAction("Undo") {
                         isUndo = true
                         tappedProduct = null
                     }

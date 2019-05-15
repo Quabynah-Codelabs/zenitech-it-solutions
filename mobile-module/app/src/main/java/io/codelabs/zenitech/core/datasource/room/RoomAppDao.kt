@@ -2,6 +2,7 @@ package io.codelabs.zenitech.core.datasource.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import io.codelabs.zenitech.data.Issue
 import io.codelabs.zenitech.data.Product
 import io.codelabs.zenitech.data.User
 
@@ -31,4 +32,16 @@ interface RoomAppDao {
 
     @Query("SELECT * FROM products ORDER BY uploadTime DESC")
     fun getAllProducts(): MutableList<Product>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addIssue(vararg issue: Issue)
+
+    @Delete
+    fun removeIssue(vararg issue: Issue)
+
+    @Query("SELECT * FROM issues WHERE `key` = :key")
+    fun getIssue(key: String): Issue
+
+    @Query("SELECT * FROM issues ORDER BY timestamp DESC")
+    fun getAllIssues(): MutableList<Issue>
 }

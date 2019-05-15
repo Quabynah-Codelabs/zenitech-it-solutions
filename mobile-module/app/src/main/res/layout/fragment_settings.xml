@@ -1,13 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <variable name="user" type="io.codelabs.zenitech.data.User"/>
+        <import type="android.text.format.DateUtils"/>
+        <import type="android.view.View"/>
     </data>
     <io.codelabs.widget.ForegroundLinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/padding_normal"
             android:orientation="vertical">
+
+        <io.codelabs.zenitech.widget.LabelLinkView android:layout_width="wrap_content"
+                                                   android:layout_height="wrap_content"
+                                                   app:leadingIcon="@drawable/twotone_group_24px"
+                                                   android:text="User information"/>
+
+        <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    app:icon="@drawable/twotone_perm_identity_24px"
+                                                    app:title="@string/username"
+                                                    app:summary="@{user.name}"
+                                                    app:widget="@layout/widget_edit"/>
+
+        <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    app:icon="@drawable/twotone_mail_outline_24px"
+                                                    app:title="@string/email"
+                                                    app:summary="@{user.email}"
+                                                    app:widget="@layout/widget_edit"/>
+
+        <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    app:icon="@drawable/twotone_event_24px"
+                                                    app:title="@string/created_at"
+                                                    app:summary="@{DateUtils.getRelativeTimeSpanString(user.createdAt, System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS).toString()}"/>
+
+
+        <io.codelabs.zenitech.widget.LabelLinkView android:layout_width="wrap_content"
+                                                   android:layout_height="wrap_content"
+                                                   app:leadingIcon="@drawable/twotone_group_24px"
+                                                   android:layout_marginTop="@dimen/padding_large"
+                                                   android:text="Theme Builder"/>
 
         <FrameLayout
                 android:layout_width="match_parent"
@@ -17,7 +51,7 @@
             <androidx.appcompat.widget.AppCompatImageView android:layout_width="wrap_content"
                                                           android:layout_height="wrap_content"
                                                           android:visibility="gone"
-                                                          android:src="@drawable/twotone_brightness_6_24px"
+                                                          android:src="@drawable/twotone_category_24px"
                                                           android:layout_gravity="center_vertical"/>
 
             <androidx.appcompat.widget.AppCompatTextView
