@@ -56,6 +56,8 @@ class IssueAdapter constructor(
 
         holder.v.issue_name.text = issue.description
         holder.v.issue_timestamp.text = DateUtils.getRelativeTimeSpanString(issue.timestamp)
+
+        holder.v.setOnClickListener {  }
     }
 
     fun addDataSource(issues: MutableList<Issue>) {
