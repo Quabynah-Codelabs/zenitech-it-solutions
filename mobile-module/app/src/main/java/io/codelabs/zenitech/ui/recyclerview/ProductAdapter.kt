@@ -12,11 +12,15 @@ import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.glide.GlideApp
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
+import io.codelabs.zenitech.core.datasource.repository.ProductRepository
 import io.codelabs.zenitech.data.Product
 import io.codelabs.zenitech.ui.ProductDetailsActivity
 import kotlinx.android.synthetic.main.item_product.view.*
 
-class ProductAdapter constructor(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ProductAdapter constructor(
+    private val context: Context,
+    private val repository: ProductRepository
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val EMPTY = R.layout.item_empty_product
@@ -81,9 +85,9 @@ class ProductAdapter constructor(private val context: Context) : RecyclerView.Ad
                 snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar?>() {
                     override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                         if (!isUndo && tappedProduct != null) {
-                            //todo: add to cart
                             debugLog("Tapped on: $tappedProduct")
-                        }
+                            if (tappedProduct != null) repository.addProduct(tappedProduct!!)
+                        } else if (tappedProduct != null) repository.removeProduct(tappedProduct!!)
                     }
                 })
             }

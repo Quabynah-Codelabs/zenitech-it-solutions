@@ -9,6 +9,7 @@ import io.codelabs.zenitech.core.DEFAULT_AVATAR
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.data.User
 import io.codelabs.zenitech.databinding.ActivityHomeBinding
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class HomeActivity : BaseActivity() {
@@ -33,6 +34,11 @@ class HomeActivity : BaseActivity() {
             }
         }
 
+        uiScope.launch {
+            repository.getAllProducts().observeForever {
+                debugLog("Products in DAO: $it")
+            }
+        }
     }
 
     fun editProfile(view: View) {}

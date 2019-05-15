@@ -64,7 +64,7 @@
                                                  android:paddingBottom="@dimen/padding_normal"
                                                  android:paddingStart="@dimen/padding_normal"
                                                  android:paddingEnd="@dimen/padding_normal"
-                                                 tools:text="$ 12.99"
+                                                 tools:text="$ 192.99"
                                                  android:maxLines="1"
                                                  android:textColor="?colorSecondaryVariant"
                                                  android:layout_marginTop="@dimen/padding_normal"

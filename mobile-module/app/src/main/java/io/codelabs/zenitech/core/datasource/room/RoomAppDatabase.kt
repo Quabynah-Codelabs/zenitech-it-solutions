@@ -6,9 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import io.codelabs.zenitech.BuildConfig
 import io.codelabs.zenitech.core.DATABASE_NAME
+import io.codelabs.zenitech.data.Product
 import io.codelabs.zenitech.data.User
 
-@Database(entities = [User::class], version = BuildConfig.VERSION_CODE, exportSchema = true)
+@Database(entities = [User::class, Product::class], version = BuildConfig.VERSION_CODE, exportSchema = true)
 abstract class RoomAppDatabase : RoomDatabase() {
 
     abstract fun dao(): RoomAppDao

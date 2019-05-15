@@ -80,6 +80,17 @@
                                                          android:textAppearance="?textAppearanceBody2"
                                                          android:ellipsize="end"/>
 
+                <io.codelabs.zenitech.widget.LabelLinkView
+                        android:id="@+id/label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/zenitech_app_name"
+                        android:padding="@dimen/padding_normal"
+                        app:leadingIcon="@drawable/shr_logo"
+                        app:linkUrl="https://codelabs.netlify.com/"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
             </io.codelabs.widget.ForegroundLinearLayout>
 
         </androidx.core.widget.NestedScrollView>

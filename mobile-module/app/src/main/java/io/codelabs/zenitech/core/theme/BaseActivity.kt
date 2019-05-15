@@ -7,12 +7,14 @@ import io.codelabs.sdk.view.BaseActivity
 import io.codelabs.zenitech.core.USER_VM
 import io.codelabs.zenitech.core.ZenitechApp
 import io.codelabs.zenitech.core.datasource.repository.Preferences
+import io.codelabs.zenitech.core.datasource.repository.ProductRepository
 import io.codelabs.zenitech.core.datasource.viewmodel.UserViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.viewModel
 
 abstract class BaseActivity : BaseActivity() {
     val prefs: Preferences by inject()
+    val repository: ProductRepository by inject()
     val userViewModel: UserViewModel by viewModel(USER_VM)
 
     override fun onCreate(savedInstanceState: Bundle?) {
