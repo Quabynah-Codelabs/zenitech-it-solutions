@@ -17,7 +17,7 @@
 
 
             <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/navigation_drawer_width"
-                                                    android:layout_height="@dimen/large_avatar_size"
+                                                    android:layout_height="@dimen/avatar_header"
                                                     android:background="@color/mid_grey"
                                                     app:layout_constraintStart_toStartOf="parent"
                                                     android:id="@+id/empty_issue_name_1"
@@ -41,7 +41,7 @@
 
 
             <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/navigation_drawer_width"
-                                                    android:layout_height="@dimen/large_avatar_size"
+                                                    android:layout_height="@dimen/avatar_header"
                                                     android:background="@color/mid_grey"
                                                     app:layout_constraintStart_toStartOf="parent"
                                                     android:id="@+id/empty_issue_name_2"
@@ -64,7 +64,7 @@
 
 
             <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/navigation_drawer_width"
-                                                    android:layout_height="@dimen/large_avatar_size"
+                                                    android:layout_height="@dimen/avatar_header"
                                                     android:background="@color/mid_grey"
                                                     app:layout_constraintStart_toStartOf="parent"
                                                     android:id="@+id/empty_issue_name"

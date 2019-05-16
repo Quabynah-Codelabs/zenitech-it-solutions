@@ -73,17 +73,19 @@
 
             <com.google.android.material.button.MaterialButton
                     style="?materialButtonOutlinedStyle"
+                    android:id="@+id/button_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/phone_category"/>
+
+            <com.google.android.material.button.MaterialButton
+                    style="?materialButtonOutlinedStyle"
                     android:id="@+id/button_other"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/other_category"/>
 
-            <com.google.android.material.button.MaterialButton
-                    style="?materialButtonOutlinedStyle"
-                    android:id="@+id/button_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/phone_category"/>
+
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
