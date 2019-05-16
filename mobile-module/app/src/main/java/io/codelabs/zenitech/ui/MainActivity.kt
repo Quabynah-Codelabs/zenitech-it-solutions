@@ -54,11 +54,19 @@ class MainActivity : BaseActivity() {
         TransitionManager.beginDelayedTransition(binding.container)
         binding.loading.visibility = View.GONE
         binding.content.visibility = View.GONE
-        Snackbar.make(container, getString(R.string.welcome_text), Snackbar.LENGTH_INDEFINITE)
-            .setAction("Continue Shopping") {
-                intentTo(HomeActivity::class.java, true)
+        userViewModel.getCurrentUser().observe(this, Observer {
+            if (it != null) {
+                Snackbar.make(
+                    container,
+                    String.format(getString(R.string.welcome_text), it.name ?: it.email),
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                    .setAction("Continue Shopping") {
+                        intentTo(HomeActivity::class.java, true)
+                    }
+                    .show()
             }
-            .show()
+        })
     }
 
     fun register(v: View?) {

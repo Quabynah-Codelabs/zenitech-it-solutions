@@ -17,7 +17,7 @@ import kotlinx.android.parcel.Parcelize
 data class User(
     @PrimaryKey(autoGenerate = false)
     override val key: String,
-    var name: String,
+    var name: String?,
     var email: String,
     var avatar: String? = null,
     var type: String = BaseDataModel.ModelType.GUEST,
