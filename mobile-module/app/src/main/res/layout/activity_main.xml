@@ -5,6 +5,7 @@
         android:layout_width="match_parent"
         android:focusableInTouchMode="true"
         android:layout_height="match_parent"
+        android:id="@+id/container"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".ui.MainActivity">
 
@@ -91,6 +92,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sign_in"
             android:id="@+id/sign_in"
+            android:layout_marginTop="@dimen/padding_normal"
             android:onClick="login"
             app:layout_constraintTop_toBottomOf="@id/content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -101,26 +103,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_a_new_account"
+            android:layout_marginTop="@dimen/padding_normal"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             app:layout_constraintTop_toBottomOf="@id/content"
             app:layout_constraintEnd_toStartOf="@id/sign_in"
             android:layout_marginEnd="@dimen/padding_large"
             android:onClick="navHome"
             app:icon="@drawable/twotone_group_24px"/>
-
-
-    <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/avatar_header"
-            android:text="@string/login_google"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="googleLogin"
-            app:iconGravity="textStart"
-            app:iconTint="?colorError"
-            app:iconPadding="@dimen/padding_normal"
-            app:icon="@drawable/googleg_standard_color_18"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

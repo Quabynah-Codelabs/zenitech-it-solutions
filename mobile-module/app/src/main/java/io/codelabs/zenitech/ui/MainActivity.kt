@@ -9,6 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.intentTo
 import io.codelabs.sdk.util.network.Outcome
@@ -26,6 +27,14 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+    override fun onEnterAnimationComplete() {
+        Snackbar.make(container, getString(R.string.login_google), Snackbar.LENGTH_INDEFINITE)
+            .setAction("Sign In") {
+                googleLogin()
+            }
+            .show()
     }
 
     fun navHome(v: View?) = intentTo(HomeActivity::class.java)
@@ -53,13 +62,11 @@ class MainActivity : BaseActivity() {
         } else toast("Enter your email and password")
     }
 
-    fun googleLogin(view: View) {
-
+    private fun googleLogin() {
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(BuildConfig.GOOGLE_AUTH_CLIENT_ID)
             .requestEmail()
-            .requestId()
             .build()
 
         GoogleSignIn.getClient(this, gso).apply {
@@ -94,6 +101,7 @@ class MainActivity : BaseActivity() {
     private fun updateUI(account: GoogleSignInAccount?) {
         debugLog(account?.id)
     }
+
 
     companion object {
         private const val RC_GOOGLE_LOGIN = 9
