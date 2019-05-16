@@ -25,10 +25,9 @@ class CartAdapter constructor(
         private const val PRODUCT = R.layout.item_cart
     }
 
-    private val dataSource = mutableListOf<Product>()
+    val dataSource = mutableListOf<Product>()
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var parent: ViewGroup? = null
-    private var tappedProduct: Product? = null
 
     override fun getItemViewType(position: Int): Int = if (dataSource.isEmpty()) EMPTY else PRODUCT
 

@@ -51,7 +51,16 @@ class CartFragment : BaseFragment() {
     private fun loadLiveData() {
         uiScope.launch {
             repository.getAllProducts().observe(viewLifecycleOwner, Observer {
-                if (it != null) adapter.addDataSource(it)
+                if (it != null) {
+                    adapter.addDataSource(it)
+                    var price = 0.00
+                    adapter.dataSource.forEach {
+                        price += it.price
+                    }
+
+                    binding.checkout.visibility = if (price != 0.00) View.VISIBLE else View.GONE
+                    binding.checkout.text = String.format("Checkout GHC%.2f", price)
+                }
             })
         }
     }

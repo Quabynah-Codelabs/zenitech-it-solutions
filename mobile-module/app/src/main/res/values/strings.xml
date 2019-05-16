@@ -52,4 +52,5 @@
     <string name="tab_title_issues">Posted Issues</string>
     <string name="accessories_category">Accessories</string>
     <string name="phone_category">Smart Phone</string>
+    <string name="checkout">Checkout Items</string>
 </resources>
