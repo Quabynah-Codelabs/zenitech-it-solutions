@@ -29,7 +29,9 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    override fun onEnterAnimationComplete() {
+    override fun onEnterAnimationComplete()  = showGoogleLoginPrompt()
+
+    private fun showGoogleLoginPrompt() {
         Snackbar.make(container, getString(R.string.login_google), Snackbar.LENGTH_INDEFINITE)
             .setAction("Sign In") {
                 googleLogin()
@@ -87,12 +89,14 @@ class MainActivity : BaseActivity() {
                         // Login failed
                         debugLog(ex.localizedMessage)
                         toast(ex.localizedMessage)
+                        showGoogleLoginPrompt()
                     }
                 }
 
                 else -> {
                     // Login cancelled
                     toast("Login failed")
+                    showGoogleLoginPrompt()
                 }
             }
         }

@@ -9,8 +9,12 @@
     <string name="tab_title_shop">Shop</string>
 
 
-
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+        anim id est laborum.
+    </string>
 
     <!--Theme Summary-->
     <string name="label_color_scheme_title">Color scheme</string>
@@ -54,5 +58,5 @@
     <string name="phone_category">Smart Phone</string>
     <string name="checkout">Checkout Items</string>
     <string name="remove_item">Remove</string>
-    <string name="login_google">Google Sign In</string>
+    <string name="login_google">Login with Google instead</string>
 </resources>
