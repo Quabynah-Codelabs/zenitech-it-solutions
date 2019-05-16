@@ -47,16 +47,11 @@ class ShopFragment : BaseFragment() {
         binding.productsGrid.itemAnimator = SlideInItemAnimator()
         binding.productsGrid.adapter = adapter
         // Kick off initial load process
-        GlobalScope.launch {
-            loadDataSource()
-        }
+        loadDataSource()
     }
 
-    private suspend fun loadDataSource() {
-        delay(2000)
-        uiScope.launch {
-            adapter.addDataSource(FakeDataSource.loadProducts())
-        }
+    private fun loadDataSource() {
+        adapter.addDataSource(FakeDataSource.loadProducts())
     }
 
 }
