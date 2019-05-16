@@ -33,7 +33,7 @@ class ZenitechApp : Application() {
             modules(roomModule, prefsModule, remoteService)
         }
 
-        val syncedWorker = PeriodicWorkRequestBuilder<SyncedWorker>(10, TimeUnit.SECONDS).build()
+        val syncedWorker = PeriodicWorkRequestBuilder<SyncedWorker>(10, TimeUnit.MINUTES).build()
 
         WorkManager.getInstance(applicationContext).enqueue(syncedWorker)
     }

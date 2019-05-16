@@ -34,7 +34,7 @@ interface RoomAppDao {
     fun getAllProducts(): MutableList<Product>
 
     @Query("SELECT * FROM products ORDER BY uploadTime DESC")
-    /*suspend*/ fun getLiveProducts(): MutableList<Product>
+    suspend fun getLiveProducts(): MutableList<Product>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addIssue(vararg issue: Issue)
@@ -49,5 +49,5 @@ interface RoomAppDao {
     fun getAllIssues(): MutableList<Issue>
 
     @Query("SELECT * FROM issues ORDER BY timestamp DESC")
-    /*suspend*/ fun getLiveIssues(): MutableList<Issue>
+    suspend fun getLiveIssues(): MutableList<Issue>
 }
