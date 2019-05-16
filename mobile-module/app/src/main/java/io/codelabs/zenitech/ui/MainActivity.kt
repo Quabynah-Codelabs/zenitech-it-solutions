@@ -1,22 +1,25 @@
 package io.codelabs.zenitech.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.intentTo
 import io.codelabs.sdk.util.network.Outcome
 import io.codelabs.sdk.util.toast
+import io.codelabs.zenitech.BuildConfig
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.auth.LoginRequest
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.core.util.isNotEmpty
-import io.codelabs.zenitech.data.User
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class MainActivity : BaseActivity() {
 
@@ -48,5 +51,51 @@ class MainActivity : BaseActivity() {
                 })
 
         } else toast("Enter your email and password")
+    }
+
+    fun googleLogin(view: View) {
+
+        // Configure Google Sign In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(BuildConfig.GOOGLE_AUTH_CLIENT_ID)
+            .requestEmail()
+            .requestId()
+            .build()
+
+        GoogleSignIn.getClient(this, gso).apply {
+            startActivityForResult(this.signInIntent, RC_GOOGLE_LOGIN)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_GOOGLE_LOGIN) {
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    val acctTask = GoogleSignIn.getSignedInAccountFromIntent(data)
+                    try {
+                        val account = acctTask.getResult(ApiException::class.java)
+                        updateUI(account)
+                    } catch (ex: ApiException) {
+                        // Login failed
+                        debugLog(ex.localizedMessage)
+                        toast(ex.localizedMessage)
+                    }
+                }
+
+                else -> {
+                    // Login cancelled
+                    toast("Login failed")
+                }
+            }
+        }
+    }
+
+    private fun updateUI(account: GoogleSignInAccount?) {
+        debugLog(account?.id)
+    }
+
+    companion object {
+        private const val RC_GOOGLE_LOGIN = 9
     }
 }
