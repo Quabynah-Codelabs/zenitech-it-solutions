@@ -11,6 +11,10 @@ interface RoomAppDao {
     @Query("SELECT * FROM users WHERE `key` = :key")
     fun getUser(key: String): User
 
+
+    @Query("SELECT * FROM users ORDER BY `key`")
+    fun getAllUsers(): MutableList<User>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addUser(user: User)
 

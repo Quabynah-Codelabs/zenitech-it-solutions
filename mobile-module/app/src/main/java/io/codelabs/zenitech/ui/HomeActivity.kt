@@ -3,7 +3,6 @@ package io.codelabs.zenitech.ui
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
@@ -24,10 +23,14 @@ class HomeActivity : BaseActivity() {
         binding.userHeaderContainer.startShimmer()
 
         uiScope.launch {
-            userViewModel.getCurrentUser().observe(this@HomeActivity, Observer {
+            userViewModel.getCurrentUser().observeForever {
                 binding.user = it
                 debugLog("Current User: $it")
-            })
+            }
+
+            uiScope.launch {
+                debugLog(userViewModel.getAll())
+            }
         }
     }
 

@@ -23,7 +23,7 @@ object AuthAPI {
                 OkHttpClient.Builder().addInterceptor(
                     HttpLoggingInterceptor()
                         .setLevel(if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE)
-                ).connectTimeout(10L, TimeUnit.SECONDS)
+                ).connectTimeout(60L, TimeUnit.SECONDS)
                     .cache(
                         Cache(
                             File("${Environment.getExternalStorageDirectory().parent}/zenitech-cache"),

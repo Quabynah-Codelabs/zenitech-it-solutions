@@ -34,4 +34,5 @@ class ZenitechApp : Application() {
         WorkManager.getInstance(applicationContext).enqueue(syncedWorker)
     }
 
+
 }

@@ -26,10 +26,13 @@ import io.codelabs.zenitech.data.BaseDataModel
 import io.codelabs.zenitech.data.User
 import io.codelabs.zenitech.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var authSnackbar: Snackbar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +40,11 @@ class MainActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         binding.loading.visibility = View.GONE
+        authSnackbar = Snackbar.make(
+            container,
+            "Please wait while we sign you in...",
+            Snackbar.LENGTH_INDEFINITE
+        )
     }
 
     override fun onEnterAnimationComplete() = if (prefs.isLoggedIn) showHomePrompt() else showGoogleLoginPrompt()
@@ -50,12 +58,12 @@ class MainActivity : BaseActivity() {
     }
 
     private fun showHomePrompt() {
-
         TransitionManager.beginDelayedTransition(binding.container)
         binding.loading.visibility = View.GONE
         binding.content.visibility = View.GONE
         userViewModel.getCurrentUser().observe(this, Observer {
             if (it != null) {
+                debugLog("Main Page user: $it")
                 Snackbar.make(
                     container,
                     String.format(getString(R.string.welcome_text), it.name ?: it.email),
@@ -76,22 +84,21 @@ class MainActivity : BaseActivity() {
                     when (it) {
                         is Outcome.Success -> {
                             debugLog("Success: ${it.data}")
-                            val user = it.data
-                            userViewModel.addUser(user)
-                            prefs.key = user.key
-                            showConfirmationToast(user.avatar, user.email)
-                            intentTo(HomeActivity::class.java, true)
+                            loginUser(it.data)
                         }
 
                         is Outcome.Failure -> {
                             debugLog("Failure: ${it.e.localizedMessage}")
+                            if (authSnackbar.isShown) authSnackbar.dismiss()
                             TransitionManager.beginDelayedTransition(binding.container)
                             binding.loading.visibility = View.GONE
                             binding.content.visibility = View.VISIBLE
+                            showGoogleLoginPrompt()
                         }
 
                         is Outcome.Progress -> {
                             debugLog("Login call in progress")
+                            authSnackbar.show()
                             TransitionManager.beginDelayedTransition(binding.container)
                             binding.loading.visibility = View.VISIBLE
                             binding.content.visibility = View.GONE
@@ -102,6 +109,21 @@ class MainActivity : BaseActivity() {
         } else toast("Enter your email and password")
     }
 
+    private fun loginUser(user: User) {
+        ioScope.launch {
+            userViewModel.addUser(user.apply {
+                if (name.isNullOrEmpty()) name = "Dennis Kwabena Bilson"
+            })
+            prefs.key = user.key
+            delay(2000)
+
+            uiScope.launch {
+                showConfirmationToast(user.avatar, user.email)
+                intentTo(HomeActivity::class.java, true)
+            }
+        }
+    }
+
     fun login(view: View) {
         if (username.isNotEmpty() && password.isNotEmpty()) {
             authService.loginWithEmailAndPassword(LoginRequest(username.text.toString(), password.text.toString()))
@@ -110,20 +132,20 @@ class MainActivity : BaseActivity() {
                         is Outcome.Success -> {
                             debugLog("Success: ${it.data}")
                             val user = it.data
-                            userViewModel.addUser(user)
-                            prefs.key = user.key
-                            showConfirmationToast(user.avatar, user.email)
-                            intentTo(HomeActivity::class.java, true)
+                            loginUser(user)
                         }
 
                         is Outcome.Failure -> {
+                            if (authSnackbar.isShown) authSnackbar.dismiss()
                             debugLog("Failure: ${it.e.localizedMessage}")
                             TransitionManager.beginDelayedTransition(binding.container)
                             binding.loading.visibility = View.GONE
                             binding.content.visibility = View.VISIBLE
+                            showGoogleLoginPrompt()
                         }
 
                         is Outcome.Progress -> {
+                            authSnackbar.show()
                             debugLog("Login call in progress")
                             TransitionManager.beginDelayedTransition(binding.container)
                             binding.loading.visibility = View.VISIBLE
@@ -155,12 +177,14 @@ class MainActivity : BaseActivity() {
         if (requestCode == RC_GOOGLE_LOGIN) {
             when (resultCode) {
                 Activity.RESULT_OK -> {
+                    authSnackbar.show()
                     val acctTask = GoogleSignIn.getSignedInAccountFromIntent(data)
                     try {
                         val account = acctTask.getResult(ApiException::class.java)
                         updateUI(account)
                     } catch (ex: ApiException) {
                         // Login failed
+                        if (authSnackbar.isShown) authSnackbar.dismiss()
                         debugLog(ex.localizedMessage)
                         toast(ex.localizedMessage)
                         showGoogleLoginPrompt()
@@ -174,8 +198,8 @@ class MainActivity : BaseActivity() {
                 else -> {
                     // Login cancelled
                     toast("Login failed")
+                    if (authSnackbar.isShown) authSnackbar.dismiss()
                     showGoogleLoginPrompt()
-
 
                     TransitionManager.beginDelayedTransition(binding.container)
                     binding.loading.visibility = View.GONE
@@ -197,10 +221,7 @@ class MainActivity : BaseActivity() {
                 account.id!!, account.displayName ?: "No Name", account.email!!,
                 account.photoUrl.toString(), BaseDataModel.ModelType.USER
             )
-            userViewModel.addUser(user)
-            prefs.key = user.key
-            showConfirmationToast(user.avatar, user.email)
-            intentTo(HomeActivity::class.java, true)
+            loginUser(user)
         } catch (e: Exception) {
             toast("Unable to sign you in...", true)
         }

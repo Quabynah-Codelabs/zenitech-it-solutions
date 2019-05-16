@@ -8,6 +8,7 @@ import io.codelabs.zenitech.data.Issue
 import io.codelabs.zenitech.data.Product
 import io.codelabs.zenitech.data.SyncableDataModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 class DatabaseService {
@@ -27,6 +28,7 @@ class DatabaseService {
         var timeStarted = System.currentTimeMillis()
         debugLog("Data synced started at $timeStarted")
         withContext(Dispatchers.IO) {
+            delay(3000)
             models.forEach { _models ->
                 _models.markAsSynced()
                 _models.forEach {

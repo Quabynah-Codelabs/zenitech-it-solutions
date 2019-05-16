@@ -29,6 +29,12 @@ class UserRepository constructor(
         dao.updateUser(user)
     }
 
+    fun getAllUsers(): MutableList<User> = mutableListOf<User>().apply {
+        GlobalScope.launch(Dispatchers.IO) {
+            addAll(dao.getAllUsers())
+        }
+    }
+
     fun addUser(user: User) = GlobalScope.launch(Dispatchers.IO) {
         dao.addUser(user)
     }

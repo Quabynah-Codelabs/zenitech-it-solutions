@@ -21,6 +21,8 @@ class UserViewModel constructor(private val repository: UserRepository) : ViewMo
 
     fun removeUser(user: User) = repository.removeUser(user)
 
+    fun getAll() = repository.getAllUsers()
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _liveUser.postValue(repository.getCurrentUser())

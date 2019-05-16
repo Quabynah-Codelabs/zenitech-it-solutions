@@ -15,6 +15,8 @@ import io.codelabs.zenitech.core.datasource.repository.Preferences
 import io.codelabs.zenitech.core.datasource.viewmodel.UserViewModel
 import io.codelabs.zenitech.core.theme.BaseFragment
 import io.codelabs.zenitech.databinding.FragmentSettingsBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.viewModel
 
@@ -38,11 +40,16 @@ class SettingsFragment : BaseFragment() {
         })
 
         binding.logoutButton.setOnClickListener {
-            prefs.key = null
             userViewModel.getCurrentUser().observe(viewLifecycleOwner, Observer {
                 if (it != null) {
+                    prefs.key = null
                     userViewModel.removeUser(it)
-                    requireActivity().intentTo(MainActivity::class.java, true)
+                    Snackbar.make(binding.root, "Signing you out...", Snackbar.LENGTH_INDEFINITE).show()
+
+                    uiScope.launch {
+                        delay(2000)
+                        requireActivity().intentTo(MainActivity::class.java, true)
+                    }
                 } else {
                     Snackbar.make(binding.root, "Please sign in first", Snackbar.LENGTH_LONG).show()
                 }
