@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.codelabs.recyclerview.GridItemDividerDecoration
@@ -50,7 +49,7 @@ class CartFragment : BaseFragment() {
 
     private fun loadLiveData() {
         uiScope.launch {
-            repository.getAllProducts().observe(viewLifecycleOwner, Observer {
+            repository.getAllProducts().observeForever {
                 if (it != null) {
                     adapter.addDataSource(it)
                     var price = 0.00
@@ -60,8 +59,12 @@ class CartFragment : BaseFragment() {
 
                     binding.checkout.visibility = if (price != 0.00) View.VISIBLE else View.GONE
                     binding.checkout.text = String.format("Checkout GHC%.2f", price)
+
+                    binding.checkout.setOnClickListener {
+                        //todo: implement payment logic
+                    }
                 }
-            })
+            }
         }
     }
 
