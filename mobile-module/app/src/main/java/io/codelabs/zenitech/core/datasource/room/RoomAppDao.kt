@@ -1,6 +1,5 @@
 package io.codelabs.zenitech.core.datasource.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import io.codelabs.zenitech.data.Issue
 import io.codelabs.zenitech.data.Product
@@ -24,6 +23,9 @@ interface RoomAppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addProduct(vararg product: Product)
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateProduct(product: Product)
+
     @Delete
     fun removeProduct(vararg product: Product)
 
@@ -32,6 +34,9 @@ interface RoomAppDao {
 
     @Query("SELECT * FROM products ORDER BY uploadTime DESC")
     fun getAllProducts(): MutableList<Product>
+
+    @Query("SELECT * FROM products WHERE isWishListItem = :state ORDER BY uploadTime DESC")
+    suspend fun getAllFavoriteItems(state: Boolean = true): MutableList<Product>
 
     @Query("SELECT * FROM products ORDER BY uploadTime DESC")
     suspend fun getLiveProducts(): MutableList<Product>

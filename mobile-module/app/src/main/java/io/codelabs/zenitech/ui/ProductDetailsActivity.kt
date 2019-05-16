@@ -75,8 +75,7 @@ class ProductDetailsActivity : BaseActivity() {
                 addToFav = !addToFav
                 invalidateOptionsMenu()
 
-                //todo: wish list
-//                if (addToFav) repository.addFavorite(binding.product as Product) else repository.removeFavorite(binding.product as Product)
+                if (addToFav) repository.addFavorite(binding.product as Product) else repository.removeFavorite(binding.product as Product)
             }
             R.id.menu_browse -> {
                 launchUrl((binding.product as? Product)?.url)

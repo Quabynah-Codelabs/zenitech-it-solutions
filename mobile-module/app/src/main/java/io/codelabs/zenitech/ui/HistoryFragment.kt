@@ -5,26 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.codelabs.recyclerview.GridItemDividerDecoration
 import io.codelabs.recyclerview.SlideInItemAnimator
+import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.PRODUCT_VM
 import io.codelabs.zenitech.core.datasource.repository.ProductRepository
 import io.codelabs.zenitech.core.datasource.viewmodel.ProductViewModel
 import io.codelabs.zenitech.core.theme.BaseFragment
+import io.codelabs.zenitech.data.Product
 import io.codelabs.zenitech.databinding.FragmentHistoryBinding
-import io.codelabs.zenitech.ui.recyclerview.CartAdapter
+import io.codelabs.zenitech.ui.recyclerview.WishListAdapter
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.viewModel
 
-//todo: implement history tab
 class HistoryFragment : BaseFragment() {
     private lateinit var binding: FragmentHistoryBinding
-    private lateinit var adapter: CartAdapter
+    private lateinit var adapter: WishListAdapter
     private val repository: ProductRepository by inject()
     private val productViewModel: ProductViewModel by viewModel(PRODUCT_VM)
 
@@ -36,7 +36,7 @@ class HistoryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = CartAdapter(requireContext(), repository)
+        adapter = WishListAdapter(requireContext(), repository)
 
         binding.grid.adapter = adapter
         binding.grid.layoutManager = LinearLayoutManager(requireContext()) as RecyclerView.LayoutManager?
@@ -49,15 +49,18 @@ class HistoryFragment : BaseFragment() {
             )
         )
         binding.grid.itemAnimator = SlideInItemAnimator()
-
-        //loadLiveData()
+        loadLiveData()
     }
 
     private fun loadLiveData() {
-        uiScope.launch {
-            productViewModel.liveProducts?.observe(viewLifecycleOwner, Observer {
-                if (it != null) adapter.addDataSource(it)
-            })
+        ioScope.launch {
+            val favoriteItems: MutableList<Product>? = dao.getAllFavoriteItems()
+
+            uiScope.launch {
+                debugLog("Favorites: $favoriteItems")
+                if (favoriteItems != null) adapter.addDataSource(favoriteItems)
+            }
+
         }
     }
 

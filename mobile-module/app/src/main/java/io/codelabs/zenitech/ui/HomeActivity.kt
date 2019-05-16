@@ -21,6 +21,7 @@ class HomeActivity : BaseActivity() {
         binding.tabLayout.setupWithViewPager(binding.viewPager)
         val adapter = MainPagerAdapter(this, supportFragmentManager)
         binding.viewPager.adapter = adapter
+        binding.viewPager.offscreenPageLimit = 3
         binding.userHeaderContainer.startShimmer()
 
         uiScope.launch {

@@ -53,4 +53,5 @@
     <string name="accessories_category">Accessories</string>
     <string name="phone_category">Smart Phone</string>
     <string name="checkout">Checkout Items</string>
+    <string name="remove_item">Remove</string>
 </resources>

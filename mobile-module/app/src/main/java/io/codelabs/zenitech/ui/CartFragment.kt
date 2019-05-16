@@ -21,7 +21,6 @@ import io.codelabs.zenitech.core.datasource.viewmodel.ProductViewModel
 import io.codelabs.zenitech.core.theme.BaseFragment
 import io.codelabs.zenitech.databinding.FragmentCartBinding
 import io.codelabs.zenitech.ui.recyclerview.CartAdapter
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.viewModel
 
@@ -58,7 +57,7 @@ class CartFragment : BaseFragment() {
     private fun loadLiveData() {
         productViewModel.liveProducts?.observeForever { products ->
             if (products != null) {
-                debugLog("Products: ${products.size}")
+                debugLog("Cart: $products")
                 adapter.addDataSource(products)
                 var price = 0.00
                 adapter.dataSource.forEach {

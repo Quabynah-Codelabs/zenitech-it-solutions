@@ -25,7 +25,8 @@ data class Product(
     var uploadTime: Long = System.currentTimeMillis(),
     var quantity: Long = 0L,
     var category: String = Category.OTHER,
-    override var synced: Boolean = false
+    override var synced: Boolean = false,
+    override var isWishListItem: Boolean = false
 ) : SyncableDataModel {
 
     @Ignore

@@ -1,5 +1,6 @@
 package io.codelabs.zenitech.core.database
 
+import android.text.format.DateUtils
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.core.datasource.room.RoomAppDao
 import io.codelabs.zenitech.core.util.markAsSynced
@@ -23,7 +24,8 @@ class DatabaseService {
     }
 
     suspend fun syncDataWithServer(dao: RoomAppDao, vararg models: MutableList<out SyncableDataModel>) {
-        debugLog("Data synced started")
+        var timeStarted = System.currentTimeMillis()
+        debugLog("Data synced started at $timeStarted")
         withContext(Dispatchers.IO) {
             models.forEach { _models ->
                 _models.markAsSynced()
@@ -34,8 +36,15 @@ class DatabaseService {
                     }
                 }
             }
-            debugLog("Data synced finished")
         }
+
+        debugLog(
+            "Data synced finished within ${DateUtils.getRelativeTimeSpanString(
+                timeStarted,
+                System.currentTimeMillis(),
+                DateUtils.SECOND_IN_MILLIS
+            )}"
+        )
     }
 
 }

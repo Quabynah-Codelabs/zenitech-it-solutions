@@ -13,7 +13,8 @@ data class Issue(
     var description: String,
     var category: String = Product.Category.OTHER,
     var timestamp: Long = System.currentTimeMillis(),
-    override var synced: Boolean = false
+    override var synced: Boolean = false,
+    override var isWishListItem: Boolean = false
 ) : SyncableDataModel {
 
     @Ignore
