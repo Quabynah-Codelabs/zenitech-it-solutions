@@ -5,71 +5,75 @@
         <import type="android.text.format.DateUtils"/>
         <import type="android.view.View"/>
     </data>
-    <io.codelabs.widget.ForegroundLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/padding_normal"
-            android:orientation="vertical">
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="match_parent">
 
-        <io.codelabs.zenitech.widget.LabelLinkView android:layout_width="wrap_content"
-                                                   android:layout_height="wrap_content"
-                                                   app:leadingIcon="@drawable/twotone_group_24px"
-                                                   android:text="@string/account_information"/>
-
-        <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
-                                                    android:layout_height="wrap_content"
-                                                    app:icon="@drawable/twotone_perm_identity_24px"
-                                                    app:title="@string/username"
-                                                    app:summary="@{user.name}"
-                                                    app:widget="@layout/widget_edit"/>
-
-        <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
-                                                    android:layout_height="wrap_content"
-                                                    app:icon="@drawable/twotone_mail_outline_24px"
-                                                    app:title="@string/email"
-                                                    app:summary="@{user.email}"
-                                                    app:widget="@layout/widget_edit"/>
-
-        <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
-                                                    android:layout_height="wrap_content"
-                                                    app:icon="@drawable/twotone_event_24px"
-                                                    app:title="@string/created_at"
-                                                    app:summary="@{DateUtils.getRelativeTimeSpanString(user.createdAt, System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS).toString()}"/>
-
-
-        <!--<io.codelabs.zenitech.widget.LabelLinkView android:layout_width="wrap_content"
-                                                   android:layout_height="wrap_content"
-                                                   app:leadingIcon="@drawable/twotone_category_24px"
-                                                   android:layout_marginTop="@dimen/padding_large"
-                                                   android:text="Theme Builder"/>
-
-        <FrameLayout
+        <io.codelabs.widget.ForegroundLinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/keyline_5">
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_normal"
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatImageView android:layout_width="wrap_content"
-                                                          android:layout_height="wrap_content"
-                                                          android:src="@drawable/twotone_brightness_6_24px"
-                                                          android:layout_gravity="center_vertical"/>
+            <io.codelabs.zenitech.widget.LabelLinkView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       app:leadingIcon="@drawable/twotone_group_24px"
+                                                       android:text="@string/account_information"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/dark_theme_title_text_view"
+            <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+                                                        android:layout_height="wrap_content"
+                                                        app:icon="@drawable/twotone_perm_identity_24px"
+                                                        app:title="@string/username"
+                                                        app:summary="@{user.name}"
+                                                        app:widget="@layout/widget_edit"/>
+
+            <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+                                                        android:layout_height="wrap_content"
+                                                        app:icon="@drawable/twotone_mail_outline_24px"
+                                                        app:title="@string/email"
+                                                        app:summary="@{user.email}"
+                                                        app:widget="@layout/widget_edit"/>
+
+            <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+                                                        android:layout_height="wrap_content"
+                                                        app:icon="@drawable/twotone_event_24px"
+                                                        app:title="@string/created_at"
+                                                        app:summary="@{DateUtils.getRelativeTimeSpanString(user.createdAt, System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS).toString()}"/>
+
+
+            <!--<io.codelabs.zenitech.widget.LabelLinkView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       app:leadingIcon="@drawable/twotone_category_24px"
+                                                       android:layout_marginTop="@dimen/padding_large"
+                                                       android:text="Theme Builder"/>
+
+            <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start|center_vertical"
-                    android:text="@string/instructions_enable_dark_title"
-                    android:layout_marginStart="@dimen/spacing_xlarge"
-                    android:textAppearance="?textAppearanceBody1"
-                    android:alpha="?alphaEmphasisMedium"/>
+                    android:layout_marginTop="@dimen/keyline_5">
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/dark_theme_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center_vertical"/>
+                <androidx.appcompat.widget.AppCompatImageView android:layout_width="wrap_content"
+                                                              android:layout_height="wrap_content"
+                                                              android:src="@drawable/twotone_brightness_6_24px"
+                                                              android:layout_gravity="center_vertical"/>
 
-        </FrameLayout>-->
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/dark_theme_title_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:text="@string/instructions_enable_dark_title"
+                        android:layout_marginStart="@dimen/spacing_xlarge"
+                        android:textAppearance="?textAppearanceBody1"
+                        android:alpha="?alphaEmphasisMedium"/>
 
-    </io.codelabs.widget.ForegroundLinearLayout>
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/dark_theme_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"/>
+
+            </FrameLayout>-->
+
+        </io.codelabs.widget.ForegroundLinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 </layout>

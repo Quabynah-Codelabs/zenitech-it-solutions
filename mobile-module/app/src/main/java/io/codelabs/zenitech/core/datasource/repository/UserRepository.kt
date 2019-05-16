@@ -15,7 +15,7 @@ class UserRepository constructor(
     suspend fun getCurrentUser(): User? {
         var user: User? = null
         withContext(Dispatchers.IO) {
-            user = dao.getUser(prefs.key!!)
+            if (prefs.isLoggedIn) user = dao.getUser(prefs.key!!)
         }
         return user
     }

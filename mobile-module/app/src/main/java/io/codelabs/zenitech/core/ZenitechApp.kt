@@ -20,7 +20,7 @@ class ZenitechApp : Application() {
 
         startKoin {
             androidContext(this@ZenitechApp)
-            modules(roomModule, prefsModule)
+            modules(roomModule, prefsModule, remoteService)
         }
     }
 

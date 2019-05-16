@@ -75,6 +75,7 @@ class CartAdapter constructor(
             repository.removeProduct(product)
             this.dataSource.remove(product)
             notifyItemRemoved(pos)
+            notifyDataSetChanged()
         }
 
         holder.v.setOnClickListener {

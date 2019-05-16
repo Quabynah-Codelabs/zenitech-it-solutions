@@ -30,10 +30,6 @@ class HomeActivity : BaseActivity() {
                 debugLog("Current User: $it")
             }
         }
-
-        repository.getAllProducts().observeForever {
-            debugLog("Products in DAO: $it")
-        }
     }
 
     fun editProfile(view: View) {

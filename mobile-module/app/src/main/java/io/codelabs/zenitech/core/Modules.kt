@@ -1,5 +1,6 @@
 package io.codelabs.zenitech.core
 
+import io.codelabs.zenitech.core.auth.AuthAPI
 import io.codelabs.zenitech.core.datasource.repository.IssueRepository
 import io.codelabs.zenitech.core.datasource.repository.Preferences
 import io.codelabs.zenitech.core.datasource.repository.ProductRepository
@@ -28,4 +29,8 @@ val roomModule = module {
 
 val prefsModule = module {
     single { Preferences.getInstance(androidContext()) }
+}
+
+val remoteService = module {
+    single { AuthAPI.getAuthService() }
 }

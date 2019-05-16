@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sign_in"
             android:id="@+id/sign_in"
-            android:onClick="navHome"
+            android:onClick="login"
             app:layout_constraintTop_toBottomOf="@id/content"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/spacing_large"

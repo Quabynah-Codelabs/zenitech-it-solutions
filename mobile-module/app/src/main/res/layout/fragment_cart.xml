@@ -4,32 +4,39 @@
     <data>
 
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+                                           android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
-                                                   android:layout_height="wrap_content"
-                                                   app:layout_constraintTop_toTopOf="parent"
-                                                   tools:itemCount="3"
-                                                   tools:listitem="@layout/item_cart"
-                                                   android:id="@+id/grid"
-                                                   android:scrollbarStyle="outsideOverlay"
-                                                   android:scrollbars="vertical"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/spacing_large">
 
-        <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/checkout"
-                android:id="@+id/checkout"
-                app:iconGravity="textStart"
-                app:iconPadding="@dimen/padding_normal"
-                app:layout_constraintTop_toBottomOf="@id/grid"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/padding_normal"
-                android:layout_gravity="center_horizontal"
-                app:icon="@drawable/twotone_credit_card_24px"/>
+            <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                       android:layout_height="wrap_content"
+                                                       app:layout_constraintTop_toTopOf="parent"
+                                                       tools:itemCount="3"
+                                                       tools:listitem="@layout/item_cart"
+                                                       android:id="@+id/grid"
+                                                       android:scrollbarStyle="outsideOverlay"
+                                                       android:scrollbars="vertical"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkout"
+                    android:id="@+id/checkout"
+                    app:iconGravity="textStart"
+                    app:iconPadding="@dimen/padding_normal"
+                    android:layout_marginBottom="@dimen/padding_large"
+                    app:layout_constraintTop_toBottomOf="@id/grid"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/padding_normal"
+                    android:layout_gravity="center_horizontal"
+                    app:icon="@drawable/twotone_credit_card_24px"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 </layout>
