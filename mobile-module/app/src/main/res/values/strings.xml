@@ -59,4 +59,5 @@
     <string name="checkout">Checkout Items</string>
     <string name="remove_item">Remove</string>
     <string name="login_google">Login with Google instead</string>
+    <string name="welcome_text">Welcome back to Zenitech(c) IT Solutions</string>
 </resources>

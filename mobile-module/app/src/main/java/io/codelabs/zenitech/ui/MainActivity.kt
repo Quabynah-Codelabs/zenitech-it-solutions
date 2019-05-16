@@ -22,6 +22,8 @@ import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.auth.LoginRequest
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.core.util.isNotEmpty
+import io.codelabs.zenitech.data.BaseDataModel
+import io.codelabs.zenitech.data.User
 import io.codelabs.zenitech.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -37,12 +39,24 @@ class MainActivity : BaseActivity() {
         binding.loading.visibility = View.GONE
     }
 
-    override fun onEnterAnimationComplete() = showGoogleLoginPrompt()
+    override fun onEnterAnimationComplete() = if (prefs.isLoggedIn) showHomePrompt() else showGoogleLoginPrompt()
 
     private fun showGoogleLoginPrompt() {
         Snackbar.make(container, getString(R.string.login_google), Snackbar.LENGTH_INDEFINITE)
             .setAction("Sign In") {
                 googleLogin()
+            }
+            .show()
+    }
+
+    private fun showHomePrompt() {
+
+        TransitionManager.beginDelayedTransition(binding.container)
+        binding.loading.visibility = View.GONE
+        binding.content.visibility = View.GONE
+        Snackbar.make(container, getString(R.string.welcome_text), Snackbar.LENGTH_INDEFINITE)
+            .setAction("Continue Shopping") {
+                intentTo(HomeActivity::class.java, true)
             }
             .show()
     }
@@ -91,6 +105,7 @@ class MainActivity : BaseActivity() {
                             userViewModel.addUser(user)
                             prefs.key = user.key
                             showConfirmationToast(user.avatar, user.email)
+                            intentTo(HomeActivity::class.java, true)
                         }
 
                         is Outcome.Failure -> {
@@ -152,7 +167,7 @@ class MainActivity : BaseActivity() {
                     // Login cancelled
                     toast("Login failed")
                     showGoogleLoginPrompt()
-                    
+
 
                     TransitionManager.beginDelayedTransition(binding.container)
                     binding.loading.visibility = View.GONE
@@ -164,6 +179,23 @@ class MainActivity : BaseActivity() {
 
     private fun updateUI(account: GoogleSignInAccount?) {
         debugLog(account?.id)
+        if (account == null) {
+            toast("Please sign in again. It seems there\'s a problem with your login", true)
+            return
+        }
+
+        try {
+            val user = User(
+                account.id!!, account.displayName ?: "No Name", account.email!!,
+                account.photoUrl.toString(), BaseDataModel.ModelType.USER
+            )
+            userViewModel.addUser(user)
+            prefs.key = user.key
+            showConfirmationToast(user.avatar, user.email)
+            intentTo(HomeActivity::class.java, true)
+        } catch (e: Exception) {
+            toast("Unable to sign you in...", true)
+        }
     }
 
 

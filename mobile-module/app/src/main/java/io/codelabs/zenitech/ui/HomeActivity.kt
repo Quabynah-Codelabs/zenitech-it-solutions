@@ -3,12 +3,12 @@ package io.codelabs.zenitech.ui
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.databinding.ActivityHomeBinding
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HomeActivity : BaseActivity() {
@@ -21,14 +21,13 @@ class HomeActivity : BaseActivity() {
         binding.tabLayout.setupWithViewPager(binding.viewPager)
         val adapter = MainPagerAdapter(this, supportFragmentManager)
         binding.viewPager.adapter = adapter
-//        binding.viewPager.offscreenPageLimit = 3
         binding.userHeaderContainer.startShimmer()
 
         uiScope.launch {
-            userViewModel.getCurrentUser().observeForever {
+            userViewModel.getCurrentUser().observe(this@HomeActivity, Observer {
                 binding.user = it
                 debugLog("Current User: $it")
-            }
+            })
         }
     }
 
