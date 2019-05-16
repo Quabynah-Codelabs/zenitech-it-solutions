@@ -63,7 +63,7 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:lifecycle:3.0.0-alpha1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
 
-    implementation 'com.github.Quabynah-Codelabs.quabynah-codelabs-sdk:sdk-library:v1.3.5.2'
+    implementation 'com.github.Quabynah-Codelabs.quabynah-codelabs-sdk:sdk-library:v1.3.5.3'
 
     def camerax_version = "1.0.0-alpha01"
     implementation "androidx.camera:camera-core:${camerax_version}"
