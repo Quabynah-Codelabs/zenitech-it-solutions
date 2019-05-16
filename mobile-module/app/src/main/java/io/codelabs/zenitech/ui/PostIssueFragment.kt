@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.util.toast
@@ -28,10 +29,15 @@ class PostIssueFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        description.addTextChangedListener {
+            post_issue.isEnabled = it != null && it.isNotEmpty()
+        }
+
         post_issue.setOnClickListener {
             if (description.isNotEmpty()) {
                 val category: String = when (button_group.checkedButtonId) {
                     R.id.button_laptop -> Product.Category.LAPTOP
+                    R.id.button_phone -> Product.Category.MOBILE
                     else -> Product.Category.OTHER
                 }
 

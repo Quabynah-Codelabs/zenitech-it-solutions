@@ -33,6 +33,7 @@ data class Product(
     object Category {
         const val LAPTOP = "Laptop"
         const val OTHER = "Other"
+        const val MOBILE = "Smart Phone"
     }
 
     companion object {
