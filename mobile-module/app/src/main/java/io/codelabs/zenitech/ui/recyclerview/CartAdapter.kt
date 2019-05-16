@@ -70,11 +70,10 @@ class CartAdapter constructor(
             .priority(Priority.IMMEDIATE)
             .into(holder.v.cart_product_image)
 
-        var pos = holder.adapterPosition
+//        var pos = holder.adapterPosition
         holder.v.product_remove_cart.setOnClickListener {
             repository.removeProduct(product)
             this.dataSource.remove(product)
-            notifyItemRemoved(pos)
             notifyDataSetChanged()
         }
 

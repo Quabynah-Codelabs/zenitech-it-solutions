@@ -12,9 +12,17 @@ data class Issue(
     override val key: String,
     var description: String,
     var category: String = Product.Category.OTHER,
-    var timestamp: Long = System.currentTimeMillis()
+    var timestamp: Long = System.currentTimeMillis(),
+    var synced: Boolean = false
 ) : BaseDataModel {
 
     @Ignore
     constructor() : this("", "", Product.Category.OTHER)
+
+    fun MutableList<Issue>.markAsSynced(synced: Boolean = true) = this.apply {
+        forEach {
+            it.synced = synced
+        }
+    }
+
 }

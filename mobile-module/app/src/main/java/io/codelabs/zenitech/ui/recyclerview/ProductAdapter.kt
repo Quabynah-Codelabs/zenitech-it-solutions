@@ -93,7 +93,6 @@ class ProductAdapter constructor(
                 snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar?>() {
                     override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                         if (!isUndo && tappedProduct != null) {
-                            debugLog("Tapped on: $tappedProduct")
                             if (tappedProduct != null) repository.addProduct(tappedProduct!!)
                         } else if (tappedProduct != null) repository.removeProduct(tappedProduct!!)
                     }

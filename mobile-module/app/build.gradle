@@ -9,13 +9,14 @@ android {
         applicationId "io.codelabs.zenitech"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 6
-        versionName "1.6"
+        versionCode 7
+        versionName "1.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
         buildConfigField "String", "GIT_COMMIT_COUNT", "\"${gitCommitCount}\""
         buildConfigField "String", "PAY_BASE_URL", "\"https://www.google.com/\""
+        buildConfigField "String", "AUTH_BASE_URL", "\"https://us-central1-zenitech-solutions.cloudfunctions.net/\""
 
         javaCompileOptions {
             annotationProcessorOptions {

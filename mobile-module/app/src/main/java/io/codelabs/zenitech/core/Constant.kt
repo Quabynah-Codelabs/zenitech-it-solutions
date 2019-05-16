@@ -9,6 +9,7 @@ const val DEFAULT_AVATAR = ""
 
 // VIEWMODEL
 const val USER_VM = "user_view_model"
+const val PRODUCT_VM = "product_view_model"
 
 // DATABASE
 const val CUSTOMER = "customers"

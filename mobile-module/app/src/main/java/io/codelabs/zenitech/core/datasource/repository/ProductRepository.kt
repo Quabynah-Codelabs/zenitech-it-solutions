@@ -2,7 +2,6 @@ package io.codelabs.zenitech.core.datasource.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.core.datasource.room.RoomAppDao
 import io.codelabs.zenitech.data.Product
 import kotlinx.coroutines.Dispatchers
@@ -27,15 +26,9 @@ class ProductRepository constructor(private val dao: RoomAppDao) {
         return _product
     }
 
-    fun getAllProducts(): LiveData<MutableList<Product>> {
-        val _products = MutableLiveData<MutableList<Product>>()
-
-        GlobalScope.launch(Dispatchers.IO) {
-            debugLog("Loading products for cart")
-            _products.postValue(dao.getAllProducts())
-        }
-
-        return _products
+    fun getAllProducts(): MutableList<Product> = mutableListOf<Product>().apply {
+        clear()
+        addAll(dao.getAllProducts())
     }
 
 }
