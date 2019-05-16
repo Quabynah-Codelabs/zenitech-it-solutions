@@ -12,4 +12,7 @@ interface AuthService {
     @POST("login")
     fun loginWithEmailAndPassword(@Body request: LoginRequest): RetrofitLiveData<User>
 
+    @POST("register")
+    fun createUserWithEmailAndPassword(@Body request: LoginRequest): RetrofitLiveData<User>
+
 }

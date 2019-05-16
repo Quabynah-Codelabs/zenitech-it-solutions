@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.transition.TransitionManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -13,23 +15,29 @@ import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.intentTo
 import io.codelabs.sdk.util.network.Outcome
+import io.codelabs.sdk.util.showConfirmationToast
 import io.codelabs.sdk.util.toast
 import io.codelabs.zenitech.BuildConfig
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.auth.LoginRequest
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.core.util.isNotEmpty
+import io.codelabs.zenitech.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseActivity() {
+    private lateinit var binding: ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        binding.loading.visibility = View.GONE
     }
 
-    override fun onEnterAnimationComplete()  = showGoogleLoginPrompt()
+    override fun onEnterAnimationComplete() = showGoogleLoginPrompt()
 
     private fun showGoogleLoginPrompt() {
         Snackbar.make(container, getString(R.string.login_google), Snackbar.LENGTH_INDEFINITE)
@@ -39,24 +47,64 @@ class MainActivity : BaseActivity() {
             .show()
     }
 
-    fun navHome(v: View?) = intentTo(HomeActivity::class.java)
+    fun register(v: View?) {
+        if (username.isNotEmpty() && password.isNotEmpty()) {
+            authService.createUserWithEmailAndPassword(LoginRequest(username.text.toString(), password.text.toString()))
+                .observe(this, Observer {
+                    when (it) {
+                        is Outcome.Success -> {
+                            debugLog("Success: ${it.data}")
+                            val user = it.data
+                            userViewModel.addUser(user)
+                            prefs.key = user.key
+                            showConfirmationToast(user.avatar, user.email)
+                            intentTo(HomeActivity::class.java, true)
+                        }
+
+                        is Outcome.Failure -> {
+                            debugLog("Failure: ${it.e.localizedMessage}")
+                            TransitionManager.beginDelayedTransition(binding.container)
+                            binding.loading.visibility = View.GONE
+                            binding.content.visibility = View.VISIBLE
+                        }
+
+                        is Outcome.Progress -> {
+                            debugLog("Login call in progress")
+                            TransitionManager.beginDelayedTransition(binding.container)
+                            binding.loading.visibility = View.VISIBLE
+                            binding.content.visibility = View.GONE
+                        }
+                    }
+                })
+
+        } else toast("Enter your email and password")
+    }
 
     fun login(view: View) {
-
         if (username.isNotEmpty() && password.isNotEmpty()) {
             authService.loginWithEmailAndPassword(LoginRequest(username.text.toString(), password.text.toString()))
                 .observe(this, Observer {
                     when (it) {
                         is Outcome.Success -> {
                             debugLog("Success: ${it.data}")
+                            val user = it.data
+                            userViewModel.addUser(user)
+                            prefs.key = user.key
+                            showConfirmationToast(user.avatar, user.email)
                         }
 
                         is Outcome.Failure -> {
                             debugLog("Failure: ${it.e.localizedMessage}")
+                            TransitionManager.beginDelayedTransition(binding.container)
+                            binding.loading.visibility = View.GONE
+                            binding.content.visibility = View.VISIBLE
                         }
 
                         is Outcome.Progress -> {
-                            debugLog("Login Call in progress")
+                            debugLog("Login call in progress")
+                            TransitionManager.beginDelayedTransition(binding.container)
+                            binding.loading.visibility = View.VISIBLE
+                            binding.content.visibility = View.GONE
                         }
                     }
                 })
@@ -72,6 +120,9 @@ class MainActivity : BaseActivity() {
             .build()
 
         GoogleSignIn.getClient(this, gso).apply {
+            TransitionManager.beginDelayedTransition(binding.container)
+            binding.loading.visibility = View.VISIBLE
+            binding.content.visibility = View.GONE
             startActivityForResult(this.signInIntent, RC_GOOGLE_LOGIN)
         }
     }
@@ -90,6 +141,10 @@ class MainActivity : BaseActivity() {
                         debugLog(ex.localizedMessage)
                         toast(ex.localizedMessage)
                         showGoogleLoginPrompt()
+
+                        TransitionManager.beginDelayedTransition(binding.container)
+                        binding.loading.visibility = View.GONE
+                        binding.content.visibility = View.VISIBLE
                     }
                 }
 
@@ -97,6 +152,11 @@ class MainActivity : BaseActivity() {
                     // Login cancelled
                     toast("Login failed")
                     showGoogleLoginPrompt()
+                    
+
+                    TransitionManager.beginDelayedTransition(binding.container)
+                    binding.loading.visibility = View.GONE
+                    binding.content.visibility = View.VISIBLE
                 }
             }
         }

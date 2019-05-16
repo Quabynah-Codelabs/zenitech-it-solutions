@@ -84,7 +84,7 @@ class WishListAdapter constructor(
             context.startActivity(Intent(context, ProductDetailsActivity::class.java).apply {
                 putExtra(ProductDetailsActivity.EXTRA_PRODUCT, product)
                 putExtra(ProductDetailsActivity.EXTRA_PRODUCT_ID, product.key)
-                putExtra(ProductDetailsActivity.EXTRA_PRODUCT_IN_CART, true)
+                putExtra(ProductDetailsActivity.EXTRA_PRODUCT_IN_FAV, true)
             })
         }
     }
