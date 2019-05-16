@@ -55,7 +55,7 @@ class HistoryFragment : BaseFragment() {
 
     private fun loadLiveData() {
         uiScope.launch {
-            productViewModel.liveProducts.observe(viewLifecycleOwner, Observer {
+            productViewModel.liveProducts?.observe(viewLifecycleOwner, Observer {
                 if (it != null) adapter.addDataSource(it)
             })
         }

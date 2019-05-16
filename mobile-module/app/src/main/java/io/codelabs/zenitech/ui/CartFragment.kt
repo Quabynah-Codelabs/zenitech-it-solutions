@@ -56,7 +56,7 @@ class CartFragment : BaseFragment() {
     }
 
     private fun loadLiveData() {
-        productViewModel.liveProducts.observeForever { products ->
+        productViewModel.liveProducts?.observeForever { products ->
             if (products != null) {
                 debugLog("Products: ${products.size}")
                 adapter.addDataSource(products)
