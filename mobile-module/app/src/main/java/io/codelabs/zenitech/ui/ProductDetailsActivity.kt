@@ -35,11 +35,11 @@ class ProductDetailsActivity : BaseActivity() {
             addToFav = intent.getBooleanExtra(EXTRA_PRODUCT_IN_FAV, false)
 
             binding.product = intent.getParcelableExtra<Product>(EXTRA_PRODUCT)
-            Snackbar.make(
+            /*Snackbar.make(
                 binding.container,
                 (binding.product as? Product)?.url ?: (binding.product as? Product)?.name!!,
                 Snackbar.LENGTH_LONG
-            ).show()
+            ).show()*/
         } else if (intent.hasExtra(EXTRA_PRODUCT_ID)) {
 
         }

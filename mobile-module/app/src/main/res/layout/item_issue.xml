@@ -22,7 +22,7 @@
                                                  android:paddingEnd="@dimen/spacing_normal"
                                                  android:paddingTop="@dimen/padding_normal"
                                                  android:paddingBottom="@dimen/spacing_micro"
-                                                 android:textAppearance="?textAppearanceBody1"
+                                                 android:textAppearance="?textAppearanceSubtitle1"
                                                  app:layout_constraintTop_toTopOf="parent"
                                                  app:layout_constraintEnd_toEndOf="parent"
                                                  android:gravity="start"/>

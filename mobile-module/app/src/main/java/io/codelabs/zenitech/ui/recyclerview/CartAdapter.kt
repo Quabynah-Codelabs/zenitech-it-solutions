@@ -59,6 +59,7 @@ class CartAdapter constructor(
         val product = dataSource[position]
 
         holder.v.cart_product_name.text = product.name
+        holder.v.cart_product_desc.text = product.desc
         holder.v.cart_product_price.text = String.format("$ %.2f", product.price)
 
         GlideApp.with(context)

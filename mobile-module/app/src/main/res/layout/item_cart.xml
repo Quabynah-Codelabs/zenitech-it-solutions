@@ -11,7 +11,7 @@
                                                        android:layout_height="wrap_content">
 
         <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/large_avatar_size"
-                                                android:layout_height="@dimen/large_avatar_size"
+                                                android:layout_height="0dp"
                                                 android:src="@drawable/sample_image"
                                                 android:id="@+id/cart_product_image"
                                                 android:scaleType="centerCrop"
@@ -35,6 +35,21 @@
                                                  app:layout_constraintEnd_toEndOf="parent"
                                                  android:gravity="start"/>
 
+        <io.codelabs.widget.BaselineGridTextView android:layout_width="0dp"
+                                                 android:layout_height="wrap_content"
+                                                 tools:text="@tools:sample/lorem/random"
+                                                 app:layout_constraintStart_toEndOf="@id/cart_product_image"
+                                                 android:id="@+id/cart_product_desc"
+                                                 android:maxLines="3"
+                                                 android:ellipsize="end"
+                                                 android:paddingStart="@dimen/padding_normal"
+                                                 android:paddingEnd="@dimen/spacing_normal"
+                                                 android:paddingBottom="@dimen/spacing_micro"
+                                                 android:textAppearance="?textAppearanceSubtitle2"
+                                                 app:layout_constraintTop_toBottomOf="@id/cart_product_name"
+                                                 app:layout_constraintEnd_toEndOf="parent"
+                                                 android:gravity="start"/>
+
         <io.codelabs.widget.BaselineGridTextView android:layout_width="wrap_content"
                                                  android:layout_height="wrap_content"
                                                  android:paddingTop="@dimen/spacing_normal"
@@ -45,7 +60,7 @@
                                                  android:maxLines="1"
                                                  android:textColor="?colorSecondaryVariant"
                                                  app:layout_constraintStart_toEndOf="@id/cart_product_image"
-                                                 app:layout_constraintTop_toBottomOf="@id/cart_product_name"
+                                                 app:layout_constraintTop_toBottomOf="@id/cart_product_desc"
                                                  android:textAppearance="?textAppearanceHeadline6"
                                                  android:ellipsize="end"
                                                  android:id="@+id/cart_product_price"/>
@@ -59,9 +74,8 @@
                                                            app:iconTint="?colorError"
                                                            android:layout_marginEnd="@dimen/padding_normal"
                                                            style="@style/Widget.MaterialComponents.Button.TextButton"
-                                                           app:layout_constraintBottom_toBottomOf="parent"
-                                                           app:layout_constraintTop_toBottomOf="@id/cart_product_name"
-                                                           android:text="Remove Item"/>
+                                                           app:layout_constraintTop_toBottomOf="@id/cart_product_desc"
+                                                           android:text="Delete"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
