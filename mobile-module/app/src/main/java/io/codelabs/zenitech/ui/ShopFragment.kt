@@ -53,7 +53,7 @@ class ShopFragment : BaseFragment() {
     }
 
     private suspend fun loadDataSource() {
-        delay(4000)
+        delay(2000)
         uiScope.launch {
             adapter.addDataSource(FakeDataSource.loadProducts())
         }

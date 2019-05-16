@@ -25,7 +25,6 @@ class HomeActivity : BaseActivity() {
         binding.userHeaderContainer.startShimmer()
 
         uiScope.launch {
-            delay(2000)
             userViewModel.getCurrentUser().observeForever {
                 binding.user = it
                 debugLog("Current User: $it")

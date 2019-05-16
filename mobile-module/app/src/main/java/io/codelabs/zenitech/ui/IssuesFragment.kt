@@ -50,12 +50,9 @@ class IssuesFragment : BaseFragment() {
     }
 
     private fun loadLiveData() {
-        uiScope.launch {
-            delay(2000)
-            repository.getAllIssues().observe(viewLifecycleOwner, Observer {
-                if (it != null) adapter.addDataSource(it)
-            })
-        }
+        repository.getAllIssues().observe(viewLifecycleOwner, Observer {
+            if (it != null) adapter.addDataSource(it)
+        })
     }
 
 }

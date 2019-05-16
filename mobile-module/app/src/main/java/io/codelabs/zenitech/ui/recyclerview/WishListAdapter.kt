@@ -71,6 +71,7 @@ class WishListAdapter constructor(
             .into(holder.v.cart_product_image)
 
         holder.v.product_remove_cart.text = context.getString(R.string.remove_item)
+        holder.v.product_remove_cart.icon = context.getDrawable(R.drawable.twotone_delete_24px)
         holder.v.product_remove_cart.setOnClickListener {
             repository.removeFavorite(product.apply {
                 isWishListItem = false
