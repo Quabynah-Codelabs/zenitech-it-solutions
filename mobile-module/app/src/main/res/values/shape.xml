@@ -7,12 +7,12 @@
 
     <style name="ShapeAppearance.MyApp.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">cut</item>
-        <item name="cornerSize">8dp</item>
+        <item name="cornerSize">16dp</item>
     </style>
 
     <style name="ShapeAppearance.MyApp.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">4dp</item>
+        <item name="cornerSize">8dp</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.MyApp" parent=""/>
