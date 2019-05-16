@@ -51,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?textAppearanceBody1"
                 android:alpha="?alphaEmphasisHigh"
+                android:layout_marginTop="@dimen/padding_large"
                 android:gravity="center_horizontal"
                 android:firstBaselineToTopHeight="36dp"
                 android:text="@string/select_a_category"/>
