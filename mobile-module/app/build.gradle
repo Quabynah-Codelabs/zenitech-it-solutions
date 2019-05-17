@@ -19,7 +19,7 @@ android {
 //        buildConfigField "String", "GOOGLE_AUTH_CLIENT_ID", "\"326397510467-6bsai9qb63g382ln9toguu0b9r9e35u1.apps.googleusercontent.com\""
         buildConfigField "String", "GOOGLE_AUTH_CLIENT_KEY", "\"jBHU353dmuBRwQgCx8WQTrmo\""
         buildConfigField "String", "PAY_BASE_URL", "\"https://www.google.com/\""
-        buildConfigField "String", "AUTH_BASE_URL", "\"https://us-central1-zenitech-solutions.cloudfunctions.net/\""
+        buildConfigField "String", "API_BASE_URL", "\"https://us-central1-zenitech-solutions.cloudfunctions.net/\""
 
         javaCompileOptions {
             annotationProcessorOptions {

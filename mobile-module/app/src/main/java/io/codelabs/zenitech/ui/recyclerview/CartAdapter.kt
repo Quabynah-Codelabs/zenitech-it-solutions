@@ -17,7 +17,8 @@ import kotlinx.android.synthetic.main.item_empty_cart.view.*
 
 class CartAdapter constructor(
     private val context: Context,
-    private val repository: ProductRepository
+    private val repository: ProductRepository,
+    private val listener: ButtonStateListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -75,6 +76,11 @@ class CartAdapter constructor(
             repository.removeProduct(product)
             this.dataSource.remove(product)
             notifyDataSetChanged()
+            var price: Double = 0.00
+            dataSource.forEach {
+                price += it.price
+            }
+            listener.updateButtonState(dataSource.isNotEmpty(), price)
         }
 
         holder.v.setOnClickListener {
@@ -90,5 +96,15 @@ class CartAdapter constructor(
         this.dataSource.clear()
         this.dataSource.addAll(products)
         notifyDataSetChanged()
+
+        var price: Double = 0.00
+        products.forEach {
+            price += it.price
+        }
+        listener.updateButtonState(products.isNotEmpty(), price)
+    }
+
+    interface ButtonStateListener {
+        fun updateButtonState(state: Boolean = false, price: Double = 0.00)
     }
 }

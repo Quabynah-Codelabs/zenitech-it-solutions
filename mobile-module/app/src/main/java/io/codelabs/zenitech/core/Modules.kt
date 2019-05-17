@@ -1,7 +1,7 @@
 package io.codelabs.zenitech.core
 
 import io.codelabs.zenitech.core.auth.AuthAPI
-import io.codelabs.zenitech.core.database.DatabaseService
+import io.codelabs.zenitech.core.database.DatabaseAPI
 import io.codelabs.zenitech.core.datasource.repository.IssueRepository
 import io.codelabs.zenitech.core.datasource.repository.Preferences
 import io.codelabs.zenitech.core.datasource.repository.ProductRepository
@@ -41,5 +41,5 @@ val prefsModule = module {
 val remoteService = module {
     single { AuthAPI.getAuthService() }
 
-    single { DatabaseService.get() }
+    single { DatabaseAPI.get() }
 }

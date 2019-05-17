@@ -9,6 +9,7 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import io.codelabs.recyclerview.DataLoadingSubject
 import io.codelabs.sdk.glide.GlideApp
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
@@ -24,8 +25,17 @@ import kotlinx.android.synthetic.main.item_product.view.product_price
 
 class ProductAdapter constructor(
     private val context: Context,
-    private val repository: ProductRepository
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val repository: ProductRepository, override val isDataLoading: Boolean
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), DataLoadingSubject {
+
+
+    override fun registerCallback(callbacks: DataLoadingSubject.DataLoadingCallbacks) {
+        callbacks.dataStartedLoading()
+    }
+
+    override fun unregisterCallback(callbacks: DataLoadingSubject.DataLoadingCallbacks) {
+        callbacks.dataFinishedLoading()
+    }
 
     companion object {
         private const val EMPTY = R.layout.item_empty_product

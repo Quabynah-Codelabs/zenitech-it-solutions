@@ -29,7 +29,7 @@ class HomeActivity : BaseActivity() {
         uiScope.launch {
             userViewModel.getCurrentUser().observeForever {
                 binding.user = it.apply {
-                    if (avatar.isNullOrEmpty()) avatar = DEFAULT_AVATAR
+                    if (this != null && avatar.isNullOrEmpty()) avatar = DEFAULT_AVATAR
                 }.also { user ->
                     userViewModel.updateUser(user)
                 }

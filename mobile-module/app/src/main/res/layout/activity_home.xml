@@ -165,6 +165,8 @@
                     app:tabTextColor="?colorOnSurface"
                     app:tabSelectedTextColor="?colorPrimary"
                     app:tabIndicatorColor="?colorPrimary"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="3dp"
                     app:tabMode="scrollable"/>
 
         </com.google.android.material.appbar.AppBarLayout>

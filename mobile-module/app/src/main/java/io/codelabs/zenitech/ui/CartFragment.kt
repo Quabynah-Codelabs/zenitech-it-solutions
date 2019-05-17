@@ -38,33 +38,9 @@ class CartFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = CartAdapter(requireContext(), repository)
-
-        binding.grid.adapter = adapter
-        binding.grid.layoutManager = LinearLayoutManager(requireContext()) as RecyclerView.LayoutManager?
-        binding.grid.addItemDecoration(
-            GridItemDividerDecoration(
-                requireContext(),
-                R.dimen.divider_height,
-                R.color.divider
-            )
-        )
-        binding.grid.itemAnimator = SlideInItemAnimator()
-
-        loadLiveData()
-    }
-
-    private fun loadLiveData() {
-        productViewModel.liveProducts?.observeForever { products ->
-            if (products != null) {
-                debugLog("Cart: $products")
-                adapter.addDataSource(products)
-                var price = 0.00
-                adapter.dataSource.forEach {
-                    price += it.price
-                }
-
-                binding.checkout.visibility = if (products.isNotEmpty()) View.VISIBLE else View.GONE
+        adapter = CartAdapter(requireContext(), repository, object : CartAdapter.ButtonStateListener {
+            override fun updateButtonState(state: Boolean, price: Double) {
+                binding.checkout.visibility = if (state) View.VISIBLE else View.GONE
                 binding.checkout.text = String.format("Checkout GHC%.2f", price)
 
                 binding.checkout.setOnClickListener {
@@ -128,6 +104,28 @@ class CartFragment : BaseFragment() {
                             }
                         })
                 }
+            }
+        })
+
+        binding.grid.adapter = adapter
+        binding.grid.layoutManager = LinearLayoutManager(requireContext()) as RecyclerView.LayoutManager?
+        binding.grid.addItemDecoration(
+            GridItemDividerDecoration(
+                requireContext(),
+                R.dimen.divider_height,
+                R.color.divider
+            )
+        )
+        binding.grid.itemAnimator = SlideInItemAnimator()
+
+        loadLiveData()
+    }
+
+    private fun loadLiveData() {
+        productViewModel.liveProducts.observeForever { products ->
+            if (products != null) {
+                debugLog("Cart: ${products.size}")
+                adapter.addDataSource(products)
             }
         }
     }

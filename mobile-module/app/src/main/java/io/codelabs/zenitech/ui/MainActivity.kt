@@ -62,15 +62,17 @@ class MainActivity : BaseActivity() {
         binding.loading.visibility = View.GONE
         binding.content.visibility = View.GONE
         userViewModel.getCurrentUser().observe(this, Observer {
-            Snackbar.make(
-                container,
-                String.format(getString(R.string.welcome_text), it.name ?: it.email),
-                Snackbar.LENGTH_INDEFINITE
-            )
-                .setAction("Continue Shopping") {
-                    intentTo(HomeActivity::class.java, true)
-                }
-                .show()
+           if (prefs.isLoggedIn){
+               Snackbar.make(
+                   container,
+                   String.format(getString(R.string.welcome_text), it.name ?: it.email),
+                   Snackbar.LENGTH_INDEFINITE
+               )
+                   .setAction("Continue Shopping") {
+                       intentTo(HomeActivity::class.java, true)
+                   }
+                   .show()
+           }
         })
     }
 

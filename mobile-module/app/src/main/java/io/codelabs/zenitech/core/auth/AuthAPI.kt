@@ -16,7 +16,7 @@ object AuthAPI {
     fun getAuthService(): AuthService {
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.AUTH_BASE_URL)
+            .baseUrl(BuildConfig.API_BASE_URL)
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .client(
