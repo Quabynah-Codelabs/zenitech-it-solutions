@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
+import io.codelabs.zenitech.core.DEFAULT_AVATAR
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.databinding.ActivityHomeBinding
 import kotlinx.coroutines.launch
 
 class HomeActivity : BaseActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private var isBackPressed: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +28,11 @@ class HomeActivity : BaseActivity() {
 
         uiScope.launch {
             userViewModel.getCurrentUser().observeForever {
-                binding.user = it
+                binding.user = it.apply {
+                    if (avatar.isNullOrEmpty()) avatar = DEFAULT_AVATAR
+                }.also { user ->
+                    userViewModel.updateUser(user)
+                }
                 debugLog("Current User: $it")
             }
 
@@ -47,6 +55,19 @@ class HomeActivity : BaseActivity() {
             .setPositiveButton("Next", null)
             .setNegativeButton("Cancel", null)
             .show()
+    }
+
+    override fun onBackPressed() {
+        if (isBackPressed) super.onBackPressed() else {
+            Snackbar.make(binding.container, "Press back again to exit", Snackbar.LENGTH_SHORT)
+                .addCallback(object: BaseTransientBottomBar.BaseCallback<Snackbar?>() {
+                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                        isBackPressed = false
+                    }
+                })
+                .show()
+            isBackPressed = true
+        }
     }
 
 }

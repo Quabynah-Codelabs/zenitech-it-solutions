@@ -5,7 +5,7 @@ package io.codelabs.zenitech.core
 const val THEME_PREFS = "theme_prefs"
 const val USER_PREFS = "user_prefs"
 const val DATABASE_NAME = "zenitech.db"
-const val DEFAULT_AVATAR = ""
+const val DEFAULT_AVATAR = "https://firebasestorage.googleapis.com/v0/b/house-teaching.appspot.com/o/default-avatar.png?alt=media&token=b1ab3898-f830-42b6-aa08-18c70627bb87"
 
 // VIEWMODEL
 const val USER_VM = "user_view_model"

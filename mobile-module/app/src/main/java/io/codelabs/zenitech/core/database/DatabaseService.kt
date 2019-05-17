@@ -25,7 +25,7 @@ class DatabaseService {
     }
 
     suspend fun syncDataWithServer(dao: RoomAppDao, vararg models: MutableList<out SyncableDataModel>) {
-        var timeStarted = System.currentTimeMillis()
+        val timeStarted = System.currentTimeMillis()
         debugLog("Data synced started at $timeStarted")
         withContext(Dispatchers.IO) {
             delay(3000)

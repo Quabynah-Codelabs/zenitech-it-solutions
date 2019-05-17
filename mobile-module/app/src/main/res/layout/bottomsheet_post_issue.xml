@@ -20,6 +20,8 @@
                 android:textAppearance="?textAppearanceHeadline6"
                 android:alpha="?alphaEmphasisHigh"
                 android:firstBaselineToTopHeight="40dp"
+                android:paddingTop="@dimen/padding_normal"
+                android:paddingBottom="@dimen/padding_normal"
                 android:text="@string/post_issue_title"/>
 
         <androidx.appcompat.widget.AppCompatTextView

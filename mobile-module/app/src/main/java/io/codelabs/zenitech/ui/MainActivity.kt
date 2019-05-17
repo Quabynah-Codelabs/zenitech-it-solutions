@@ -62,18 +62,15 @@ class MainActivity : BaseActivity() {
         binding.loading.visibility = View.GONE
         binding.content.visibility = View.GONE
         userViewModel.getCurrentUser().observe(this, Observer {
-            if (it != null) {
-                debugLog("Main Page user: $it")
-                Snackbar.make(
-                    container,
-                    String.format(getString(R.string.welcome_text), it.name ?: it.email),
-                    Snackbar.LENGTH_INDEFINITE
-                )
-                    .setAction("Continue Shopping") {
-                        intentTo(HomeActivity::class.java, true)
-                    }
-                    .show()
-            }
+            Snackbar.make(
+                container,
+                String.format(getString(R.string.welcome_text), it.name ?: it.email),
+                Snackbar.LENGTH_INDEFINITE
+            )
+                .setAction("Continue Shopping") {
+                    intentTo(HomeActivity::class.java, true)
+                }
+                .show()
         })
     }
 
