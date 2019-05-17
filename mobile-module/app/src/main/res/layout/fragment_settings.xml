@@ -39,7 +39,7 @@
                                                         app:summary="@{DateUtils.getRelativeTimeSpanString(user.createdAt, System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS).toString(), default=na}"/>
 
 
-            <com.google.android.material.button.MaterialButton android:layout_width="match_parent"
+            <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
                                                                android:layout_height="wrap_content"
                                                                android:layout_gravity="center"
                                                                android:layout_marginTop="@dimen/spacing_large"
