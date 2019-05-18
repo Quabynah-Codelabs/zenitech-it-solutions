@@ -43,3 +43,9 @@ val remoteService = module {
 
     single { DatabaseAPI.get() }
 }
+
+val firebaseModule = module {
+//    single { Firebase.auth }
+//    single { Firebase.firestore }
+//    single { Firebase.storage }
+}

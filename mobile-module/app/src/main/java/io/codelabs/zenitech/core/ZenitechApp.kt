@@ -26,7 +26,7 @@ class ZenitechApp : Application() {
 
         startKoin {
             androidContext(this@ZenitechApp)
-            modules(roomModule, prefsModule, remoteService)
+            modules(roomModule, prefsModule, remoteService, firebaseModule)
         }
 
         val syncedWorker = PeriodicWorkRequestBuilder<SyncedWorker>(10, TimeUnit.MINUTES).build()
