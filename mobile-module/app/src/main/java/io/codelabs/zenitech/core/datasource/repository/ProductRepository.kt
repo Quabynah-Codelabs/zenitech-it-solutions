@@ -14,6 +14,11 @@ class ProductRepository constructor(private val dao: RoomAppDao) {
         dao.addProduct(*product)
     }
 
+    fun addProduct(products: MutableList<Product>) = GlobalScope.launch(Dispatchers.IO) {
+        dao.removeProductList(dao.getAllProducts())
+        dao.addProductList(products)
+    }
+
     fun addFavorite(product: Product) = GlobalScope.launch(Dispatchers.IO) {
         dao.updateProduct(product.apply {
             isWishListItem = true

@@ -64,6 +64,7 @@ class ShopFragment : BaseFragment() {
                 is Outcome.Success -> {
                     debugLog("Products loaded successfully")
                     adapter.addDataSource(it.data)
+                    repository.addProduct(it.data)
                 }
 
                 is Outcome.Progress -> {
@@ -71,14 +72,10 @@ class ShopFragment : BaseFragment() {
                 }
 
                 is Outcome.Failure -> {
-                    // todo: for testing
-                    adapter.addDataSource(api.loadProducts())
                     debugLog("Failed to load products")
                 }
 
                 is Outcome.ApiError -> {
-                    // todo: for testing
-                    adapter.addDataSource(api.loadProducts())
                     debugLog("Error with current API")
                 }
             }

@@ -5,14 +5,12 @@ import android.text.format.DateUtils
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.network.LiveDataCallAdapterFactory
 import io.codelabs.zenitech.BuildConfig
-import io.codelabs.zenitech.core.datasource.FakeDataSource
 import io.codelabs.zenitech.core.datasource.room.RoomAppDao
 import io.codelabs.zenitech.core.util.markAsSynced
 import io.codelabs.zenitech.data.Issue
 import io.codelabs.zenitech.data.Product
 import io.codelabs.zenitech.data.SyncableDataModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -81,8 +79,5 @@ class DatabaseAPI {
             )}"
         )
     }
-
-    // todo: load products from remote data source
-    fun loadProducts(): MutableList<Product> = FakeDataSource.loadProducts()
 
 }

@@ -27,11 +27,17 @@ interface RoomAppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addProduct(vararg product: Product)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addProductList(products: MutableList<Product>)
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateProduct(product: Product)
 
     @Delete
     fun removeProduct(vararg product: Product)
+
+    @Delete
+    fun removeProductList(products: MutableList<Product>)
 
     @Query("SELECT * FROM products WHERE `key` = :key")
     fun getProduct(key: String): Product
