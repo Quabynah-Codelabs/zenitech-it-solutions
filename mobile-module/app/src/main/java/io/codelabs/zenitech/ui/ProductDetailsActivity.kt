@@ -13,6 +13,7 @@ import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.data.Product
 import io.codelabs.zenitech.databinding.ActivityProductBinding
+import okhttp3.HttpUrl
 
 class ProductDetailsActivity : BaseActivity() {
     companion object {
@@ -38,23 +39,28 @@ class ProductDetailsActivity : BaseActivity() {
                 addToFav = intent.getBooleanExtra(EXTRA_PRODUCT_IN_FAV, false)
 
                 binding.product = intent.getParcelableExtra<Product>(EXTRA_PRODUCT)
-                Snackbar.make(
+               /* Snackbar.make(
                     binding.container,
-                    (binding.product as? Product)?.url ?: (binding.product as? Product)?.name!!,
+                    "More info: ${(binding.product as? Product)?.url ?: (binding.product as? Product)?.name!!}",
                     Snackbar.LENGTH_LONG
-                ).show()
+                ).show()*/
             }
             intent.hasExtra(EXTRA_PRODUCT_ID) -> {
                 api.getDatabaseService().getProductById(intent.getStringExtra(EXTRA_PRODUCT_ID))
                     .observe(this, Observer {
-                        debugLog("Loaded from API thru intent: $it")
+                        debugLog("Loaded from API thru intent string: $it")
                     })
             }
 
             else -> {
-                api.getDatabaseService().getProductById("24").observe(this, Observer {
-                    debugLog("Loaded from API: $it")
-                })
+                if (intent.data != null) {
+                    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS") val url =
+                        HttpUrl.parse(intent.dataString)
+                    debugLog("Url: ${url?.pathSize()}. ${url?.pathSegments()?.get(0)}")
+                    api.getDatabaseService().getProductById("24").observe(this, Observer {
+                        debugLog("Loaded from API: $it")
+                    })
+                }
             }
         }
 

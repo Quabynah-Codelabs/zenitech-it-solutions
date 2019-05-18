@@ -5,8 +5,9 @@
     <string name="sign_in">Sign In</string>
     <string name="create_a_new_account">Create a new account</string>
     <string name="tab_title_cart">My Cart</string>
-    <string name="tab_title_history">Wish List</string>
+    <string name="tab_title_history">WishList</string>
     <string name="tab_title_shop">Shop</string>
+    <string name="tab_title_issues">Issues</string>
 
 
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -53,7 +54,6 @@
     <string name="other_category">Other</string>
     <string name="laptop_category">Laptop</string>
     <string name="select_a_category">Select a category</string>
-    <string name="tab_title_issues">Posted Issues</string>
     <string name="accessories_category">Accessories</string>
     <string name="phone_category">Smart Phone</string>
     <string name="checkout">Checkout Items</string>

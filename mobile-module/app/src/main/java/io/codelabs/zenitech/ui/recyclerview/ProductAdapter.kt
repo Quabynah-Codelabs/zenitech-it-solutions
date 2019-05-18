@@ -11,7 +11,6 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import io.codelabs.recyclerview.DataLoadingSubject
 import io.codelabs.sdk.glide.GlideApp
-import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.datasource.repository.ProductRepository
 import io.codelabs.zenitech.data.Product
@@ -97,9 +96,20 @@ class ProductAdapter constructor(
                     Snackbar.make(parent!!, "${product.name} added to cart", Snackbar.LENGTH_SHORT).setAction("Undo") {
                         isUndo = true
                         tappedProduct = null
+                        holder.v.product_add_cart.setImageDrawable(
+                            context.resources.getDrawable(
+                                R.drawable.twotone_add_shopping_cart_24px, null
+                            )
+                        )
                     }
                 snackbar.show()
 
+                holder.v.product_add_cart.setImageDrawable(
+                    context.resources.getDrawable(
+                        R.drawable.twotone_remove_shopping_cart_24px, null
+                    )
+                )
+                
                 snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar?>() {
                     override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                         if (!isUndo && tappedProduct != null) {

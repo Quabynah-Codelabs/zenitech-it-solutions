@@ -65,9 +65,21 @@
                                                          android:paddingStart="@dimen/padding_normal"
                                                          android:paddingEnd="@dimen/padding_normal"
                                                          android:maxLines="3"
+                                                         tools:text="Huawei Mate p30 Pro"
                                                          android:ellipsize="end"
                                                          android:text="@{product.name}"
                                                          android:textAppearance="?textAppearanceHeadline5"/>
+
+                <io.codelabs.widget.BaselineGridTextView android:layout_width="wrap_content"
+                                                         android:layout_height="wrap_content"
+                                                         android:paddingBottom="@dimen/spacing_micro"
+                                                         android:paddingStart="@dimen/padding_normal"
+                                                         android:paddingEnd="@dimen/padding_normal"
+                                                         android:textColor="?colorPrimaryVariant"
+                                                         tools:text="GHC 12.99"
+                                                         android:paddingTop="@dimen/spacing_normal"
+                                                         android:text="@{String.format(`GHC %.2f`, product.price)}"
+                                                         android:textAppearance="?textAppearanceHeadline6"/>
 
                 <io.codelabs.widget.BaselineGridTextView android:layout_width="wrap_content"
                                                          android:layout_height="wrap_content"

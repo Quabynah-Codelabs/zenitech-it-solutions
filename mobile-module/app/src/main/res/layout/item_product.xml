@@ -13,7 +13,7 @@
         <androidx.appcompat.widget.AppCompatImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:foreground="@color/transparent"
+                android:background="@color/transparent"
                 android:src="@drawable/twotone_add_shopping_cart_24px"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
