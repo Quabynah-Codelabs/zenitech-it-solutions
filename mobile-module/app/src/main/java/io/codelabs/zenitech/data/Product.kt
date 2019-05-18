@@ -9,6 +9,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import io.codelabs.sdk.glide.GlideApp
 import io.codelabs.widget.ForegroundImageView
+import io.codelabs.zenitech.BuildConfig
 import io.codelabs.zenitech.R
 import kotlinx.android.parcel.Parcelize
 
@@ -21,7 +22,7 @@ data class Product(
     var price: Double,
     var desc: String,
     var image: String?,
-    var url: String? = "https://codelabs.netlify.com/products/$key",
+    var url: String? = "${BuildConfig.API_BASE_URL}products/$key",
     var uploadTime: Long = System.currentTimeMillis(),
     var quantity: Long = 0L,
     var category: String = Category.OTHER,

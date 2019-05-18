@@ -80,8 +80,27 @@ exports.register = functions.https.onRequest(async (req, res) => {
 });
 
 exports.products = functions.https.onRequest(async (req, res) => {
-    const products = await addFakeProducts();
-    return res.status(200).send(products);
+    var path = req.path;
+    if (path !== undefined && path == '/') {
+        const products = await addFakeProducts();
+        return res.status(200).send(products);
+    } else {
+        var index = path.substr(1);
+        return res.status(200).send({
+            key: `${index}`,
+            name: `Item ${index}`,
+            price: gen(),
+            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            image: `${index % 2 == 0 ? "http://static.techspot.com/images/products/2019/laptops/org/2019-03-22-product-6.jpg": "https://www.androidpolice.com/wp-content/uploads/2018/12/Samsung-Galaxy-S10-Plus-5K_2.png"}`,
+            url: `https://us-central1-zenitech-solutions.cloudfunctions.net/products/${index}`,
+            uploadTime: new Date().getTime(),
+            quantity: 100,
+            category: "Other",
+            synced: false,
+            isWishListItem: false
+        });
+    }
+    
 });
 
 const addFakeProducts = () => {
@@ -92,8 +111,8 @@ const addFakeProducts = () => {
             name: `Item ${index}`,
             price: gen(),
             desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            image: "",
-            url: `https://codelabs.netlify.com/products/${index}`,
+            image: `${index % 2 == 0 ? "http://static.techspot.com/images/products/2019/laptops/org/2019-03-22-product-6.jpg": "https://www.androidpolice.com/wp-content/uploads/2018/12/Samsung-Galaxy-S10-Plus-5K_2.png"}`,
+            url: `https://us-central1-zenitech-solutions.cloudfunctions.net/products/${index}`,
             uploadTime: new Date().getTime(),
             quantity: 100,
             category: "Other",
@@ -103,4 +122,4 @@ const addFakeProducts = () => {
         products.push(product);
     }
     return products;
-}
+};

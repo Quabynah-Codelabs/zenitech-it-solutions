@@ -31,7 +31,7 @@ class HomeActivity : BaseActivity() {
                 binding.user = it.apply {
                     if (this != null && avatar.isNullOrEmpty()) avatar = DEFAULT_AVATAR
                 }.also { user ->
-                    userViewModel.updateUser(user)
+                    if (user != null) userViewModel.updateUser(user)
                 }
                 debugLog("Current User: $it")
             }
@@ -60,7 +60,7 @@ class HomeActivity : BaseActivity() {
     override fun onBackPressed() {
         if (isBackPressed) super.onBackPressed() else {
             Snackbar.make(binding.container, "Press back again to exit", Snackbar.LENGTH_SHORT)
-                .addCallback(object: BaseTransientBottomBar.BaseCallback<Snackbar?>() {
+                .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar?>() {
                     override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                         isBackPressed = false
                     }

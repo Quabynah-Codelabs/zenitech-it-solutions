@@ -64,7 +64,7 @@ class ShopFragment : BaseFragment() {
                 is Outcome.Success -> {
                     debugLog("Products loaded successfully")
                     adapter.addDataSource(it.data)
-                    repository.addProduct(it.data)
+//                    repository.addProduct(it.data)
                 }
 
                 is Outcome.Progress -> {
