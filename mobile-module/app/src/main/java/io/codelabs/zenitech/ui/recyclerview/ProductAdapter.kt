@@ -93,7 +93,7 @@ class ProductAdapter constructor(
                 var isUndo = false
                 this.tappedProduct = product
                 if (holder.v.product_add_cart.drawable == context.resources.getDrawable(
-                        R.drawable.twotone_add_shopping_cart_24px,
+                        R.drawable.twotone_remove_shopping_cart_24px,
                         null
                     )) {
                     repository.removeProduct(tappedProduct ?: product)
