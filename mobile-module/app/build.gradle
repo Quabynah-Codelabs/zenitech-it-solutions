@@ -19,7 +19,9 @@ android {
 //        buildConfigField "String", "GOOGLE_AUTH_CLIENT_ID", "\"326397510467-6bsai9qb63g382ln9toguu0b9r9e35u1.apps.googleusercontent.com\""
         buildConfigField "String", "GOOGLE_AUTH_CLIENT_KEY", "\"jBHU353dmuBRwQgCx8WQTrmo\""
         buildConfigField "String", "PAY_BASE_URL", "\"https://www.google.com/\""
-        buildConfigField "String", "API_BASE_URL", "\"https://us-central1-zenitech-solutions.cloudfunctions.net/\""
+        def baseUrl = "https://us-central1-zenitech-solutions.cloudfunctions.net/"
+        manifestPlaceholders = [base_url: baseUrl]
+        buildConfigField "String", "API_BASE_URL", "\"${baseUrl}\""
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -55,7 +57,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
     implementation 'androidx.core:core-ktx:1.2.0-alpha01'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
+import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.data.Product
@@ -30,18 +32,30 @@ class ProductDetailsActivity : BaseActivity() {
         setSupportActionBar(binding.toolbar)
         binding.toolbar.setNavigationOnClickListener { onBackPressed() }
 
-        if (intent.hasExtra(EXTRA_PRODUCT)) {
-            addToCart = intent.getBooleanExtra(EXTRA_PRODUCT_IN_CART, false)
-            addToFav = intent.getBooleanExtra(EXTRA_PRODUCT_IN_FAV, false)
+        when {
+            intent.hasExtra(EXTRA_PRODUCT) -> {
+                addToCart = intent.getBooleanExtra(EXTRA_PRODUCT_IN_CART, false)
+                addToFav = intent.getBooleanExtra(EXTRA_PRODUCT_IN_FAV, false)
 
-            binding.product = intent.getParcelableExtra<Product>(EXTRA_PRODUCT)
-            /*Snackbar.make(
-                binding.container,
-                (binding.product as? Product)?.url ?: (binding.product as? Product)?.name!!,
-                Snackbar.LENGTH_LONG
-            ).show()*/
-        } else if (intent.hasExtra(EXTRA_PRODUCT_ID)) {
+                binding.product = intent.getParcelableExtra<Product>(EXTRA_PRODUCT)
+                Snackbar.make(
+                    binding.container,
+                    (binding.product as? Product)?.url ?: (binding.product as? Product)?.name!!,
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+            intent.hasExtra(EXTRA_PRODUCT_ID) -> {
+                api.getDatabaseService().getProductById(intent.getStringExtra(EXTRA_PRODUCT_ID))
+                    .observe(this, Observer {
+                        debugLog("Loaded from API thru intent: $it")
+                    })
+            }
 
+            else -> {
+                api.getDatabaseService().getProductById("24").observe(this, Observer {
+                    debugLog("Loaded from API: $it")
+                })
+            }
         }
 
     }
