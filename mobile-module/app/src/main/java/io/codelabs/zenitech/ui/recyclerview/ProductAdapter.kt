@@ -92,31 +92,39 @@ class ProductAdapter constructor(
             if (parent != null) {
                 var isUndo = false
                 this.tappedProduct = product
-                val snackbar =
-                    Snackbar.make(parent!!, "${product.name} added to cart", Snackbar.LENGTH_SHORT).setAction("Undo") {
-                        isUndo = true
-                        tappedProduct = null
-                        holder.v.product_add_cart.setImageDrawable(
-                            context.resources.getDrawable(
-                                R.drawable.twotone_add_shopping_cart_24px, null
-                            )
-                        )
-                    }
-                snackbar.show()
+                if (holder.v.product_add_cart.drawable == context.resources.getDrawable(
+                        R.drawable.twotone_add_shopping_cart_24px,
+                        null
+                    )) {
+                    repository.removeProduct(tappedProduct ?: product)
+                } else {
+                    val snackbar =
+                        Snackbar.make(parent!!, "${product.name} added to cart", Snackbar.LENGTH_SHORT)
+                            .setAction("Undo") {
+                                isUndo = true
+                                tappedProduct = null
+                                holder.v.product_add_cart.setImageDrawable(
+                                    context.resources.getDrawable(
+                                        R.drawable.twotone_add_shopping_cart_24px, null
+                                    )
+                                )
+                            }
+                    snackbar.show()
 
-                holder.v.product_add_cart.setImageDrawable(
-                    context.resources.getDrawable(
-                        R.drawable.twotone_remove_shopping_cart_24px, null
+                    holder.v.product_add_cart.setImageDrawable(
+                        context.resources.getDrawable(
+                            R.drawable.twotone_remove_shopping_cart_24px, null
+                        )
                     )
-                )
-                
-                snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar?>() {
-                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                        if (!isUndo && tappedProduct != null) {
-                            if (tappedProduct != null) repository.addProduct(tappedProduct!!)
-                        } else if (tappedProduct != null) repository.removeProduct(tappedProduct!!)
-                    }
-                })
+
+                    snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar?>() {
+                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                            if (!isUndo && tappedProduct != null) {
+                                if (tappedProduct != null) repository.addProduct(tappedProduct!!)
+                            } else if (tappedProduct != null) repository.removeProduct(tappedProduct!!)
+                        }
+                    })
+                }
             }
         }
 
