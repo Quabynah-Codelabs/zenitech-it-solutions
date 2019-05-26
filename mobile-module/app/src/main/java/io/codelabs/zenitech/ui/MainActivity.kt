@@ -74,7 +74,7 @@ class MainActivity : BaseActivity() {
 
 
     override fun onEnterAnimationComplete() {
-        if (prefs.isLoggedIn) showHomePrompt()
+        if (prefs.isLoggedIn && !prefs.key.isNullOrEmpty()) showHomePrompt()
     }
 
     private fun showHomePrompt() {

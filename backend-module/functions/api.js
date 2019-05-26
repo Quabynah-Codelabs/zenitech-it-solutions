@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 var jwt = require('jsonwebtoken');
+var mongoose = require('mongoose');
+
+var Customer = require('./models/customer');
 
 // Get random values
 const generateRandomString = (length) => {
@@ -56,10 +59,14 @@ app.use(bodyParser.urlencoded({
 // Apply Morgan
 app.use(morgan("combined"));
 
+// Setup mongoose
+mongoose.Promise = global.Promise;
+
+
 var testUrl = 'mongodb://localhost:27017';
 var url = 'mongodb+srv://quabynah:bilghazyllc2018@clustercompanion-nb97l.mongodb.net/test?retryWrites=true';
 var MongoClient = mongodb.MongoClient;
-MongoClient.connect(testUrl, {
+MongoClient.connect(url, {
     useNewUrlParser: true
 }, (err, client) => {
 
@@ -74,45 +81,60 @@ MongoClient.connect(testUrl, {
         // Registration
         app.post('/register', async (req, res, next) => {
             var body = req.body;
-            console.log(body);
 
             var email = body.email;
             var password = body.password;
-            var hashedPassword = saltHashPassword(password);
 
-            // Get auth key
-            var authKey = await jwt.sign({
-                foo: 'bar'
-            }, 'shhhhh');
-
-            customers.insert({
-                key: authKey,
-                salt: hashedPassword.salt,
-                name: 'New user',
-                password: hashedPassword.passwordHash,
-                email: email,
-                avatar: '',
-                type: 'guest',
-                createdAt: new Date().getTime()
-            }).then((response) => {
-                if (response.result) {
-                    return res.status(200).send(response.result);
-                } else {
+            // Query user information
+            customers.findOne({
+                email: email
+            }).then(async user => {
+                if (user) {
                     return res.status(401).send({
-                        message: 'Unable to create this account'
+                        message: 'User account already exists'
                     })
+                } else {
+                    var hashedPassword = saltHashPassword(password);
+
+                    // Get auth key
+                    var key = await jwt.sign({
+                        foo: 'bar'
+                    }, 'shhhhh');
+
+                    // Create a new user
+                    customers.insertOne(new Customer({
+                        key,
+                        email,
+                        password: hashedPassword.passwordHash,
+                        salt: hashedPassword.salt,
+                        name: 'New user',
+                        avatar: '',
+                        type: 'guest',
+                        createdAt: new Date().getTime()
+                    })).then((response) => {
+                        if (response.result) {
+                            return res.status(200).send(response.result);
+                        } else {
+                            return res.status(401).send({
+                                message: 'Unable to create this account'
+                            })
+                        }
+                    }).catch(err => {
+                        return res.status(200).send({
+                            message: 'An error occurred while creating this user'
+                        });
+                    });
                 }
             }).catch(err => {
-                return res.status(200).send({
-                    message: 'An error occurred while creating this user'
-                });
+                return res.status(404).send({
+                    err
+                })
             });
         });
 
         // Login
         app.post('/login', async (req, res, next) => {
             var body = req.body;
-            console.log(body);
 
             if (body) {
                 var email = body.email;
@@ -127,7 +149,7 @@ MongoClient.connect(testUrl, {
                         if (hashedPassword.passwordHash == user.password) {
                             return res.status(200).send(user);
                         } else {
-                            return res.status(200).send({
+                            return res.status(400).send({
                                 message: 'Wrong password'
                             });
                         }
@@ -149,13 +171,45 @@ MongoClient.connect(testUrl, {
             }
         });
 
+        app.put('/customers/:id/updateToken', (req, res, next) => {
+            var userId = req.params.id;
+            var body = req.body
+
+            if (body) {
+                customers.findOneAndUpdate({
+                    key: userId
+                }, {
+                    token: body.token
+                }).then(user => {
+                    if (user) {
+                        return res.status(200).send({
+                            message: 'User updated successfully'
+                        })
+                    } else {
+                        return res.status(404).send({
+                            message: `User was not found.${err}`
+                        });
+                    }
+                }).catch(err => {
+                    return res.status(500).send({
+                        message: `Server is unavailable now.${err}`
+                    })
+                });
+            } else {
+                return res.status(500).send({
+                    message: `Please upload a new token for this customer`
+                })
+            }
+
+        });
+
         // Products
         app.post('/products', async (req, res) => {
-            var urlProducts = await products.find().limit(1000);
+            var urlProducts = await products.find({}).limit(1000);
             if (urlProducts) {
-                return res.status(200).send(urlProducts);
+                return res.status(200).send(JSON.stringify(urlProducts));
             } else {
-                return res.status(200).send({
+                return res.status(400).send({
                     message: 'unable to load products'
                 });
             }
@@ -277,12 +331,6 @@ app.get('/', (req, res) => {
 //     }
 //     return products;
 // };
-
-
-
-
-
-
 
 
 module.exports = app;

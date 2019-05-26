@@ -9,10 +9,10 @@ import retrofit2.http.POST
 
 interface AuthService {
 
-    @POST("login")
+    @POST("api/login")
     fun loginWithEmailAndPassword(@Body request: LoginRequest): RetrofitLiveData<User>
 
-    @POST("register")
+    @POST("api/register")
     fun createUserWithEmailAndPassword(@Body request: LoginRequest): RetrofitLiveData<User>
 
 }
