@@ -3,7 +3,10 @@ package io.codelabs.zenitech.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.transition.TransitionManager
@@ -49,16 +52,26 @@ class MainActivity : BaseActivity() {
         )
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        if (menu is MenuBuilder) menu.setOptionalIconsVisible(true)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            R.id.menu_google_login -> googleLogin()
 
-    override fun onEnterAnimationComplete() = if (prefs.isLoggedIn) showHomePrompt() else showGoogleLoginPrompt()
+            R.id.menu_reset_password -> {
 
-    private fun showGoogleLoginPrompt() {
-        Snackbar.make(container, getString(R.string.login_google), Snackbar.LENGTH_INDEFINITE)
-            .setAction("Sign In") {
-                googleLogin()
             }
-            .show()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    override fun onEnterAnimationComplete() {
+        if (prefs.isLoggedIn) showHomePrompt()
     }
 
     private fun showHomePrompt() {
@@ -66,17 +79,17 @@ class MainActivity : BaseActivity() {
         binding.loading.visibility = View.GONE
         binding.content.visibility = View.GONE
         userViewModel.getCurrentUser().observe(this, Observer {
-           if (prefs.isLoggedIn){
-               Snackbar.make(
-                   container,
-                   String.format(getString(R.string.welcome_text), it.name ?: it.email),
-                   Snackbar.LENGTH_INDEFINITE
-               )
-                   .setAction("Continue Shopping") {
-                       intentTo(HomeActivity::class.java, true)
-                   }
-                   .show()
-           }
+            if (prefs.isLoggedIn) {
+                Snackbar.make(
+                    container,
+                    String.format(getString(R.string.welcome_text), it.name ?: it.email),
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                    .setAction("Continue Shopping") {
+                        intentTo(HomeActivity::class.java, true)
+                    }
+                    .show()
+            }
         })
     }
 
@@ -96,7 +109,6 @@ class MainActivity : BaseActivity() {
                             TransitionManager.beginDelayedTransition(binding.container)
                             binding.loading.visibility = View.GONE
                             binding.content.visibility = View.VISIBLE
-                            showGoogleLoginPrompt()
                         }
 
                         is Outcome.Progress -> {
@@ -144,7 +156,6 @@ class MainActivity : BaseActivity() {
                             TransitionManager.beginDelayedTransition(binding.container)
                             binding.loading.visibility = View.GONE
                             binding.content.visibility = View.VISIBLE
-                            showGoogleLoginPrompt()
                         }
 
                         is Outcome.Progress -> {
@@ -190,7 +201,6 @@ class MainActivity : BaseActivity() {
                         if (authSnackbar.isShown) authSnackbar.dismiss()
                         debugLog(ex.localizedMessage)
                         toast(ex.localizedMessage)
-                        showGoogleLoginPrompt()
 
                         TransitionManager.beginDelayedTransition(binding.container)
                         binding.loading.visibility = View.GONE
@@ -202,7 +212,6 @@ class MainActivity : BaseActivity() {
                     // Login cancelled
                     toast("Login failed")
                     if (authSnackbar.isShown) authSnackbar.dismiss()
-                    showGoogleLoginPrompt()
 
                     TransitionManager.beginDelayedTransition(binding.container)
                     binding.loading.visibility = View.GONE
