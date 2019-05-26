@@ -1,6 +1,9 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-
+const mongodb = require('mongodb');
+const crypto = require('crypto');
+const express = require('express');
+const bodyParser = require('body-parser');
 
 var jwt = require('jsonwebtoken');
 var rn = require('random-number');
@@ -13,10 +16,37 @@ var gen = rn.generator({
 // Initialize Firebase Admin
 admin.initializeApp();
 
-exports.testAPI = functions.https.onRequest((req, res) => {
+// Get Express application
+const app = express();
+
+// Get mongo object id
+const ObjectID = mongodb.ObjectID;
+
+// Configure body parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+var url = 'mongodb+srv://quabynah:<password>@clustercompanion-nb97l.mongodb.net/test?retryWrites=true';
+var MongoClient = mongodb.MongoClient;
+var mongoAppClient;
+MongoClient.connect(url, {
+    useNewUrlParser: true
+}, (err, client) => {
+
+    if (err) {
+        return console.log(err.message);
+    } else {
+        mongoAppClient = client;
+        console.log('Client created');
+    }
+});
+
+exports.testAPI = functions.https.onRequest((req,res) => {
     return res.send({
-        message: 'Your API works fine'
-    });
+        message: 'Connected successfully to Firebase Cloud functions'
+    })
 });
 
 // Login Function
@@ -102,7 +132,7 @@ exports.products = functions.https.onRequest(async (req, res) => {
             isWishListItem: false
         });
     }
-    
+
 });
 
 const addFakeProducts = () => {
