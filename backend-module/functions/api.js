@@ -3,7 +3,8 @@ const crypto = require('crypto');
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-// var jwt = require('jsonwebtoken');
+const cors = require('cors');
+var jwt = require('jsonwebtoken');
 
 // Get random values
 const generateRandomString = (length) => {
@@ -38,6 +39,11 @@ const checkHashPassword = (password, salt) => {
 // Get Express application
 const app = express();
 
+// Automatically allow cross-origin requests
+app.use(cors({
+    origin: true
+}));
+
 // Get mongo object id
 const ObjectID = mongodb.ObjectID;
 
@@ -48,15 +54,10 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Apply Morgan
-app.use(morgan("dev"))
+app.use(morgan("combined"));
 
-app.get('/', (req, res) => {
-    return res.send({
-        message: 'Its working'
-    })
-});
-
-var url = 'mongodb+srv://quabynahdennis@gmail.com:<SarahBILSON@2017>@clustercompanion-nb97l.mongodb.net/test?retryWrites=true';
+var testUrl = 'mongodb://localhost:27017';
+var url = 'mongodb+srv://quabynah:bilghazyllc2018@clustercompanion-nb97l.mongodb.net/test?retryWrites=true';
 var MongoClient = mongodb.MongoClient;
 MongoClient.connect(url, {
     useNewUrlParser: true
@@ -68,21 +69,60 @@ MongoClient.connect(url, {
         console.log('Connected to MongoDB successfully');
 
         // Registration
-        app.post('/register', (req, res, next) => {
+        app.post('/register', async (req, res, next) => {
+            var body = req.body;
+            console.log(body);
+            
             return res.status(200).send({
                 message: 'Register called'
-            })
-        });
-
-        // Login
-        app.post('/login', (req, res, next) => {
-            return res.status(200).send({
-                message: 'Login called'
             });
         });
 
+        // Login
+        app.post('/login', async (req, res, next) => {
+            var body = req.body;
+            console.log(body);
+
+            if (body && req.method == 'POST') {
+                var email = body.email;
+                var password = body.password;
+
+                var hashedPassword = saltHashPassword(password);
+
+                // Get auth key
+                var authKey = await jwt.sign({
+                    foo: 'bar'
+                }, 'shhhhh');
+
+                return res.status(201).send({
+                    key: authKey,
+                    hashedPassword: hashedPassword.passwordHash,
+                    salt: hashedPassword.salt,
+                    name: '',
+                    email: email,
+                    avatar: '',
+                    type: 'guest',
+                    createdAt: new Date().getTime()
+                });
+
+            } else {
+                return res.status(400).send({
+                    message: 'Bad login credentials'
+                });
+            }
+        });
+
         // Products
+
+
+        app.listen(3000, () => console.log('Connected on port 3000'));
     }
+});
+
+app.get('/', (req, res) => {
+    return res.send({
+        message: 'Its working'
+    })
 });
 
 // Login Function
@@ -191,5 +231,12 @@ MongoClient.connect(url, {
 //     }
 //     return products;
 // };
+
+
+
+
+
+
+
 
 module.exports = app;
