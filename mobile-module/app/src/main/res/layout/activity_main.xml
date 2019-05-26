@@ -11,15 +11,18 @@
             android:id="@+id/container"
             tools:context=".ui.MainActivity">
 
-        <!--  <com.google.android.material.appbar.MaterialToolbar
+          <com.google.android.material.appbar.MaterialToolbar
                   style="?toolbarStyle"
                   android:id="@+id/toolbar"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  app:title="@string/zenitech_app_name"
+                  app:title="@string/empty"
+                  android:background="@color/transparent"
                   app:layout_constraintTop_toTopOf="parent"
                   app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintEnd_toEndOf="parent" />-->
+                  app:layout_constraintEnd_toEndOf="parent" />
+
+
         <io.codelabs.widget.ForegroundLinearLayout android:layout_width="match_parent"
                                                    android:layout_height="wrap_content"
                                                    android:orientation="vertical"

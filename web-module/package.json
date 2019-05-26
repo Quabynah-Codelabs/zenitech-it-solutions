@@ -4,7 +4,8 @@
   "description": "Zenitech IT Solutions unofficial website",
   "main": "index.js",
   "scripts": {
-    "start": "live-server"
+    "start": "live-server",
+    "deploy" : "firebase deploy --only hosting"
   },
   "author": "Bilghazy LLC",
   "license": "ISC"

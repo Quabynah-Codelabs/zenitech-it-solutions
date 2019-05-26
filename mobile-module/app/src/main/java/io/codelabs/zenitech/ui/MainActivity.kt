@@ -38,6 +38,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setSupportActionBar(binding.toolbar)
+
 
         binding.loading.visibility = View.GONE
         authSnackbar = Snackbar.make(
@@ -46,6 +48,8 @@ class MainActivity : BaseActivity() {
             Snackbar.LENGTH_INDEFINITE
         )
     }
+
+
 
     override fun onEnterAnimationComplete() = if (prefs.isLoggedIn) showHomePrompt() else showGoogleLoginPrompt()
 
