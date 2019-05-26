@@ -16,16 +16,9 @@
             android:supportsRtl="true"
             tools:replace="android:label"
             android:theme="@style/Theme.Zenitech">
-        <activity android:name=".ui.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.MainActivity"
+                  android:label="@string/empty"
+                  android:configChanges="orientation|screenLayout|screenSize"/>
         <activity android:name=".ui.HomeActivity"
                   android:label="@string/empty"
                   android:configChanges="orientation|screenLayout|screenSize"/>
@@ -54,6 +47,18 @@
                         android:pathPrefix="/products/"/>
             </intent-filter>
 
+        </activity>
+        <activity android:name=".ui.SplashActivity"
+                  android:configChanges="orientation|screenLayout|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
         </activity>
     </application>
 

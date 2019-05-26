@@ -62,4 +62,8 @@
     <string name="welcome_text">Hey! Welcome back,
         <b>%s</b>
     </string>
+    <string name="google_sign_in">Google Sign In</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="about_us">About Us</string>
+    <string name="get_started">Get started</string>
 </resources>

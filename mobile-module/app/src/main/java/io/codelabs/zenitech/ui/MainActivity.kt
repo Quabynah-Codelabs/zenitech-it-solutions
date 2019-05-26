@@ -22,6 +22,7 @@ import io.codelabs.sdk.util.showConfirmationToast
 import io.codelabs.sdk.util.toast
 import io.codelabs.zenitech.BuildConfig
 import io.codelabs.zenitech.R
+import io.codelabs.zenitech.core.APP_WEBSITE_URL
 import io.codelabs.zenitech.core.auth.LoginRequest
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.core.util.isNotEmpty
@@ -31,6 +32,7 @@ import io.codelabs.zenitech.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.jetbrains.anko.browse
 
 
 class MainActivity : BaseActivity() {
@@ -59,12 +61,14 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
+        when (item?.itemId) {
             R.id.menu_google_login -> googleLogin()
 
             R.id.menu_reset_password -> {
-
+                //todo: add password reset functionality
             }
+
+            R.id.menu_about -> browse(APP_WEBSITE_URL, true)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -82,7 +86,7 @@ class MainActivity : BaseActivity() {
             if (prefs.isLoggedIn) {
                 Snackbar.make(
                     container,
-                    String.format(getString(R.string.welcome_text), it.name ?: it.email),
+                    String.format(getString(R.string.welcome_text), it?.name ?: it?.email),
                     Snackbar.LENGTH_INDEFINITE
                 )
                     .setAction("Continue Shopping") {

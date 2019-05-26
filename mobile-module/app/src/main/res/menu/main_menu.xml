@@ -2,14 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <item android:title="Google Sign In"
+    <item android:title="@string/google_sign_in"
           android:icon="@drawable/googleg_standard_color_18"
           app:showAsAction="ifRoom"
           android:id="@+id/menu_google_login"/>
 
-    <item android:title="Forgot Password"
+    <item android:title="@string/forgot_password"
           android:icon="@drawable/twotone_group_24px"
           app:showAsAction="never"
           android:id="@+id/menu_reset_password"/>
+
+    <item android:title="@string/about_us"
+          android:icon="@drawable/twotone_business_24px"
+          app:showAsAction="never"
+          android:id="@+id/menu_about"/>
 
 </menu>
