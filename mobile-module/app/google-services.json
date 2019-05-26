@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "326397510467",
+    "firebase_url": "https://zenitech-solutions.firebaseio.com",
+    "project_id": "zenitech-solutions",
+    "storage_bucket": "zenitech-solutions.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326397510467:android:1b367ce1e4b3f36d",
+        "android_client_info": {
+          "package_name": "io.codelabs.zenitech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "326397510467-81tmocd5emblltbbckacsh17st29t8q5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.codelabs.zenitech",
+            "certificate_hash": "c11d545f2fb712fb89c3b8dfbc05873bb8658d8d"
+          }
+        },
+        {
+          "client_id": "326397510467-up2fejhimp5paju40lkvnqf4r7o2boed.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhlOxbakq9h_WisPS69dijpVu8BbXv9x8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "326397510467-6bsai9qb63g382ln9toguu0b9r9e35u1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,10 +2,11 @@
 
 package io.codelabs.zenitech.core
 
-const val APP_WEBSITE_URL = "https://www.google.com/gh"
+const val NEWSLETTERS_SUBSCRIPTION_TOPIC = "zeniteck-newsletter"
 const val THEME_PREFS = "theme_prefs"
 const val USER_PREFS = "user_prefs"
 const val DATABASE_NAME = "zenitech.db"
+const val NOTIFICATION_CHANNEL_NAME = "zenitech-notification-channel"
 const val DEFAULT_AVATAR =
     "https://firebasestorage.googleapis.com/v0/b/house-teaching.appspot.com/o/default-avatar.png?alt=media&token=b1ab3898-f830-42b6-aa08-18c70627bb87"
 

@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.google.firebase.FirebaseApp
+import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.core.theme.PreferenceRepository
 import io.codelabs.zenitech.core.worker.SyncedWorker
 import org.koin.android.ext.koin.androidContext
@@ -24,6 +26,11 @@ class ZenitechApp : Application() {
             getSharedPreferences(THEME_PREFS, Context.MODE_PRIVATE)
         )
 
+        // Initialize Firebase SDK
+        FirebaseApp.initializeApp(this).also {
+            debugLog("Firebase SDK initialized as: ${it?.name}")
+        }
+
         startKoin {
             androidContext(this@ZenitechApp)
             modules(roomModule, prefsModule, remoteService, firebaseModule)
@@ -31,7 +38,7 @@ class ZenitechApp : Application() {
 
         val syncedWorker = PeriodicWorkRequestBuilder<SyncedWorker>(10, TimeUnit.MINUTES).build()
 
-        WorkManager.getInstance(applicationContext).enqueue(syncedWorker)
+        WorkManager.getInstance(applicationContext).enqueue(mutableListOf(syncedWorker))
     }
 
 

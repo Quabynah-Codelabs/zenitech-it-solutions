@@ -59,7 +59,7 @@ app.use(morgan("combined"));
 var testUrl = 'mongodb://localhost:27017';
 var url = 'mongodb+srv://quabynah:bilghazyllc2018@clustercompanion-nb97l.mongodb.net/test?retryWrites=true';
 var MongoClient = mongodb.MongoClient;
-MongoClient.connect(url, {
+MongoClient.connect(testUrl, {
     useNewUrlParser: true
 }, (err, client) => {
 

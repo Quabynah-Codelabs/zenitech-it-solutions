@@ -1,8 +1,14 @@
 package io.codelabs.zenitech.core
 
-//todo: Replace with Firebase APIs
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.storage.FirebaseStorage
+
+/**
+ * [Firebase] APIs
+ */
 object Firebase {
-    val firestore: Any? = Any()
-    val storage: Any? = Any()
-    val auth: Any? = Any()
+    val storage = FirebaseStorage.getInstance().reference
+    val auth = FirebaseAuth.getInstance()
+    val messaging = FirebaseMessaging.getInstance()
 }

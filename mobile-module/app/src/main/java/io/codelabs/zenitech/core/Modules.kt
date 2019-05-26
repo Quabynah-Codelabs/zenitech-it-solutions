@@ -45,7 +45,7 @@ val remoteService = module {
 }
 
 val firebaseModule = module {
-//    single { Firebase.auth }
-//    single { Firebase.firestore }
-//    single { Firebase.storage }
+    single { Firebase.auth }
+    single { Firebase.messaging }
+    single { Firebase.storage }
 }

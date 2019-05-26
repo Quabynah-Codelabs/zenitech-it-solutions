@@ -22,7 +22,6 @@ import io.codelabs.sdk.util.showConfirmationToast
 import io.codelabs.sdk.util.toast
 import io.codelabs.zenitech.BuildConfig
 import io.codelabs.zenitech.R
-import io.codelabs.zenitech.core.APP_WEBSITE_URL
 import io.codelabs.zenitech.core.auth.LoginRequest
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.core.util.isNotEmpty
@@ -68,7 +67,7 @@ class MainActivity : BaseActivity() {
                 //todo: add password reset functionality
             }
 
-            R.id.menu_about -> browse(APP_WEBSITE_URL, true)
+            R.id.menu_about -> browse(BuildConfig.WEB_HOSTING_SITE, true)
         }
         return super.onOptionsItemSelected(item)
     }

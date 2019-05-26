@@ -26,7 +26,7 @@ android {
         buildConfigField "String", "LIVE_PAY_PAL_CLIENT_SECRET", "\"ENIg_CowtDaiA63A-cHCisnCFjUlQbv84Y96Mhrc-LWe7wX19CyBmrELEsabiNBF9dXk7DyYzVvL44yv\""
 
         // MONGODB CREDENTIALS
-        buildConfigField "String", "MONGODB_BASE_URL", "\"https://197.255.122.96:32/\""
+        buildConfigField "String", "WEB_HOSTING_SITE", "\"https://zenitech-solutions.web.app/\""
 
         // CLOUD FUNCTIONS
         def baseUrl = "https://us-central1-zenitech-solutions.cloudfunctions.net/"
@@ -101,6 +101,12 @@ dependencies {
     def anko_version = "0.10.8"
     implementation "org.jetbrains.anko:anko:$anko_version"
 
+
+    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.google.firebase:firebase-messaging:18.0.0'
+    implementation 'com.google.firebase:firebase-storage:17.0.0'
+    implementation 'com.google.firebase:firebase-auth:17.0.0'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
 }
+apply plugin: 'com.google.gms.google-services'
