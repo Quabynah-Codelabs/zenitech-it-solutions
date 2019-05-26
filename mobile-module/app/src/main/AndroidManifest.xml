@@ -49,6 +49,7 @@
 
         </activity>
         <activity android:name=".ui.SplashActivity"
+                  android:theme="@style/Theme.Zenitech.FullScreen"
                   android:configChanges="orientation|screenLayout|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

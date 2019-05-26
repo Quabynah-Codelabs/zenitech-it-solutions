@@ -66,4 +66,7 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="about_us">About Us</string>
     <string name="get_started">Get started</string>
+    <string name="user_interface">User Interface</string>
+    <string name="logout">Logout</string>
+    <string name="theme_builder">Theme Builder</string>
 </resources>

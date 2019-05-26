@@ -2,6 +2,10 @@
 
     <style name="Theme.Zenitech" parent="Base.Theme.Zenitech"/>
 
+    <style name="Theme.Zenitech.FullScreen">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="Base.Theme.Zenitech" parent="Base.MaterialThemeBuilder">
         <!-- COLORS -->

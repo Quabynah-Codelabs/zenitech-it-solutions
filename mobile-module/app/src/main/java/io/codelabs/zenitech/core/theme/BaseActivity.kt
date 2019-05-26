@@ -26,6 +26,7 @@ abstract class BaseActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (application as ZenitechApp).preferenceRepository.nightModeLive.observeForever { nightMode ->
+            debugLog("Night mode: $nightMode")
             nightMode?.let { delegate.localNightMode = it }
         }
 

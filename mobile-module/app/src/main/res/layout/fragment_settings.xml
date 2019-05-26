@@ -38,53 +38,39 @@
                                                         app:title="@string/created_at"
                                                         app:summary="@{DateUtils.getRelativeTimeSpanString(user.createdAt, System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS).toString(), default=na}"/>
 
+            <io.codelabs.zenitech.widget.LabelLinkView android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       android:layout_marginTop="@dimen/spacing_normal"
+                                                       app:leadingIcon="@drawable/twotone_settings_24px"
+                                                       android:text="@string/user_interface"/>
+
+            <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+                                                        android:layout_height="wrap_content"
+                                                        app:title="Application Onboarding"
+                                                        android:id="@+id/ui_prefs"
+                                                        app:icon="@drawable/ic_style"
+                                                        app:widget="@layout/widget_switch"
+                                                        app:summary="Show welcome screen on startup"/>
+
+            <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+                                                        android:layout_height="wrap_content"
+                                                        app:title="@string/instructions_enable_dark_title"
+                                                        android:id="@+id/ui_dark_mode"
+                                                        app:icon="@drawable/twotone_brightness_6_24px"
+                                                        app:widget="@layout/widget_switch_theme"
+                                                        app:summary="Toggle Light / Dark mode"/>
 
             <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
                                                                android:layout_height="wrap_content"
                                                                android:layout_gravity="center"
                                                                android:layout_marginTop="@dimen/spacing_large"
                                                                app:iconGravity="textEnd"
-                                                               android:text="Logout"
-                                                               app:iconTint="?colorError"
-                                                               android:textColor="?colorError"
+                                                               android:text="@string/logout"
+                                                               app:backgroundTint="?colorError"
                                                                app:iconPadding="@dimen/padding_normal"
-                                                               style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                                               style="@style/Widget.MaterialComponents.Button"
                                                                android:id="@+id/logout_button"
                                                                app:icon="@drawable/twotone_exit_to_app_24px"/>
-
-            <!--<io.codelabs.zenitech.widget.LabelLinkView android:layout_width="wrap_content"
-                                                       android:layout_height="wrap_content"
-                                                       app:leadingIcon="@drawable/twotone_category_24px"
-                                                       android:layout_marginTop="@dimen/padding_large"
-                                                       android:text="Theme Builder"/>
-
-            <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/keyline_5">
-
-                <androidx.appcompat.widget.AppCompatImageView android:layout_width="wrap_content"
-                                                              android:layout_height="wrap_content"
-                                                              android:src="@drawable/twotone_brightness_6_24px"
-                                                              android:layout_gravity="center_vertical"/>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/dark_theme_title_text_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:text="@string/instructions_enable_dark_title"
-                        android:layout_marginStart="@dimen/spacing_xlarge"
-                        android:textAppearance="?textAppearanceBody1"
-                        android:alpha="?alphaEmphasisMedium"/>
-
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/dark_theme_switch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|center_vertical"/>
-
-            </FrameLayout>-->
 
         </io.codelabs.widget.ForegroundLinearLayout>
 

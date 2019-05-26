@@ -3,12 +3,14 @@ package io.codelabs.zenitech.core.datasource.repository
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.core.USER_PREFS
 
 class Preferences constructor(ctx: Context) {
 
     companion object {
         private const val USER_KEY = "user_key"
+        private const val SHOW_UI = "show_ui"
         @Volatile
         private var instance: Preferences? = null
 
@@ -23,11 +25,22 @@ class Preferences constructor(ctx: Context) {
     private val prefs: SharedPreferences = ctx.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE)
 
     var isLoggedIn: Boolean = false
+    var isShowOnBoarding: Boolean = false
+        get() = prefs.getBoolean(SHOW_UI, false)
+        set(value) {
+            field = value
+            prefs.edit {
+                debugLog("OnBoarding: $value")
+                putBoolean(SHOW_UI, value)
+                apply()
+            }
+        }
+
     var key: String? = null
         get() = prefs.getString(USER_KEY, null)
         set(value) {
             field = value
-            isLoggedIn = !key.isNullOrEmpty()
+            isLoggedIn = /*!key.isNullOrEmpty()*/ true
             prefs.edit {
                 putString(USER_KEY, value)
                 apply()
@@ -36,6 +49,8 @@ class Preferences constructor(ctx: Context) {
 
     init {
         key = prefs.getString(USER_KEY, null)
+        isShowOnBoarding = prefs.getBoolean(SHOW_UI, false)
+
         isLoggedIn = !key.isNullOrEmpty()
         if (isLoggedIn) key = prefs.getString(USER_KEY, null)
     }

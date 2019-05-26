@@ -29,6 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/get_started"
+                android:id="@+id/skip_button"
+                android:visibility="gone"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_margin="@dimen/fab_margin"
                 android:onClick="navNext"

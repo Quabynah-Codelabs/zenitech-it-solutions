@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "live-server",
-    "deploy" : "firebase deploy --only hosting"
+    "deploy": "firebase deploy --only hosting"
   },
   "author": "Bilghazy LLC",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "paypal-rest-sdk": "^1.8.1"
+  }
 }
