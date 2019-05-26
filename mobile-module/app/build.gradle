@@ -13,12 +13,22 @@ android {
         versionName "1.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        // MISC
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
         buildConfigField "String", "GIT_COMMIT_COUNT", "\"${gitCommitCount}\""
         buildConfigField "String", "GOOGLE_AUTH_CLIENT_ID", "\"326397510467-81tmocd5emblltbbckacsh17st29t8q5.apps.googleusercontent.com\""
-//        buildConfigField "String", "GOOGLE_AUTH_CLIENT_ID", "\"326397510467-6bsai9qb63g382ln9toguu0b9r9e35u1.apps.googleusercontent.com\""
         buildConfigField "String", "GOOGLE_AUTH_CLIENT_KEY", "\"jBHU353dmuBRwQgCx8WQTrmo\""
-        buildConfigField "String", "PAY_BASE_URL", "\"https://www.google.com/\""
+
+        // PAYPAL CREDENTIALS
+        buildConfigField "String", "DEBUG_PAY_PAL_CLIENT_ID", "\"AUOUeWD713WFvhoKg58HvZpJ58u0hd2Qo7F4nNNRHf5URQKnyxi7NRg16y2972Hd9w9Iezy3KNrA5Qsj\""
+        buildConfigField "String", "DEBUG_PAY_PAL_CLIENT_SECRET", "\"ENIg_CowtDaiA63A-cHCisnCFjUlQbv84Y96Mhrc-LWe7wX19CyBmrELEsabiNBF9dXk7DyYzVvL44yv\""
+        buildConfigField "String", "LIVE_PAY_PAL_CLIENT_ID", "\"AWipjwDuooz5Sx7lWsjgGALgU2-rVRmuCZWargFxvmaqSW2GKSKLGTd4PkX899zBglLbSYWuwYnCgcK3\""
+        buildConfigField "String", "LIVE_PAY_PAL_CLIENT_SECRET", "\"ENIg_CowtDaiA63A-cHCisnCFjUlQbv84Y96Mhrc-LWe7wX19CyBmrELEsabiNBF9dXk7DyYzVvL44yv\""
+
+        // MONGODB CREDENTIALS
+        buildConfigField "String", "MONGODB_BASE_URL", "\"https://197.255.122.96:32/\""
+
+        // CLOUD FUNCTIONS
         def baseUrl = "https://us-central1-zenitech-solutions.cloudfunctions.net/"
         manifestPlaceholders = [base_url: baseUrl]
         buildConfigField "String", "API_BASE_URL", "\"${baseUrl}\""
@@ -78,7 +88,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    def work_version = "2.1.0-alpha01"
+    def work_version = "2.1.0-alpha02"
     implementation "androidx.work:work-runtime-ktx:$work_version"
 
     def lifecycle_version = "2.2.0-alpha01"
@@ -87,7 +97,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
-    implementation 'com.paytm:pgplussdk:1.3.3'
 
     def anko_version = "0.10.8"
     implementation "org.jetbrains.anko:anko:$anko_version"

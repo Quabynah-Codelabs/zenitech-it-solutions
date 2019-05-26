@@ -18,6 +18,9 @@
 <resources>
 
     <!--Toolbar-->
-    <style name="Widget.MyTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface"/>
+    <style name="Widget.MyTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
+        <item name="android:popupTheme">@style/ThemeOverlay.MaterialComponents.Dark</item>
+    </style>
 
 </resources>

@@ -11,6 +11,7 @@ import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.intentTo
 import io.codelabs.sdk.util.toast
 import io.codelabs.widget.BaselineGridTextView
@@ -48,7 +49,7 @@ class SplashActivity : BaseActivity() {
             }
         })
 
-        toast("Show onboarding: ${prefs.isShowOnBoarding}")
+        debugLog("Show onboarding: ${prefs.isShowOnBoarding}")
     }
 
     fun navNext(view: View) =

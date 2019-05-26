@@ -7,10 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.paytm.pgsdk.PaytmClientCertificate
-import com.paytm.pgsdk.PaytmOrder
-import com.paytm.pgsdk.PaytmPGService
-import com.paytm.pgsdk.PaytmPaymentTransactionCallback
 import io.codelabs.recyclerview.GridItemDividerDecoration
 import io.codelabs.recyclerview.SlideInItemAnimator
 import io.codelabs.sdk.util.debugLog
@@ -44,65 +40,7 @@ class CartFragment : BaseFragment() {
                 binding.checkout.text = String.format("Checkout GHC%.2f", price)
 
                 binding.checkout.setOnClickListener {
-                    //todo: implement payment logic
-                    val pgService = PaytmPGService.getStagingService()
-                    pgService.enableLog(requireContext())
-
-                    pgService.initialize(
-                        PaytmOrder(
-                            hashMapOf<String, String>(
-                                "MID" to "PAYTM_MERCHANT_ID",
-                                "ORDER_ID" to "ORDER0000000001",
-                                "CUST_ID" to System.currentTimeMillis().toString(),
-                                "INDUSTRY_TYPE_ID" to "",
-                                "CHANNEL_ID" to "WAP",
-                                "TXN_AMOUNT" to "1",
-                                "WEBSITE" to "PAYTM_WEBSITE",
-                                "CALLBACK_URL" to "https://securegw.paytm.in/theia/paytmCallback?ORDER_ID=ORDER0000000001",
-                                "EMAIL" to getString(R.string.dummy_email),
-                                "MOBILE_NO" to getString(R.string.dummy_phone),
-                                "CHECKSUMHASH" to "w2QDRMgp1234567JEAPCIOmNgQvsi+BhpqijfM9KvFfRiPmGSt3Ddzw+oTaGCLneJwxFFq5mqTMwJXdQE2EzK4px2xruDqKZjHupz9yXev4="
-                            )
-                        ),
-                        PaytmClientCertificate("", "")
-                    )
-                    PaytmPGService.getService().startPaymentTransaction(
-                        requireContext(),
-                        true,
-                        false,
-                        object : PaytmPaymentTransactionCallback {
-                            override fun onTransactionResponse(inResponse: Bundle?) {
-                                debugLog("onTransactionResponse: $inResponse")
-                            }
-
-                            override fun clientAuthenticationFailed(inErrorMessage: String?) {
-                                debugLog("clientAuthenticationFailed: $inErrorMessage")
-                            }
-
-                            override fun someUIErrorOccurred(inErrorMessage: String?) {
-                                debugLog("someUIErrorOccurred: $inErrorMessage")
-                            }
-
-                            override fun onTransactionCancel(inErrorMessage: String?, inResponse: Bundle?) {
-                                debugLog("onTransactionCancel: $inErrorMessage | $inResponse")
-                            }
-
-                            override fun networkNotAvailable() {
-                                debugLog("networkNotAvailable")
-                            }
-
-                            override fun onErrorLoadingWebPage(
-                                iniErrorCode: Int,
-                                inErrorMessage: String?,
-                                inFailingUrl: String?
-                            ) {
-                                debugLog("onErrorLoadingWebPage: $iniErrorCode | $inErrorMessage |$inFailingUrl")
-                            }
-
-                            override fun onBackPressedCancelTransaction() {
-                                debugLog("onBackPressedCancelTransaction")
-                            }
-                        })
+                    //todo: checkout with pay pal here
                 }
             }
         })

@@ -17,8 +17,6 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   app:title="@string/empty"
-                  android:theme="@style/ThemeOverlay.MaterialComponents.Light"
-                  app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
                   android:elevation="@dimen/zero_spacing"
                   android:background="@color/transparent"
                   app:layout_constraintTop_toTopOf="parent"
@@ -83,7 +81,7 @@
                         android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/twotone_perm_identity_24px"
+                        android:drawableStart="@drawable/twotone_face_24px"
                         android:drawablePadding="@dimen/spacing_normal"
                         android:inputType="textEmailAddress|textAutoComplete|textAutoCorrect"
                         android:hint="@string/username"/>

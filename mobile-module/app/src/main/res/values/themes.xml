@@ -21,6 +21,9 @@
     </style>
 
     <!--Toolbar-->
-    <style name="Widget.MyTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary"/>
+    <style name="Widget.MyTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Light</item>
+        <item name="android:popupTheme">@style/ThemeOverlay.MaterialComponents.Light</item>
+    </style>
 
 </resources>
