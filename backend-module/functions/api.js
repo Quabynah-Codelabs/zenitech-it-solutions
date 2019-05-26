@@ -68,13 +68,44 @@ MongoClient.connect(url, {
     } else {
         console.log('Connected to MongoDB successfully');
 
+        var customers = client.db('zeniteck').collection('customers');
+        var products = client.db('zeniteck').collection('products');
+
         // Registration
         app.post('/register', async (req, res, next) => {
             var body = req.body;
             console.log(body);
-            
-            return res.status(200).send({
-                message: 'Register called'
+
+            var email = body.email;
+            var password = body.password;
+            var hashedPassword = saltHashPassword(password);
+
+            // Get auth key
+            var authKey = await jwt.sign({
+                foo: 'bar'
+            }, 'shhhhh');
+
+            customers.insert({
+                key: authKey,
+                salt: hashedPassword.salt,
+                name: 'New user',
+                password: hashedPassword.passwordHash,
+                email: email,
+                avatar: '',
+                type: 'guest',
+                createdAt: new Date().getTime()
+            }).then((response) => {
+                if (response.result) {
+                    return res.status(200).send(response.result);
+                } else {
+                    return res.status(401).send({
+                        message: 'Unable to create this account'
+                    })
+                }
+            }).catch(err => {
+                return res.status(200).send({
+                    message: 'An error occurred while creating this user'
+                });
             });
         });
 
@@ -83,26 +114,32 @@ MongoClient.connect(url, {
             var body = req.body;
             console.log(body);
 
-            if (body && req.method == 'POST') {
+            if (body) {
                 var email = body.email;
                 var password = body.password;
 
-                var hashedPassword = saltHashPassword(password);
-
-                // Get auth key
-                var authKey = await jwt.sign({
-                    foo: 'bar'
-                }, 'shhhhh');
-
-                return res.status(201).send({
-                    key: authKey,
-                    hashedPassword: hashedPassword.passwordHash,
-                    salt: hashedPassword.salt,
-                    name: '',
-                    email: email,
-                    avatar: '',
-                    type: 'guest',
-                    createdAt: new Date().getTime()
+                // Query user information
+                customers.findOne({
+                    email: email
+                }).then(user => {
+                    if (user) {
+                        var hashedPassword = checkHashPassword(password, user.salt);
+                        if (hashedPassword.passwordHash == user.password) {
+                            return res.status(200).send(user);
+                        } else {
+                            return res.status(200).send({
+                                message: 'Wrong password'
+                            });
+                        }
+                    } else {
+                        return res.status(200).send({
+                            message: 'User could not be found'
+                        });
+                    }
+                }).catch(err => {
+                    return res.status(404).send({
+                        err
+                    })
                 });
 
             } else {
@@ -113,7 +150,16 @@ MongoClient.connect(url, {
         });
 
         // Products
-
+        app.post('/products', async (req, res) => {
+            var urlProducts = await products.find().limit(1000);
+            if (urlProducts) {
+                return res.status(200).send(urlProducts);
+            } else {
+                return res.status(200).send({
+                    message: 'unable to load products'
+                });
+            }
+        });
 
         app.listen(3000, () => console.log('Connected on port 3000'));
     }
