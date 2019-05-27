@@ -171,7 +171,36 @@ MongoClient.connect(url, {
             }
         });
 
-        app.post('/customers/:id/updateToken', (req, res, next) => {
+        // Customer information
+        app.post('/me', (req, res, next) => {
+            if (req.body) {
+                // Get the user ID
+                var key = req.body.key;
+
+                // Get the user
+                customers.findOne({
+                    key
+                }).then(user => {
+                    if (user) {
+                        return res.status(200).send(user);
+                    } else {
+                        return res.status(401).send({
+                            message: 'Cannot get this user.'
+                        })
+                    }
+                })
+
+            } else {
+                return res.status(404).send({
+                    message: 'Your request is invalid. Please attacha request body!'
+                });
+            }
+
+
+        });
+
+        // Customer update
+        app.post('/customers/:id', (req, res, next) => {
             var userId = req.params.id;
             var body = req.body;
 
@@ -180,7 +209,13 @@ MongoClient.connect(url, {
                     key: userId
                 }, {
                     $set: {
-                        token: body.token
+                        token: body.token,
+                        key: body.key,
+                        email: body.email,
+                        name: body.name,
+                        avatar: body.avatar,
+                        type: body.type,
+                        updatedAt: new Date().getTime()
                     }
                 }).then(user => {
                     if (user) {

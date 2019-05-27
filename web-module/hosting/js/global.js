@@ -43,3 +43,5 @@
 //         console.log(payment);
 //     }
 // });
+
+$('#user-cart').text(`[${120}]`);

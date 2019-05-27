@@ -43,7 +43,7 @@
 						<div class="col-md pr-4 d-flex topper align-items-center">
 							<div class="icon mr-2 d-flex justify-content-center align-items-center"><span
 									class="icon-paper-plane"></span></div>
-							<span class="text">bilghazyllc@email.com</span>
+							<span class="text">bilghazyllc@gmail.com</span>
 						</div>
 						<div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
 							<span class="text">3-5 Business days delivery &amp; Free Returns</span>
@@ -58,7 +58,7 @@
 			<a class="navbar-brand" href="index.html">Zeniteck IT Solutions</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
 				aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
+				<span class="oi oi-menu"></span>
 			</button>
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
@@ -69,7 +69,7 @@
 					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
 					<li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span
-								class="icon-shopping_cart"></span>[0]</a></li>
+								id="user-cart" class="icon-shopping_cart"></span></a></li>
 
 				</ul>
 			</div>
@@ -535,7 +535,7 @@
 				</div>
 				<div class="col-md">
 					<div class="ftco-footer-widget mb-4 ml-md-5">
-						<h2 class="ftco-heading-2">Menu</h2>
+						<!-- <h2 class="ftco-heading-2">Menu</h2> -->
 						<ul class="list-unstyled">
 							<li><a href="shop.htmlclass=" py-2 d-block">Shop</a></li>
 							<li><a href="blog.html" class="py-2 d-block">Developer Tab</a></li>
@@ -626,11 +626,11 @@
 	</script>
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
+	<script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
 	<script src="js/global.js"></script>
-	<!-- <script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
 	<script>
-		paypal.Buttons().render('body');
-	</script> -->
+		$('#user-cart').text(`[${120}]`)
+	</script>
 
 </body>
 
