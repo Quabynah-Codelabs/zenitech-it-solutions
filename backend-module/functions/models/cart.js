@@ -2,39 +2,25 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 // Create schema
-var userSchema = new mongoose.Schema({
+var cartSchema = new mongoose.Schema({
     key: {
         required: true,
         type: String,
         unique: true
     },
-    email: {
-        required: true,
-        type: String,
-        unique: true,
-        lowercase: true,
-        validate: (value) => {
-            return !validator.isEmpty(value) && validator.isEmail(value)
-        }
-    },
-    password: {
-        required: true,
-        type: String
-    },
-    salt: String,
-    name: {
+    product: {
         required: true,
         type: String,
         validate: (value) => {
             return !validator.isEmpty(value)
         }
     },
-    avatar: String,
-    type: String,
-    token: {
-        required: false,
+    user: {
+        required: true,
         type: String,
-        default: null
+        validate: (value) => {
+            return !validator.isEmpty(value)
+        }
     },
     createdAt: {
         required: false,
@@ -44,4 +30,4 @@ var userSchema = new mongoose.Schema({
 });
 
 // Export model
-module.exports = mongoose.model('Customer', userSchema);
+module.exports = mongoose.model('Cart', cartSchema);

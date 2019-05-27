@@ -8,6 +8,8 @@ var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 
 var Customer = require('./models/customer');
+var Cart = require('./models/cart');
+var Product = require('./models/product');
 
 // Get random values
 const generateRandomString = (length) => {
@@ -294,6 +296,36 @@ MongoClient.connect(url, {
                     message: `Error occurred while getting this product. ${err}`
                 })
             });
+
+        });
+
+        app.post('/cart', async (req, res) => {
+            var body = req.body;
+
+            if (body) {
+                // Get auth key
+                var key = await jwt.sign({
+                    foo: 'bar'
+                }, 'shhhhh');
+
+                cart.insertOne(new Cart({
+                    user: body.user,
+                    product: body.product,
+                    key
+                })).then(result => {
+                    return res.status(200).send({
+                        message: 'Item added to cart successfully'
+                    })
+                }).catch(err => {
+                    return res.status(404).send({
+                        message: `An Error occurred. ${err}`
+                    });
+                });
+            } else {
+                return res.status(401).send({
+                    message: `Invalid request. ${err}`
+                });
+            }
 
         });
 
