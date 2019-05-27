@@ -299,6 +299,7 @@ MongoClient.connect(url, {
 
         });
 
+        // Add to cart
         app.post('/cart', async (req, res) => {
             var body = req.body;
 
@@ -326,80 +327,122 @@ MongoClient.connect(url, {
                     message: `Invalid request. ${err}`
                 });
             }
-
         });
+
+        // Delete from cart
+        app.delete('/cart/:id', (req, res) => {
+            var key = req.params.id;
+
+            cart.findOneAndDelete({
+                key
+            }).then(result => {
+                return res.status(200).send({
+                    message: 'Item deleted successfully'
+                })
+            }).catch(err => {
+                return res.status(404).send({
+                    message: err
+                })
+            });
+        });
+
+        // Add product
+        app.post('/products/add', async (req, res) => {
+            var body = req.body;
+
+            if (body) {
+                // Get key
+                var key = await jwt.sign({
+                    foo: 'bar'
+                }, 'shhhhh');
+
+                products.insertOne(new Product({
+                    key,
+                    image: body.image,
+                    name: body.name,
+                    price: body.price,
+                    desc: body.description,
+                    category: body.category
+                })).then(result => {
+                    return res.status(200).send({
+                        message: 'Product added successfully'
+                    })
+                }).catch(err => {
+                    return res.status(401).send({
+                        message: `Invalid request. ${err}`
+                    });
+                });
+            } else {
+                return res.status(401).send({
+                    message: `Invalid request. ${err}`
+                });
+            }
+        });
+
+        // Update product
+        app.put('/products/:id', (req, res) => {
+            var key = req.params.id;
+            var body = req.body;
+
+            if (body) {
+                products.findOneAndUpdate({
+                    key
+                }, {
+                    $set: {
+                        image: body.image,
+                        desc: body.desc,
+                        name: body.name,
+                        category: body.category,
+                        url: body.url,
+                        isWishListItem: body.isWishListItem,
+                        synced: body.synced,
+                        quantity: body.quantity,
+                        price: body.price,
+                        ratings: body.ratings,
+                        updatedAt: new Date().getTime()
+                    }
+                }).then(response => {
+                    if (response) {
+                        return res.status(200).send({
+                            message: 'User updated successfully'
+                        })
+                    } else {
+                        return res.status(404).send({
+                            message: `User was not found.${err}`
+                        });
+                    }
+                }).catch(err => {
+                    return res.status(500).send({
+                        message: `Server is unavailable now.${err}`
+                    })
+                });
+            } else {
+                return res.status(500).send({
+                    message: `Invalid request.${err}`
+                });
+            }
+        });
+
+        // Remove product
+        app.delete('/products/:id', (req, res) => {
+            var key = req.params.id;
+
+            products.findOneAndDelete({
+                key
+            }).then(result => {
+                return res.status(200).send({
+                    message: 'Item deleted successfully'
+                })
+            }).catch(err => {
+                return res.status(404).send({
+                    message: err
+                })
+            });
+        })
 
         app.listen(3000, () => console.log('Connected on port 3000'));
     }
 });
-
-app.get('/', (req, res) => {
-    return res.send({
-        message: 'Its working'
-    })
-});
-
-// Login Function
-// exports.login = functions.https.onRequest(async (req, res) => {
-//     var body = req.body;
-//     // { "email" : "quaynah@gmail.com", "password" : "quabynah" }
-
-//     if (body && req.method == 'POST') {
-//         var email = body.email;
-//         // var password = body.password;
-
-//         // Get auth key
-//         var authKey = await jwt.sign({
-//             foo: 'bar'
-//         }, 'shhhhh');
-
-//         return res.status(201).send({
-//             key: authKey,
-//             name: '',
-//             email: email,
-//             avatar: '',
-//             type: 'guest',
-//             createdAt: new Date().getTime()
-//         });
-
-//     } else {
-//         return res.status(400).send({
-//             message: 'Bad login credentials'
-//         });
-//     }
-
-// });
-
-// // Login Function
-// exports.register = functions.https.onRequest(async (req, res) => {
-//     var body = req.body;
-//     // { "email" : "quaynah@gmail.com", "password" : "quabynah" }
-
-//     if (body && req.method == 'POST') {
-//         var email = body.email;
-//         // var password = body.password;
-
-//         // Get auth key
-//         var authKey = await jwt.sign({
-//             foo: 'bar'
-//         }, 'shhhhh');
-
-//         return res.status(201).send({
-//             key: authKey,
-//             name: '',
-//             email: email,
-//             avatar: '',
-//             type: 'guest',
-//             createdAt: new Date().getTime()
-//         });
-
-//     } else {
-//         return res.status(400).send({
-//             message: 'Bad login credentials'
-//         });
-//     }
-
-// });
 
 // exports.products = functions.https.onRequest(async (req, res) => {
 //     var path = req.path;

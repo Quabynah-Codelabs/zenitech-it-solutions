@@ -15,16 +15,41 @@ var productSchema = new mongoose.Schema({
             return !validator.isEmpty(value)
         }
     },
+    desc: {
+        required: true,
+        type: String,
+        validate: (value) => {
+            return !validator.isEmpty(value)
+        }
+    },
     price: {
         required: true,
-        type: Number,
+        type: String,
         validate: (value) => {
-            return !validator.isEmpty(value) && validator.isNumeric(value);
+            return !validator.isEmpty(value);
         }
     },
     category: String,
-    
-    createdAt: {
+    image: String,
+    quantity: Number,
+    synced: {
+        required: false,
+        default: false
+    },
+    isWishListItem: {
+        required: false,
+        default: false
+    },
+    url: {
+        type: String,
+        default: `https://zenitech-solutions.web.app/shop/`
+    },
+    ratings: {
+        type: Number,
+        default: 3.5,
+        required: false
+    },
+    uploadTime: {
         required: false,
         type: Number,
         default: new Date().getTime()
