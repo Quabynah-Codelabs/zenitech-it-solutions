@@ -77,6 +77,7 @@ MongoClient.connect(url, {
 
         var customers = client.db('zeniteck').collection('customers');
         var products = client.db('zeniteck').collection('products');
+        var cart = client.db('zeniteck').collection('cart');
 
         // Registration
         app.post('/register', async (req, res, next) => {
@@ -217,8 +218,8 @@ MongoClient.connect(url, {
                         type: body.type,
                         updatedAt: new Date().getTime()
                     }
-                }).then(user => {
-                    if (user) {
+                }).then(response => {
+                    if (response) {
                         return res.status(200).send({
                             message: 'User updated successfully'
                         })
@@ -241,15 +242,59 @@ MongoClient.connect(url, {
         });
 
         // Products
-        app.post('/products', async (req, res) => {
-            var urlProducts = await products.find({}).limit(1000);
-            if (urlProducts) {
-                return res.status(200).send(JSON.stringify(urlProducts));
-            } else {
+        app.post('/products', (req, res) => {
+            products.find({}).on('data', (result) => {
+                return res.status(200).send({
+                    result
+                });
+            }).on('error', (err) => {
                 return res.status(400).send({
                     message: 'unable to load products'
                 });
-            }
+            });
+        });
+
+        // Single Product
+        app.post('/products/:id', (req, res) => {
+            products.findOne({
+                key: req.params.id
+            }).then(product => {
+                if (product) {
+                    return res.status(200).send(product);
+                } else {
+                    return res.status(401).send({
+                        message: 'Cannot find product'
+                    })
+                }
+            }).catch(err => {
+                return res.status(404).send({
+                    message: `Error occurred while getting this product. ${err}`
+                })
+            });
+        });
+
+        // Shopping cart for user
+        app.post('/cart/:id', (req, res) => {
+            // User ID
+            var key = req.params.id;
+
+            // Find shopping cart content
+            cart.findOne({
+                userId: key
+            }).then(result => {
+                if (result) {
+                    return res.status(200).send(result);
+                } else {
+                    return res.status(404).send({
+                        message: "Cannot find user's shopping cart details"
+                    })
+                }
+            }).catch(err => {
+                return res.status(404).send({
+                    message: `Error occurred while getting this product. ${err}`
+                })
+            });
+
         });
 
         app.listen(3000, () => console.log('Connected on port 3000'));
