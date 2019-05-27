@@ -5,4 +5,5 @@ const app = require('./api')
 // Initialize Firebase Admin
 admin.initializeApp();
 
+// Create API endpoint
 exports.api = functions.https.onRequest(app);

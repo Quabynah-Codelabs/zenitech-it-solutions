@@ -171,15 +171,17 @@ MongoClient.connect(url, {
             }
         });
 
-        app.put('/customers/:id/updateToken', (req, res, next) => {
+        app.post('/customers/:id/updateToken', (req, res, next) => {
             var userId = req.params.id;
-            var body = req.body
+            var body = req.body;
 
             if (body) {
                 customers.findOneAndUpdate({
                     key: userId
                 }, {
-                    token: body.token
+                    $set: {
+                        token: body.token
+                    }
                 }).then(user => {
                     if (user) {
                         return res.status(200).send({
