@@ -2,6 +2,7 @@ package io.codelabs.zenitech.core.database
 
 import android.os.Environment
 import android.text.format.DateUtils
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.network.LiveDataCallAdapterFactory
 import io.codelabs.zenitech.BuildConfig
@@ -37,6 +38,7 @@ class DatabaseAPI {
 
         val retrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.API_BASE_URL)
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .client(

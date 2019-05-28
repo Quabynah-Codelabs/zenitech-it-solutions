@@ -18,7 +18,6 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.intentTo
-import io.codelabs.sdk.util.network.Outcome
 import io.codelabs.sdk.util.showConfirmationToast
 import io.codelabs.sdk.util.toast
 import io.codelabs.zenitech.BuildConfig
@@ -97,32 +96,41 @@ class MainActivity : BaseActivity() {
 
     fun register(v: View?) {
         if (username.isNotEmpty() && password.isNotEmpty()) {
-            authService.createUserWithEmailAndPassword(LoginRequest(username.text.toString(), password.text.toString()))
-                .observe(this, Observer {
-                    when (it) {
-                        is Outcome.Success -> {
-                            debugLog("Success: ${it.data}")
-                            loginUser(it.data)
-                        }
-
-                        is Outcome.Failure -> {
-                            debugLog("Failure: ${it.e.localizedMessage}")
-                            authSnackbar.setText(it.e.localizedMessage).setDuration(BaseTransientBottomBar.LENGTH_LONG)
-                                .show()
-                            TransitionManager.beginDelayedTransition(binding.container)
-                            binding.loading.visibility = View.GONE
-                            binding.content.visibility = View.VISIBLE
-                        }
-
-                        is Outcome.Progress -> {
-                            debugLog("Login call in progress")
-                            authSnackbar.show()
-                            TransitionManager.beginDelayedTransition(binding.container)
-                            binding.loading.visibility = View.VISIBLE
-                            binding.content.visibility = View.GONE
-                        }
+            ioScope.launch {
+                loginUser(
+                    authService.createUserWithEmailAndPasswordAsync(
+                        LoginRequest(
+                            username.text.toString(),
+                            password.text.toString()
+                        )
+                    ).await()
+                )
+            }
+            /*.observe(this, Observer {
+                when (it) {
+                    is Outcome.Success -> {
+                        debugLog("Success: ${it.data}")
+                        loginUser(it.data)
                     }
-                })
+
+                    is Outcome.Failure -> {
+                        debugLog("Failure: ${it.e.localizedMessage}")
+                        authSnackbar.setText(it.e.localizedMessage).setDuration(BaseTransientBottomBar.LENGTH_LONG)
+                            .show()
+                        TransitionManager.beginDelayedTransition(binding.container)
+                        binding.loading.visibility = View.GONE
+                        binding.content.visibility = View.VISIBLE
+                    }
+
+                    is Outcome.Progress -> {
+                        debugLog("Login call in progress")
+                        authSnackbar.show()
+                        TransitionManager.beginDelayedTransition(binding.container)
+                        binding.loading.visibility = View.VISIBLE
+                        binding.content.visibility = View.GONE
+                    }
+                }
+            })*/
 
         } else toast("Enter your email and password")
     }
@@ -142,33 +150,42 @@ class MainActivity : BaseActivity() {
 
     fun login(view: View) {
         if (username.isNotEmpty() && password.isNotEmpty()) {
-            authService.loginWithEmailAndPassword(LoginRequest(username.text.toString(), password.text.toString()))
-                .observe(this, Observer {
-                    when (it) {
-                        is Outcome.Success -> {
-                            debugLog("Success: ${it.data}")
-                            val user = it.data
-                            loginUser(user)
-                        }
+            ioScope.launch {
+                loginUser(
+                    authService.loginWithEmailAndPasswordAsync(
+                        LoginRequest(
+                            username.text.toString(),
+                            password.text.toString()
+                        )
+                    ).await()
+                )
+            }
+            /*.observe(this, Observer {
+                when (it) {
+                    is Outcome.Success -> {
+                        debugLog("Success: ${it.data}")
+                        val user = it.data
 
-                        is Outcome.Failure -> {
-                            authSnackbar.setText(it.e.localizedMessage).setDuration(BaseTransientBottomBar.LENGTH_LONG)
-                                .show()
-                            debugLog("Failure: ${it.e.localizedMessage}")
-                            TransitionManager.beginDelayedTransition(binding.container)
-                            binding.loading.visibility = View.GONE
-                            binding.content.visibility = View.VISIBLE
-                        }
-
-                        is Outcome.Progress -> {
-                            authSnackbar.show()
-                            debugLog("Login call in progress")
-                            TransitionManager.beginDelayedTransition(binding.container)
-                            binding.loading.visibility = View.VISIBLE
-                            binding.content.visibility = View.GONE
-                        }
                     }
-                })
+
+                    is Outcome.Failure -> {
+                        authSnackbar.setText(it.e.localizedMessage).setDuration(BaseTransientBottomBar.LENGTH_LONG)
+                            .show()
+                        debugLog("Failure: ${it.e.localizedMessage}")
+                        TransitionManager.beginDelayedTransition(binding.container)
+                        binding.loading.visibility = View.GONE
+                        binding.content.visibility = View.VISIBLE
+                    }
+
+                    is Outcome.Progress -> {
+                        authSnackbar.show()
+                        debugLog("Login call in progress")
+                        TransitionManager.beginDelayedTransition(binding.container)
+                        binding.loading.visibility = View.VISIBLE
+                        binding.content.visibility = View.GONE
+                    }
+                }
+            })*/
 
         } else toast("Enter your email and password")
     }
@@ -238,40 +255,44 @@ class MainActivity : BaseActivity() {
             binding.loading.visibility = View.GONE
             binding.content.visibility = View.VISIBLE
         } else {
-            authService.authenticateCustomer(
-                OAuthRequest(
-                    account.email,
-                    account.idToken!!,
-                    account.displayName,
-                    account.photoUrl.toString()
+            ioScope.launch {
+                loginUser(
+                    authService.authenticateCustomerAsync(
+                        OAuthRequest(
+                            account.email,
+                            account.idToken!!,
+                            account.displayName,
+                            account.photoUrl.toString()
+                        )
+                    ).await()
                 )
-            )
-                .observe(this, Observer {
-                    when (it) {
-                        is Outcome.Success -> {
-                            debugLog("Success: ${it.data}")
-                            val user = it.data
-                            loginUser(user)
-                        }
-
-                        is Outcome.Failure -> {
-                            authSnackbar.setText(it.e.localizedMessage).setDuration(BaseTransientBottomBar.LENGTH_LONG)
-                                .show()
-                            debugLog("Failure: ${it.e.localizedMessage}")
-                            TransitionManager.beginDelayedTransition(binding.container)
-                            binding.loading.visibility = View.GONE
-                            binding.content.visibility = View.VISIBLE
-                        }
-
-                        is Outcome.Progress -> {
-                            authSnackbar.show()
-                            debugLog("Login call in progress")
-                            TransitionManager.beginDelayedTransition(binding.container)
-                            binding.loading.visibility = View.VISIBLE
-                            binding.content.visibility = View.GONE
-                        }
+            }
+            /*.observe(this, Observer {
+                when (it) {
+                    is Outcome.Success -> {
+                        debugLog("Success: ${it.data}")
+                        val user = it.data
+                        loginUser(user)
                     }
-                })
+
+                    is Outcome.Failure -> {
+                        authSnackbar.setText(it.e.localizedMessage).setDuration(BaseTransientBottomBar.LENGTH_LONG)
+                            .show()
+                        debugLog("Failure: ${it.e.localizedMessage}")
+                        TransitionManager.beginDelayedTransition(binding.container)
+                        binding.loading.visibility = View.GONE
+                        binding.content.visibility = View.VISIBLE
+                    }
+
+                    is Outcome.Progress -> {
+                        authSnackbar.show()
+                        debugLog("Login call in progress")
+                        TransitionManager.beginDelayedTransition(binding.container)
+                        binding.loading.visibility = View.VISIBLE
+                        binding.content.visibility = View.GONE
+                    }
+                }
+            })*/
         }
     }
 

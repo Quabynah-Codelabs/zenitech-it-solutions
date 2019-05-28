@@ -19,7 +19,7 @@ interface DatabaseService {
     fun getCurrentCustomer(@Body request: CustomerRequest): RetrofitLiveData<User>
 
     @POST("api/customers/{id}")
-    fun updateCustomer(@Path("id") key: String): RetrofitLiveData<Void>
+    fun updateCustomer(@Path("id") key: String): Deferred<Void>
     //endregion CUSTOMER
 
     //region PRODUCTS
@@ -32,15 +32,15 @@ interface DatabaseService {
 
     //region CART
     @POST("api/cart")
-    fun addToCart(@Body request: CartRequest): RetrofitLiveData<Void>
+    fun addToCart(@Body request: CartRequest): Deferred<Void>
 
     @POST("api/cart/{id}")
     fun getCustomerCart(@Path("id") key: String): RetrofitLiveData<MutableList<Cart>>
 
     @POST("api/cart/{user}/{id}")
-    fun getCartItem(@Path("user") user: String, @Path("id") key: String): RetrofitLiveData<Cart>
+    fun getCartItem(@Path("user") user: String, @Path("id") key: String): Deferred<Cart>
 
     @DELETE("api/cart/{id}")
-    fun deleteCart(@Path("id") key: String): RetrofitLiveData<Void>
+    fun deleteCart(@Path("id") key: String): Deferred<Void>
     //endregion CART
 }

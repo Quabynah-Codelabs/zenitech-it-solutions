@@ -1,6 +1,7 @@
 package io.codelabs.zenitech.core.auth
 
 import android.os.Environment
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import io.codelabs.sdk.util.network.LiveDataCallAdapterFactory
 import io.codelabs.zenitech.BuildConfig
 import okhttp3.Cache
@@ -17,6 +18,7 @@ object AuthAPI {
 
         val retrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.API_BASE_URL)
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .client(
