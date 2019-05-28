@@ -29,7 +29,7 @@ android {
         buildConfigField "String", "WEB_HOSTING_SITE", "\"https://zenitech-solutions.web.app/\""
 
         // CLOUD FUNCTIONS
-        def baseUrl = "https://us-central1-zenitech-solutions.cloudfunctions.net/api"
+        def baseUrl = "https://us-central1-zenitech-solutions.cloudfunctions.net/api/"
         manifestPlaceholders = [base_url: baseUrl]
         buildConfigField "String", "API_BASE_URL", "\"${baseUrl}\""
 
