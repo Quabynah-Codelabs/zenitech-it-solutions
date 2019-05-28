@@ -39,7 +39,11 @@ class UserRepository constructor(
 
                             is Outcome.Failure -> {
                                 GlobalScope.launch(Dispatchers.IO){
-                                    user = dao.getUser(prefs.key!!)
+                                    try {
+                                        user = dao.getUser(prefs.key!!)
+                                    } catch (e: Exception) {
+                                        debugLog(e.localizedMessage)
+                                    }
                                 }
                             }
                         }

@@ -43,7 +43,7 @@ class SettingsFragment : BaseFragment() {
         })
 
         binding.logoutButton.setOnClickListener {
-            userViewModel.getCurrentUser().observe(viewLifecycleOwner, Observer {
+            /*userViewModel.getCurrentUser().observe(viewLifecycleOwner, Observer {
                 if (it != null) {
                     prefs.key = null
                     userViewModel.removeUser(it)
@@ -56,7 +56,14 @@ class SettingsFragment : BaseFragment() {
                 } else {
                     Snackbar.make(binding.root, "Please sign in first", Snackbar.LENGTH_LONG).show()
                 }
-            })
+            })*/
+            prefs.key = null
+            Snackbar.make(binding.root, "Signing you out...", Snackbar.LENGTH_INDEFINITE).show()
+
+            uiScope.launch {
+                delay(2000)
+                requireActivity().intentTo(MainActivity::class.java, true)
+            }
         }
 
         // Show OnBoarding

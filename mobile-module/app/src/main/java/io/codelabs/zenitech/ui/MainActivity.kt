@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.intentTo
@@ -25,7 +26,6 @@ import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.auth.LoginRequest
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.core.util.isNotEmpty
-import io.codelabs.zenitech.data.BaseDataModel
 import io.codelabs.zenitech.data.User
 import io.codelabs.zenitech.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
@@ -106,7 +106,8 @@ class MainActivity : BaseActivity() {
 
                         is Outcome.Failure -> {
                             debugLog("Failure: ${it.e.localizedMessage}")
-                            if (authSnackbar.isShown) authSnackbar.dismiss()
+                            authSnackbar.setText(it.e.localizedMessage).setDuration(BaseTransientBottomBar.LENGTH_LONG)
+                                .show()
                             TransitionManager.beginDelayedTransition(binding.container)
                             binding.loading.visibility = View.GONE
                             binding.content.visibility = View.VISIBLE
@@ -150,7 +151,8 @@ class MainActivity : BaseActivity() {
                         }
 
                         is Outcome.Failure -> {
-                            if (authSnackbar.isShown) authSnackbar.dismiss()
+                            authSnackbar.setText(it.e.localizedMessage).setDuration(BaseTransientBottomBar.LENGTH_LONG)
+                                .show()
                             debugLog("Failure: ${it.e.localizedMessage}")
                             TransitionManager.beginDelayedTransition(binding.container)
                             binding.loading.visibility = View.GONE
@@ -210,8 +212,7 @@ class MainActivity : BaseActivity() {
 
                 else -> {
                     // Login cancelled
-                    toast("Login failed")
-                    if (authSnackbar.isShown) authSnackbar.dismiss()
+                    authSnackbar.setText("Login failed").setDuration(BaseTransientBottomBar.LENGTH_LONG).show()
 
                     TransitionManager.beginDelayedTransition(binding.container)
                     binding.loading.visibility = View.GONE
@@ -227,15 +228,47 @@ class MainActivity : BaseActivity() {
             toast("Please sign in again. It seems there\'s a problem with your login", true)
             return
         }
+        debugLog("Account Id token: ${account.idToken}")
 
-        try {
-            val user = User(
-                account.id!!, account.displayName ?: "No Name", account.email!!,
-                account.photoUrl.toString(), BaseDataModel.ModelType.USER
+        if (account.idToken.isNullOrEmpty()) {
+            if (authSnackbar.isShown) authSnackbar.dismiss()
+            debugLog("Failure: Account id token is null")
+            TransitionManager.beginDelayedTransition(binding.container)
+            binding.loading.visibility = View.GONE
+            binding.content.visibility = View.VISIBLE
+        } else {
+            authService.authenticateCustomer(
+                account.email,
+                account.idToken!!,
+                account.displayName,
+                account.photoUrl.toString()
             )
-            loginUser(user)
-        } catch (e: Exception) {
-            toast("Unable to sign you in...", true)
+                .observe(this, Observer {
+                    when (it) {
+                        is Outcome.Success -> {
+                            debugLog("Success: ${it.data}")
+                            val user = it.data
+                            loginUser(user)
+                        }
+
+                        is Outcome.Failure -> {
+                            authSnackbar.setText(it.e.localizedMessage).setDuration(BaseTransientBottomBar.LENGTH_LONG)
+                                .show()
+                            debugLog("Failure: ${it.e.localizedMessage}")
+                            TransitionManager.beginDelayedTransition(binding.container)
+                            binding.loading.visibility = View.GONE
+                            binding.content.visibility = View.VISIBLE
+                        }
+
+                        is Outcome.Progress -> {
+                            authSnackbar.show()
+                            debugLog("Login call in progress")
+                            TransitionManager.beginDelayedTransition(binding.container)
+                            binding.loading.visibility = View.VISIBLE
+                            binding.content.visibility = View.GONE
+                        }
+                    }
+                })
         }
     }
 

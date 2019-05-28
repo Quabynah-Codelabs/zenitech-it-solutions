@@ -135,6 +135,59 @@ MongoClient.connect(url, {
             });
         });
 
+        // OAuth
+        app.post('/oauth', async (req, res, next) => {
+            var body = req.body;
+
+            var email = body.email;
+            var username = body.username;
+            var accountId = body.accountId
+            var avatar = body.avatar
+
+            // Query user information
+            customers.findOne({
+                email: email
+            }).then(async user => {
+                if (user) {
+                    return res.status(200).send(user);
+                } else {
+
+                    // Get auth key
+                    var key = await jwt.sign({
+                        foo: 'bar'
+                    }, 'shhhhh');
+
+                    // Create a new user
+                    customers.insertOne(new Customer({
+                        key,
+                        email,
+                        password: accountId,
+                        salt: "",
+                        name: username,
+                        avatar: avatar,
+                        type: 'guest',
+                        createdAt: new Date().getTime()
+                    })).then((response) => {
+                        if (response.result) {
+                            return res.status(200).send(response.result);
+                        } else {
+                            return res.status(401).send({
+                                message: 'Unable to create this account'
+                            })
+                        }
+                    }).catch(err => {
+                        return res.status(200).send({
+                            message: 'An error occurred while creating this user'
+                        });
+                    });
+                }
+            }).catch(err => {
+                return res.status(404).send({
+                    err
+                })
+            });
+        });
+
         // Login
         app.post('/login', async (req, res, next) => {
             var body = req.body;
