@@ -2,14 +2,13 @@ package io.codelabs.zenitech.core.datasource.repository
 
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.network.Outcome
+import io.codelabs.zenitech.core.database.CustomerRequest
 import io.codelabs.zenitech.core.database.DatabaseAPI
-import io.codelabs.zenitech.core.database.DatabaseService
 import io.codelabs.zenitech.core.datasource.room.RoomAppDao
 import io.codelabs.zenitech.data.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class UserRepository constructor(
     private val dao: RoomAppDao,
@@ -21,7 +20,7 @@ class UserRepository constructor(
         var user: User? = null
         if (prefs.isLoggedIn) {
             GlobalScope.launch(Dispatchers.Main) {
-                api.getDatabaseService().getCurrentCustomer(DatabaseService.CustomerRequest(prefs.key!!))
+                api.getDatabaseService().getCurrentCustomer(CustomerRequest(prefs.key!!))
                     .observeForever {
                         debugLog("User query result: $it")
                         when (it) {
@@ -38,7 +37,7 @@ class UserRepository constructor(
                             }
 
                             is Outcome.Failure -> {
-                                GlobalScope.launch(Dispatchers.IO){
+                                GlobalScope.launch(Dispatchers.IO) {
                                     try {
                                         user = dao.getUser(prefs.key!!)
                                     } catch (e: Exception) {

@@ -9,8 +9,6 @@ import retrofit2.http.Path
 
 interface DatabaseService {
 
-    data class CustomerRequest(val key: String)
-
     @POST("/me")
     fun getCurrentCustomer(@Body request: CustomerRequest): RetrofitLiveData<User>
 

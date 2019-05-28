@@ -15,7 +15,6 @@ interface AuthService {
     fun createUserWithEmailAndPassword(@Body request: LoginRequest): RetrofitLiveData<User>
 
     @POST("/oauth")
-    @FormUrlEncoded
     fun authenticateCustomer(
         @Body request: OAuthRequest
     ): RetrofitLiveData<User>
