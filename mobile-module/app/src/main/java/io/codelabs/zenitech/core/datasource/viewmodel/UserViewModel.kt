@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.core.datasource.repository.UserRepository
+import io.codelabs.zenitech.core.dbutil.Callback
 import io.codelabs.zenitech.data.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,7 +27,15 @@ class UserViewModel constructor(private val repository: UserRepository) : ViewMo
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            _liveUser.postValue(repository.getCurrentUser())
+            repository.getCurrentUser(object : Callback<User?> {
+                override fun onError(error: String?) {
+                    debugLog(error)
+                }
+
+                override fun onSuccess(result: User?) {
+                    _liveUser.postValue(result)
+                }
+            })
         }
     }
 

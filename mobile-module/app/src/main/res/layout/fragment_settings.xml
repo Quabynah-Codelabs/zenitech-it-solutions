@@ -18,21 +18,21 @@
                                                        app:leadingIcon="@drawable/twotone_group_24px"
                                                        android:text="@string/account_information"/>
 
-            <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+            <io.codelabs.sdk.widget.PreferenceView android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         app:icon="@drawable/twotone_perm_identity_24px"
                                                         app:title="@string/username"
                                                         app:summary="@{user.name}"
                                                         app:widget="@layout/widget_edit"/>
 
-            <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+            <io.codelabs.sdk.widget.PreferenceView android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         app:icon="@drawable/twotone_mail_outline_24px"
                                                         app:title="@string/email"
                                                         app:summary="@{user.email}"
                                                         app:widget="@layout/widget_edit"/>
 
-            <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+            <io.codelabs.sdk.widget.PreferenceView android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         app:icon="@drawable/twotone_event_24px"
                                                         app:title="@string/created_at"
@@ -44,7 +44,7 @@
                                                        app:leadingIcon="@drawable/twotone_settings_24px"
                                                        android:text="@string/user_interface"/>
 
-            <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+            <io.codelabs.sdk.widget.PreferenceView android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         app:title="Application Onboarding"
                                                         android:id="@+id/ui_prefs"
@@ -52,7 +52,7 @@
                                                         app:widget="@layout/widget_switch"
                                                         app:summary="Show welcome screen on startup"/>
 
-            <io.codelabs.zenitech.widget.PreferenceView android:layout_width="match_parent"
+            <io.codelabs.sdk.widget.PreferenceView android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         app:title="@string/instructions_enable_dark_title"
                                                         android:id="@+id/ui_dark_mode"
