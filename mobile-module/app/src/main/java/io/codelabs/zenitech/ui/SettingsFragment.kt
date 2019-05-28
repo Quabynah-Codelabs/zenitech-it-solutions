@@ -17,7 +17,6 @@ import io.codelabs.zenitech.core.datasource.repository.Preferences
 import io.codelabs.zenitech.core.datasource.viewmodel.UserViewModel
 import io.codelabs.zenitech.core.theme.BaseFragment
 import io.codelabs.zenitech.databinding.FragmentSettingsBinding
-import kotlinx.android.synthetic.main.preference_view.view.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -53,7 +52,7 @@ class SettingsFragment : BaseFragment() {
         }
 
         // Show OnBoarding
-        binding.uiPrefs.widgetFrame.findViewById<SwitchMaterial>(R.id.core_switch)?.apply {
+        binding.uiPrefs.findViewById<SwitchMaterial>(R.id.core_switch)?.apply {
             isChecked = prefs.isShowOnBoarding
             isUseMaterialThemeColors = true
             setOnCheckedChangeListener { _, isChecked ->
@@ -62,7 +61,7 @@ class SettingsFragment : BaseFragment() {
         }
 
         // Night Mode
-        binding.uiDarkMode.widgetFrame.findViewById<SwitchMaterial>(R.id.core_switch_theme)?.apply {
+        binding.uiDarkMode.findViewById<SwitchMaterial>(R.id.core_switch_theme)?.apply {
             (requireActivity().application as ZenitechApp).preferenceRepository.isDarkThemeLive.observe(
                 viewLifecycleOwner,
                 Observer {

@@ -25,8 +25,8 @@ class Preferences constructor(ctx: Context) {
     private val prefs: SharedPreferences = ctx.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE)
 
     var isLoggedIn: Boolean = false
-    var isShowOnBoarding: Boolean = false
-        get() = prefs.getBoolean(SHOW_UI, false)
+    var isShowOnBoarding: Boolean = true
+        get() = prefs.getBoolean(SHOW_UI, true)
         set(value) {
             field = value
             prefs.edit {
@@ -49,7 +49,7 @@ class Preferences constructor(ctx: Context) {
 
     init {
         key = prefs.getString(USER_KEY, null)
-        isShowOnBoarding = prefs.getBoolean(SHOW_UI, false)
+        isShowOnBoarding = prefs.getBoolean(SHOW_UI, true)
 
         isLoggedIn = !key.isNullOrEmpty()
         if (isLoggedIn) key = prefs.getString(USER_KEY, null)
