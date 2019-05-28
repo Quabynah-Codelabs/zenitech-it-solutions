@@ -1,22 +1,25 @@
 package io.codelabs.zenitech.ui.recyclerview
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import io.codelabs.sdk.glide.GlideApp
+import io.codelabs.sdk.util.debugLog
+import io.codelabs.sdk.util.network.Outcome
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.datasource.repository.ProductRepository
-import io.codelabs.zenitech.data.Product
+import io.codelabs.zenitech.core.theme.BaseActivity
+import io.codelabs.zenitech.data.Cart
 import io.codelabs.zenitech.ui.ProductDetailsActivity
 import kotlinx.android.synthetic.main.item_cart.view.*
 import kotlinx.android.synthetic.main.item_empty_cart.view.*
 
 class CartAdapter constructor(
-    private val context: Context,
+    private val context: BaseActivity,
     private val repository: ProductRepository,
     private val listener: ButtonStateListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -26,7 +29,7 @@ class CartAdapter constructor(
         private const val PRODUCT = R.layout.item_cart
     }
 
-    val dataSource = mutableListOf<Product>()
+    val dataSource = mutableListOf<Cart>()
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var parent: ViewGroup? = null
 
@@ -56,43 +59,60 @@ class CartAdapter constructor(
     }
 
     private fun bindProducts(holder: ProductViewHolder, position: Int) {
-        val product = dataSource[position]
+        val cart = dataSource[position]
 
-        holder.v.cart_product_name.text = product.name
-        holder.v.cart_product_desc.text = product.desc
-        holder.v.cart_product_price.text = String.format("$ %.2f", product.price)
+        context.api.getDatabaseService().getProductById(cart.product.toString()).observe(context, Observer {
+            when (it) {
+                is Outcome.Success -> {
+                    val product = it.data
 
-        GlideApp.with(context)
-            .asBitmap()
-            .load(product.image)
-            .placeholder(R.drawable.sample_image)
-            .fallback(R.drawable.sample_image)
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-            .priority(Priority.IMMEDIATE)
-            .into(holder.v.cart_product_image)
+                    holder.v.cart_product_name.text = product.name
+                    holder.v.cart_product_desc.text = product.desc
+                    holder.v.cart_product_price.text = String.format("$ %.2f", product.price)
 
-//        var pos = holder.adapterPosition
-        holder.v.product_remove_cart.setOnClickListener {
-            repository.removeProduct(product)
-            this.dataSource.remove(product)
-            notifyDataSetChanged()
-            var price: Double = 0.00
-            dataSource.forEach {
-                price += it.price
+                    GlideApp.with(context)
+                        .asBitmap()
+                        .load(product.image)
+                        .placeholder(R.drawable.sample_image)
+                        .fallback(R.drawable.sample_image)
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                        .priority(Priority.IMMEDIATE)
+                        .into(holder.v.cart_product_image)
+
+                    holder.v.product_remove_cart.setOnClickListener {
+                        repository.removeProduct(product)
+                        this.dataSource.remove(product)
+                        notifyDataSetChanged()
+                        var price: Double = 0.00
+                        dataSource.forEach {
+                            price += it.price
+                        }
+                        listener.updateButtonState(dataSource.isNotEmpty(), price)
+                    }
+
+                    holder.v.setOnClickListener {
+                        context.startActivity(Intent(context, ProductDetailsActivity::class.java).apply {
+                            putExtra(ProductDetailsActivity.EXTRA_PRODUCT, product)
+                            putExtra(ProductDetailsActivity.EXTRA_PRODUCT_ID, product.key)
+                            putExtra(ProductDetailsActivity.EXTRA_PRODUCT_IN_CART, true)
+                        })
+                    }
+                }
+
+                is Outcome.Progress -> {
+                    // do nothing
+                }
+
+                else -> {
+                    debugLog("Failed to get product")
+                }
             }
-            listener.updateButtonState(dataSource.isNotEmpty(), price)
-        }
+        })
 
-        holder.v.setOnClickListener {
-            context.startActivity(Intent(context, ProductDetailsActivity::class.java).apply {
-                putExtra(ProductDetailsActivity.EXTRA_PRODUCT, product)
-                putExtra(ProductDetailsActivity.EXTRA_PRODUCT_ID, product.key)
-                putExtra(ProductDetailsActivity.EXTRA_PRODUCT_IN_CART, true)
-            })
-        }
+
     }
 
-    fun addDataSource(products: MutableList<Product>) {
+    fun addDataSource(products: MutableList<Cart>) {
         this.dataSource.clear()
         this.dataSource.addAll(products)
         notifyDataSetChanged()

@@ -12,8 +12,11 @@ import io.codelabs.recyclerview.SlideInItemAnimator
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.PRODUCT_VM
+import io.codelabs.zenitech.core.USER_VM
 import io.codelabs.zenitech.core.datasource.repository.ProductRepository
 import io.codelabs.zenitech.core.datasource.viewmodel.ProductViewModel
+import io.codelabs.zenitech.core.datasource.viewmodel.UserViewModel
+import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.core.theme.BaseFragment
 import io.codelabs.zenitech.databinding.FragmentCartBinding
 import io.codelabs.zenitech.ui.recyclerview.CartAdapter
@@ -24,7 +27,7 @@ class CartFragment : BaseFragment() {
     private lateinit var binding: FragmentCartBinding
     private lateinit var adapter: CartAdapter
     private val repository: ProductRepository by inject()
-    private val productViewModel: ProductViewModel by viewModel(PRODUCT_VM)
+    private val userViewModel: UserViewModel by viewModel(USER_VM)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false)
@@ -34,7 +37,7 @@ class CartFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = CartAdapter(requireContext(), repository, object : CartAdapter.ButtonStateListener {
+        adapter = CartAdapter((requireActivity() as BaseActivity), repository, object : CartAdapter.ButtonStateListener {
             override fun updateButtonState(state: Boolean, price: Double) {
                 binding.checkout.visibility = if (state) View.VISIBLE else View.GONE
                 binding.checkout.text = String.format("Checkout GHC%.2f", price)
@@ -60,10 +63,10 @@ class CartFragment : BaseFragment() {
     }
 
     private fun loadLiveData() {
-        productViewModel.liveProducts.observeForever { products ->
-            if (products != null) {
-                debugLog("Cart: ${products.size}")
-                adapter.addDataSource(products)
+        userViewModel.liveCart.observeForever { carts ->
+            if (carts != null) {
+                debugLog("Cart: ${carts.size}")
+//                adapter.addDataSource(products)
             }
         }
     }

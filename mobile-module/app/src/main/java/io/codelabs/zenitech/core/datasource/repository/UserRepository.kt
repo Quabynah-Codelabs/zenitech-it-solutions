@@ -6,6 +6,7 @@ import io.codelabs.zenitech.core.database.DatabaseAPI
 import io.codelabs.zenitech.core.datasource.room.RoomAppDao
 import io.codelabs.zenitech.core.dbutil.Callback
 import io.codelabs.zenitech.core.dbutil.CustomerRequest
+import io.codelabs.zenitech.data.Cart
 import io.codelabs.zenitech.data.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -51,6 +52,28 @@ class UserRepository constructor(
                             }
                         }
                     }
+            }
+        }
+    }
+
+    fun getCart(callback: Callback<MutableList<Cart>>) {
+        callback.onInit()
+        if (prefs.isLoggedIn) {
+            GlobalScope.launch(Dispatchers.Main) {
+                api.getDatabaseService().getCustomerCart(prefs.key.toString()).observeForever {
+                    when (it) {
+                        is Outcome.Success -> {
+                            callback.onSuccess(it.data)
+                            callback.onComplete()
+                        }
+
+                        is Outcome.Failure -> {
+                            callback.onError(it.e.localizedMessage)
+                            callback.onComplete()
+                        }
+                    }
+                }
+
             }
         }
     }

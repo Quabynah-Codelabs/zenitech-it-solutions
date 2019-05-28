@@ -29,8 +29,7 @@
                                                         android:layout_height="wrap_content"
                                                         app:icon="@drawable/twotone_mail_outline_24px"
                                                         app:title="@string/email"
-                                                        app:summary="@{user.email}"
-                                                        app:widget="@layout/widget_edit"/>
+                                                        app:summary="@{user.email}"/>
 
             <io.codelabs.sdk.widget.PreferenceView android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
