@@ -106,31 +106,6 @@ class MainActivity : BaseActivity() {
                     ).await()
                 )
             }
-            /*.observe(this, Observer {
-                when (it) {
-                    is Outcome.Success -> {
-                        debugLog("Success: ${it.data}")
-                        loginUser(it.data)
-                    }
-
-                    is Outcome.Failure -> {
-                        debugLog("Failure: ${it.e.localizedMessage}")
-                        authSnackbar.setText(it.e.localizedMessage).setDuration(BaseTransientBottomBar.LENGTH_LONG)
-                            .show()
-                        TransitionManager.beginDelayedTransition(binding.container)
-                        binding.loading.visibility = View.GONE
-                        binding.content.visibility = View.VISIBLE
-                    }
-
-                    is Outcome.Progress -> {
-                        debugLog("Login call in progress")
-                        authSnackbar.show()
-                        TransitionManager.beginDelayedTransition(binding.container)
-                        binding.loading.visibility = View.VISIBLE
-                        binding.content.visibility = View.GONE
-                    }
-                }
-            })*/
 
         } else toast("Enter your email and password")
     }
@@ -160,32 +135,6 @@ class MainActivity : BaseActivity() {
                     ).await()
                 )
             }
-            /*.observe(this, Observer {
-                when (it) {
-                    is Outcome.Success -> {
-                        debugLog("Success: ${it.data}")
-                        val user = it.data
-
-                    }
-
-                    is Outcome.Failure -> {
-                        authSnackbar.setText(it.e.localizedMessage).setDuration(BaseTransientBottomBar.LENGTH_LONG)
-                            .show()
-                        debugLog("Failure: ${it.e.localizedMessage}")
-                        TransitionManager.beginDelayedTransition(binding.container)
-                        binding.loading.visibility = View.GONE
-                        binding.content.visibility = View.VISIBLE
-                    }
-
-                    is Outcome.Progress -> {
-                        authSnackbar.show()
-                        debugLog("Login call in progress")
-                        TransitionManager.beginDelayedTransition(binding.container)
-                        binding.loading.visibility = View.VISIBLE
-                        binding.content.visibility = View.GONE
-                    }
-                }
-            })*/
 
         } else toast("Enter your email and password")
     }
@@ -246,7 +195,6 @@ class MainActivity : BaseActivity() {
             toast("Please sign in again. It seems there\'s a problem with your login", true)
             return
         }
-        debugLog("Account Id token: ${account.idToken}")
 
         if (account.idToken.isNullOrEmpty()) {
             if (authSnackbar.isShown) authSnackbar.dismiss()
@@ -267,32 +215,6 @@ class MainActivity : BaseActivity() {
                     ).await()
                 )
             }
-            /*.observe(this, Observer {
-                when (it) {
-                    is Outcome.Success -> {
-                        debugLog("Success: ${it.data}")
-                        val user = it.data
-                        loginUser(user)
-                    }
-
-                    is Outcome.Failure -> {
-                        authSnackbar.setText(it.e.localizedMessage).setDuration(BaseTransientBottomBar.LENGTH_LONG)
-                            .show()
-                        debugLog("Failure: ${it.e.localizedMessage}")
-                        TransitionManager.beginDelayedTransition(binding.container)
-                        binding.loading.visibility = View.GONE
-                        binding.content.visibility = View.VISIBLE
-                    }
-
-                    is Outcome.Progress -> {
-                        authSnackbar.show()
-                        debugLog("Login call in progress")
-                        TransitionManager.beginDelayedTransition(binding.container)
-                        binding.loading.visibility = View.VISIBLE
-                        binding.content.visibility = View.GONE
-                    }
-                }
-            })*/
         }
     }
 

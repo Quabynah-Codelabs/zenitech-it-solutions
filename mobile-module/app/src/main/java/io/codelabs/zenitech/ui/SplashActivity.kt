@@ -21,7 +21,6 @@ import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.databinding.ActivitySplashBinding
 import org.jetbrains.anko.layoutInflater
 
-// todo: add some nice
 class SplashActivity : BaseActivity() {
     private lateinit var binding: ActivitySplashBinding
 
