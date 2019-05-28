@@ -23,8 +23,8 @@ import io.codelabs.sdk.util.showConfirmationToast
 import io.codelabs.sdk.util.toast
 import io.codelabs.zenitech.BuildConfig
 import io.codelabs.zenitech.R
-import io.codelabs.zenitech.core.auth.LoginRequest
-import io.codelabs.zenitech.core.auth.OAuthRequest
+import io.codelabs.zenitech.core.dbutil.LoginRequest
+import io.codelabs.zenitech.core.dbutil.OAuthRequest
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.core.util.isNotEmpty
 import io.codelabs.zenitech.data.User

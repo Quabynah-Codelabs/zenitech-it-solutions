@@ -2,9 +2,9 @@ package io.codelabs.zenitech.core.datasource.repository
 
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.network.Outcome
-import io.codelabs.zenitech.core.database.CustomerRequest
 import io.codelabs.zenitech.core.database.DatabaseAPI
 import io.codelabs.zenitech.core.datasource.room.RoomAppDao
+import io.codelabs.zenitech.core.dbutil.CustomerRequest
 import io.codelabs.zenitech.data.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
