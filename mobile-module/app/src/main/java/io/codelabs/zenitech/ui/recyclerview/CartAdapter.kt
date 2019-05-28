@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import io.codelabs.sdk.glide.GlideApp
-import io.codelabs.sdk.util.debugLog
-import io.codelabs.sdk.util.network.Outcome
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.datasource.repository.ProductRepository
 import io.codelabs.zenitech.core.theme.BaseActivity
@@ -29,6 +27,7 @@ class CartAdapter constructor(
         private const val PRODUCT = R.layout.item_cart
     }
 
+    var price: Double = 0.00
     val dataSource = mutableListOf<Cart>()
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var parent: ViewGroup? = null
@@ -61,51 +60,36 @@ class CartAdapter constructor(
     private fun bindProducts(holder: ProductViewHolder, position: Int) {
         val cart = dataSource[position]
 
-        context.api.getDatabaseService().getProductById(cart.product.toString()).observe(context, Observer {
-            when (it) {
-                is Outcome.Success -> {
-                    val product = it.data
+        repository.getProductById(cart.product.toString()).observe(context, Observer { product ->
+            holder.v.cart_product_name.text = product.name
+            holder.v.cart_product_desc.text = product.desc
+            holder.v.cart_product_price.text = String.format("$ %.2f", product.price)
 
-                    holder.v.cart_product_name.text = product.name
-                    holder.v.cart_product_desc.text = product.desc
-                    holder.v.cart_product_price.text = String.format("$ %.2f", product.price)
+            GlideApp.with(context)
+                .asBitmap()
+                .load(product.image)
+                .placeholder(R.drawable.sample_image)
+                .fallback(R.drawable.sample_image)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .priority(Priority.IMMEDIATE)
+                .into(holder.v.cart_product_image)
 
-                    GlideApp.with(context)
-                        .asBitmap()
-                        .load(product.image)
-                        .placeholder(R.drawable.sample_image)
-                        .fallback(R.drawable.sample_image)
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                        .priority(Priority.IMMEDIATE)
-                        .into(holder.v.cart_product_image)
+            price += product.price
+            listener.updateButtonState(dataSource.isNotEmpty(), price)
 
-                    holder.v.product_remove_cart.setOnClickListener {
-                        repository.removeProduct(product)
-                        this.dataSource.remove(product)
-                        notifyDataSetChanged()
-                        var price: Double = 0.00
-                        dataSource.forEach {
-                            price += it.price
-                        }
-                        listener.updateButtonState(dataSource.isNotEmpty(), price)
-                    }
+            holder.v.product_remove_cart.setOnClickListener {
+                this.dataSource.remove(cart)
+                notifyDataSetChanged()
+                price -= product.price
+                listener.updateButtonState(dataSource.isNotEmpty(), price)
+            }
 
-                    holder.v.setOnClickListener {
-                        context.startActivity(Intent(context, ProductDetailsActivity::class.java).apply {
-                            putExtra(ProductDetailsActivity.EXTRA_PRODUCT, product)
-                            putExtra(ProductDetailsActivity.EXTRA_PRODUCT_ID, product.key)
-                            putExtra(ProductDetailsActivity.EXTRA_PRODUCT_IN_CART, true)
-                        })
-                    }
-                }
-
-                is Outcome.Progress -> {
-                    // do nothing
-                }
-
-                else -> {
-                    debugLog("Failed to get product")
-                }
+            holder.v.setOnClickListener {
+                context.startActivity(Intent(context, ProductDetailsActivity::class.java).apply {
+                    putExtra(ProductDetailsActivity.EXTRA_PRODUCT, product)
+                    putExtra(ProductDetailsActivity.EXTRA_PRODUCT_ID, product.key)
+                    putExtra(ProductDetailsActivity.EXTRA_PRODUCT_IN_CART, true)
+                })
             }
         })
 
@@ -116,12 +100,6 @@ class CartAdapter constructor(
         this.dataSource.clear()
         this.dataSource.addAll(products)
         notifyDataSetChanged()
-
-        var price: Double = 0.00
-        products.forEach {
-            price += it.price
-        }
-        listener.updateButtonState(products.isNotEmpty(), price)
     }
 
     interface ButtonStateListener {

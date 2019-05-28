@@ -25,7 +25,7 @@ val roomModule = module {
 
     single { UserRepository(get(), get(), get()) }
 
-    single { ProductRepository(get()) }
+    single { ProductRepository(get(), get()) }
 
     single { IssueRepository(get()) }
 

@@ -6,6 +6,7 @@ import io.codelabs.zenitech.core.dbutil.CustomerRequest
 import io.codelabs.zenitech.data.Cart
 import io.codelabs.zenitech.data.Product
 import io.codelabs.zenitech.data.User
+import kotlinx.coroutines.Deferred
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.POST
@@ -26,7 +27,7 @@ interface DatabaseService {
     fun loadProducts(): RetrofitLiveData<MutableList<Product>>
 
     @POST("api/products/{id}")
-    fun getProductById(@Path("id") id: String): RetrofitLiveData<Product>
+    fun getProductByIdAsync(@Path("id") id: String): Deferred<Product>
     //endregion PRODUCTS
 
     //region CART

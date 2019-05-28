@@ -6,13 +6,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.data.Product
 import io.codelabs.zenitech.databinding.ActivityProductBinding
+import kotlinx.coroutines.launch
 import okhttp3.HttpUrl
 
 class ProductDetailsActivity : BaseActivity() {
@@ -37,19 +36,13 @@ class ProductDetailsActivity : BaseActivity() {
             intent.hasExtra(EXTRA_PRODUCT) -> {
                 addToCart = intent.getBooleanExtra(EXTRA_PRODUCT_IN_CART, false)
                 addToFav = intent.getBooleanExtra(EXTRA_PRODUCT_IN_FAV, false)
-
                 binding.product = intent.getParcelableExtra<Product>(EXTRA_PRODUCT)
-               /* Snackbar.make(
-                    binding.container,
-                    "More info: ${(binding.product as? Product)?.url ?: (binding.product as? Product)?.name!!}",
-                    Snackbar.LENGTH_LONG
-                ).show()*/
             }
             intent.hasExtra(EXTRA_PRODUCT_ID) -> {
-                api.getDatabaseService().getProductById(intent.getStringExtra(EXTRA_PRODUCT_ID))
-                    .observe(this, Observer {
-                        debugLog("Loaded from API thru intent string: $it")
-                    })
+                ioScope.launch {
+                    binding.product =
+                        api.getDatabaseService().getProductByIdAsync(intent.getStringExtra(EXTRA_PRODUCT_ID)).await()
+                }
             }
 
             else -> {
@@ -57,9 +50,10 @@ class ProductDetailsActivity : BaseActivity() {
                     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS") val url =
                         HttpUrl.parse(intent.dataString)
                     debugLog("Url: ${url?.pathSize()}. ${url?.pathSegments()?.get(0)}")
-                    api.getDatabaseService().getProductById("24").observe(this, Observer {
-                        debugLog("Loaded from API: $it")
-                    })
+                    ioScope.launch {
+                        //todo: Load actual product with relevant ID
+                        binding.product = api.getDatabaseService().getProductByIdAsync("24").await()
+                    }
                 }
             }
         }
