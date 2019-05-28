@@ -139,53 +139,59 @@ MongoClient.connect(url, {
         app.post('/oauth', async (req, res, next) => {
             var body = req.body;
 
-            var email = body.email;
-            var username = body.username;
-            var accountId = body.accountId
-            var avatar = body.avatar
+            if (body) {
+                var email = body.email;
+                var username = body.username;
+                var accountId = body.accountId
+                var avatar = body.avatar
 
-            // Query user information
-            customers.findOne({
-                email: email
-            }).then(async user => {
-                if (user) {
-                    return res.status(200).send(user);
-                } else {
+                // Query user information
+                customers.findOne({
+                    email: email
+                }).then(async user => {
+                    if (user) {
+                        return res.status(200).send(user);
+                    } else {
 
-                    // Get auth key
-                    var key = await jwt.sign({
-                        foo: 'bar'
-                    }, 'shhhhh');
+                        // Get auth key
+                        var key = await jwt.sign({
+                            foo: 'bar'
+                        }, 'shhhhh');
 
-                    // Create a new user
-                    customers.insertOne(new Customer({
-                        key,
-                        email,
-                        password: accountId,
-                        salt: "",
-                        name: username,
-                        avatar: avatar,
-                        type: 'guest',
-                        createdAt: new Date().getTime()
-                    })).then((response) => {
-                        if (response.result) {
-                            return res.status(200).send(response.result);
-                        } else {
-                            return res.status(401).send({
-                                message: 'Unable to create this account'
-                            })
-                        }
-                    }).catch(err => {
-                        return res.status(200).send({
-                            message: 'An error occurred while creating this user'
+                        // Create a new user
+                        customers.insertOne(new Customer({
+                            key,
+                            email,
+                            password: accountId,
+                            salt: "",
+                            name: username,
+                            avatar: avatar,
+                            type: 'guest',
+                            createdAt: new Date().getTime()
+                        })).then((response) => {
+                            if (response.result) {
+                                return res.status(200).send(response.result);
+                            } else {
+                                return res.status(401).send({
+                                    message: 'Unable to create this account'
+                                })
+                            }
+                        }).catch(err => {
+                            return res.status(200).send({
+                                message: 'An error occurred while creating this user'
+                            });
                         });
-                    });
-                }
-            }).catch(err => {
-                return res.status(404).send({
-                    err
-                })
-            });
+                    }
+                }).catch(err => {
+                    return res.status(404).send({
+                        err
+                    })
+                });
+            } else {
+                return res.status(400).send({
+                    message: 'Bad login credentials'
+                });
+            }
         });
 
         // Login
@@ -346,7 +352,7 @@ MongoClient.connect(url, {
         // Get cart item
         app.post('/cart/:user/:id', (req, res) => {
             cart.findOne({
-                user: req.params.user, 
+                user: req.params.user,
                 key: req.params.id
             }).then(result => {
                 if (result) {

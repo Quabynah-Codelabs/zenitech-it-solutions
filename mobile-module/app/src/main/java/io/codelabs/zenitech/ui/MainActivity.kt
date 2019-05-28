@@ -24,6 +24,7 @@ import io.codelabs.sdk.util.toast
 import io.codelabs.zenitech.BuildConfig
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.auth.LoginRequest
+import io.codelabs.zenitech.core.auth.OAuthRequest
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.core.util.isNotEmpty
 import io.codelabs.zenitech.data.User
@@ -238,10 +239,12 @@ class MainActivity : BaseActivity() {
             binding.content.visibility = View.VISIBLE
         } else {
             authService.authenticateCustomer(
-                account.email,
-                account.idToken!!,
-                account.displayName,
-                account.photoUrl.toString()
+                OAuthRequest(
+                    account.email,
+                    account.idToken!!,
+                    account.displayName,
+                    account.photoUrl.toString()
+                )
             )
                 .observe(this, Observer {
                     when (it) {
