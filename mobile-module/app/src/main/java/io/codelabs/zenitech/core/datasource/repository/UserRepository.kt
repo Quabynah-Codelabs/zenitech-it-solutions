@@ -29,7 +29,7 @@ class UserRepository constructor(
 
                                 GlobalScope.launch(Dispatchers.IO) {
                                     try {
-                                        dao.updateUser(it.data)
+                                        dao.addUser(it.data)
                                     } catch (e: Exception) {
                                         debugLog(e.localizedMessage)
                                     }

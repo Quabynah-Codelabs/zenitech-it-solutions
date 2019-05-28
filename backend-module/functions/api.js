@@ -139,7 +139,7 @@ MongoClient.connect(url, {
         app.post('/oauth', async (req, res, next) => {
             var body = req.body;
 
-            if (body) {
+            if (body && body.email) {
                 var email = body.email;
                 var username = body.username;
                 var accountId = body.accountId

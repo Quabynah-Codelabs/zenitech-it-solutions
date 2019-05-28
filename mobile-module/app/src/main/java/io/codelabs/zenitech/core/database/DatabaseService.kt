@@ -14,32 +14,32 @@ import retrofit2.http.Path
 interface DatabaseService {
 
     //region CUSTOMER
-    @POST("/me")
+    @POST("api/me")
     fun getCurrentCustomer(@Body request: CustomerRequest): RetrofitLiveData<User>
 
-    @POST("/customers/{id}")
+    @POST("api/customers/{id}")
     fun updateCustomer(@Path("id") key: String): RetrofitLiveData<Void>
     //endregion CUSTOMER
 
     //region PRODUCTS
-    @POST("/products")
+    @POST("api/products")
     fun loadProducts(): RetrofitLiveData<MutableList<Product>>
 
-    @POST("/products/{id}")
+    @POST("api/products/{id}")
     fun getProductById(@Path("id") id: String): RetrofitLiveData<Product>
     //endregion PRODUCTS
 
     //region CART
-    @POST("/cart")
+    @POST("api/cart")
     fun addToCart(@Body request: CartRequest): RetrofitLiveData<Void>
 
-    @POST("/cart/{id}")
+    @POST("api/cart/{id}")
     fun getCustomerCart(@Path("id") key: String): RetrofitLiveData<MutableList<Cart>>
 
-    @POST("/cart/{user}/{id}")
+    @POST("api/cart/{user}/{id}")
     fun getCartItem(@Path("user") user: String, @Path("id") key: String): RetrofitLiveData<Cart>
 
-    @DELETE("/cart/{id}")
+    @DELETE("api/cart/{id}")
     fun deleteCart(@Path("id") key: String): RetrofitLiveData<Void>
     //endregion CART
 }
