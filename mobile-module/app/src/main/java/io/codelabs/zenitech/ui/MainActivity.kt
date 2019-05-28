@@ -71,7 +71,6 @@ class MainActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-
     override fun onEnterAnimationComplete() {
         if (prefs.isLoggedIn && !prefs.key.isNullOrEmpty()) showHomePrompt()
     }
@@ -128,9 +127,7 @@ class MainActivity : BaseActivity() {
 
     private fun loginUser(user: User) {
         ioScope.launch {
-            userViewModel.addUser(user.apply {
-                if (name.isNullOrEmpty()) name = "Dennis Kwabena Bilson"
-            })
+            userViewModel.addUser(user)
             prefs.key = user.key
             delay(2000)
 
@@ -176,8 +173,9 @@ class MainActivity : BaseActivity() {
     private fun googleLogin() {
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(BuildConfig.GOOGLE_AUTH_CLIENT_ID)
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
+            .requestProfile()
             .build()
 
         GoogleSignIn.getClient(this, gso).apply {

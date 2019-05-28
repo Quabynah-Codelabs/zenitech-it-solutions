@@ -39,12 +39,12 @@ class Preferences constructor(ctx: Context) {
     var key: String? = null
         get() = prefs.getString(USER_KEY, null)
         set(value) {
-            field = value
             isLoggedIn = /*!key.isNullOrEmpty()*/ true
             prefs.edit {
                 putString(USER_KEY, value)
                 apply()
             }
+            field = value
         }
 
     init {

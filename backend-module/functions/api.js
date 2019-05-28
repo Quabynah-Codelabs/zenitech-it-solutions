@@ -245,13 +245,11 @@ MongoClient.connect(url, {
 
         // Products
         app.post('/products', (req, res) => {
-            products.find({}).on('data', (result) => {
-                return res.status(200).send({
-                    result
-                });
-            }).on('error', (err) => {
+            products.find({}).limit(1000).toArray().then(docs => {
+                return res.status(200).send(docs);
+            }).catch(err => {
                 return res.status(400).send({
-                    message: 'unable to load products'
+                    message: `Unable to load products.${err}`
                 });
             });
         });
@@ -281,8 +279,22 @@ MongoClient.connect(url, {
             var key = req.params.id;
 
             // Find shopping cart content
+            cart.find({
+                user: key
+            }).limit(1000).toArray().then(docs => {
+                return res.status(200).send(docs);
+            }).catch(err => {
+                return res.status(400).send({
+                    message: `Unable to load products.${err}`
+                });
+            });
+        });
+
+        // Get cart item
+        app.post('/cart/:user/:id', (req, res) => {
             cart.findOne({
-                userId: key
+                user: req.params.user, 
+                key: req.params.id
             }).then(result => {
                 if (result) {
                     return res.status(200).send(result);
@@ -296,23 +308,22 @@ MongoClient.connect(url, {
                     message: `Error occurred while getting this product. ${err}`
                 })
             });
-
         });
 
         // Add to cart
         app.post('/cart', async (req, res) => {
             var body = req.body;
 
-            if (body) {
-                // Get auth key
+            if (body && body.user && body.product) {
+                // Get key
                 var key = await jwt.sign({
                     foo: 'bar'
                 }, 'shhhhh');
 
                 cart.insertOne(new Cart({
-                    user: body.user,
+                    key,
                     product: body.product,
-                    key
+                    user: body.user
                 })).then(result => {
                     return res.status(200).send({
                         message: 'Item added to cart successfully'

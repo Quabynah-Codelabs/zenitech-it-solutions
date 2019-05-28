@@ -23,7 +23,7 @@ val roomModule = module {
 
     factory { ProductVMFactory(get()) }
 
-    single { UserRepository(get(), get()) }
+    single { UserRepository(get(), get(), get()) }
 
     single { ProductRepository(get()) }
 

@@ -1,6 +1,9 @@
 package io.codelabs.zenitech.core.datasource.repository
 
 import io.codelabs.sdk.util.debugLog
+import io.codelabs.sdk.util.network.Outcome
+import io.codelabs.zenitech.core.database.DatabaseAPI
+import io.codelabs.zenitech.core.database.DatabaseService
 import io.codelabs.zenitech.core.datasource.room.RoomAppDao
 import io.codelabs.zenitech.data.User
 import kotlinx.coroutines.Dispatchers
@@ -10,18 +13,40 @@ import kotlinx.coroutines.withContext
 
 class UserRepository constructor(
     private val dao: RoomAppDao,
-    private val prefs: Preferences/*todo: add remote datasource here*/
+    private val prefs: Preferences,
+    private val api: DatabaseAPI
 ) {
 
-    suspend fun getCurrentUser(): User? {
+    fun getCurrentUser(): User? {
         var user: User? = null
-        withContext(Dispatchers.IO) {
-            try {
-                if (prefs.isLoggedIn) user = dao.getUser(prefs.key!!)
-            } catch (e: Exception) {
-                debugLog(e.localizedMessage)
+        if (prefs.isLoggedIn) {
+            GlobalScope.launch(Dispatchers.Main) {
+                api.getDatabaseService().getCurrentCustomer(DatabaseService.CustomerRequest(prefs.key!!))
+                    .observeForever {
+                        debugLog("User query result: $it")
+                        when (it) {
+                            is Outcome.Success -> {
+                                user = it.data
+
+                                GlobalScope.launch(Dispatchers.IO) {
+                                    try {
+                                        dao.updateUser(it.data)
+                                    } catch (e: Exception) {
+                                        debugLog(e.localizedMessage)
+                                    }
+                                }
+                            }
+
+                            is Outcome.Failure -> {
+                                GlobalScope.launch(Dispatchers.IO){
+                                    user = dao.getUser(prefs.key!!)
+                                }
+                            }
+                        }
+                    }
             }
         }
+
         return user
     }
 
