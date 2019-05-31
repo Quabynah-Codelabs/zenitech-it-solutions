@@ -3,9 +3,11 @@ package io.codelabs.zenitech.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -14,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.util.debugLog
@@ -63,7 +66,25 @@ class MainActivity : BaseActivity() {
             R.id.menu_google_login -> googleLogin()
 
             R.id.menu_reset_password -> {
-                //todo: add password reset functionality
+                
+                val v = layoutInflater.inflate(R.layout.dialog_password_reset, null, false)
+                MaterialAlertDialogBuilder(this)
+                    .setPositiveButton("Reset password") { dialog, _ ->
+                        val username = v.findViewById<EditText>(R.id.username).text.toString()
+                        if (username.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
+                            dialog.dismiss()
+                            toast("please check your email for the reset link")
+                            auth.sendPasswordResetEmail(username).addOnCompleteListener { }.addOnFailureListener {
+                                toast("Unable to send email to this address. Please try again with a valid email address")
+                                debugLog(it.localizedMessage)
+                            }
+                        } else toast("Please enter a valid email address")
+
+                    }
+                    .create().apply {
+                        setView(v)
+                        show()
+                    }
             }
 
             R.id.menu_about -> browse(BuildConfig.WEB_HOSTING_SITE, true)

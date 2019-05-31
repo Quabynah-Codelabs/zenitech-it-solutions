@@ -27,7 +27,7 @@
         <io.codelabs.widget.ForegroundLinearLayout android:layout_width="match_parent"
                                                    android:layout_height="wrap_content"
                                                    android:orientation="vertical"
-                                                   android:layout_marginTop="@dimen/spacing_xxxlarge"
+                                                   android:layout_marginTop="@dimen/spacing_xxlarge"
                                                    android:paddingEnd="@dimen/padding_large"
                                                    android:paddingTop="@dimen/padding_large"
                                                    android:paddingStart="@dimen/padding_large"
@@ -81,7 +81,7 @@
                         android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/twotone_face_24px"
+                        android:drawableStart="@drawable/twotone_mail_outline_24px"
                         android:drawablePadding="@dimen/spacing_normal"
                         android:inputType="textEmailAddress|textAutoComplete|textAutoCorrect"
                         android:hint="@string/username"/>

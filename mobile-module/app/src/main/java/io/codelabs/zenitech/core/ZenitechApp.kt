@@ -2,6 +2,8 @@ package io.codelabs.zenitech.core
 
 import android.app.Application
 import android.content.Context
+import androidx.work.Constraints
+import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.google.firebase.FirebaseApp
@@ -15,8 +17,6 @@ import java.util.concurrent.TimeUnit
 class ZenitechApp : Application() {
 
     lateinit var preferenceRepository: PreferenceRepository
-//    private val prefs: Preferences by inject()
-//    private val dao: RoomAppDao by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -36,7 +36,14 @@ class ZenitechApp : Application() {
             modules(roomModule, prefsModule, remoteService, firebaseModule)
         }
 
-        val syncedWorker = PeriodicWorkRequestBuilder<SyncedWorker>(10, TimeUnit.MINUTES).build()
+        // Set constraints
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val syncedWorker = PeriodicWorkRequestBuilder<SyncedWorker>(10, TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .build()
 
         WorkManager.getInstance(applicationContext).enqueue(mutableListOf(syncedWorker))
     }

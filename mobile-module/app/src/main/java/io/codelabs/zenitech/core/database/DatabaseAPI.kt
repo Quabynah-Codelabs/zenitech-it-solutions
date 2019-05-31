@@ -66,7 +66,10 @@ class DatabaseAPI {
                 _models.markAsSynced()
                 _models.forEach {
                     when (it) {
-                        is Product -> dao.addProduct(it)
+                        is Product -> {
+                            getDatabaseService().updateProductAsync(it).await()
+                            dao.addProduct(it)
+                        }
                         is Issue -> dao.addIssue(it)
                     }
                 }
