@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.intentTo
+import io.codelabs.sdk.util.network.Outcome
 import io.codelabs.sdk.util.showConfirmationToast
 import io.codelabs.sdk.util.toast
 import io.codelabs.zenitech.BuildConfig
@@ -66,23 +67,39 @@ class MainActivity : BaseActivity() {
             R.id.menu_google_login -> googleLogin()
 
             R.id.menu_reset_password -> {
-                
+
                 val v = layoutInflater.inflate(R.layout.dialog_password_reset, null, false)
                 MaterialAlertDialogBuilder(this)
-                    .setPositiveButton("Reset password") { dialog, _ ->
+                    .setTitle(getString(R.string.reset_password))
+                    .setNegativeButton("Dismiss") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .setPositiveButton("Send link") { dialog, _ ->
                         val username = v.findViewById<EditText>(R.id.username).text.toString()
                         if (username.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
                             dialog.dismiss()
-                            toast("please check your email for the reset link")
-                            auth.sendPasswordResetEmail(username).addOnCompleteListener { }.addOnFailureListener {
-                                toast("Unable to send email to this address. Please try again with a valid email address")
-                                debugLog(it.localizedMessage)
-                            }
+                            toast("Please check your email for the reset link")
+                            authService.resetPassword(LoginRequest(username, "")).observe(this, Observer {
+                                when (it) {
+                                    is Outcome.Success -> {
+                                        toast("Please sign in again")
+                                    }
+
+                                    is Outcome.Progress -> {
+                                        debugLog("Password reset in progress...")
+                                    }
+
+                                    else -> {
+                                        toast("Unable to send email to this address. Please try again with a valid email address")
+                                    }
+                                }
+                            })
                         } else toast("Please enter a valid email address")
 
                     }
                     .create().apply {
                         setView(v)
+                        setCanceledOnTouchOutside(false)
                         show()
                     }
             }

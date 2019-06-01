@@ -69,4 +69,5 @@
     <string name="user_interface">User Interface</string>
     <string name="logout">Logout</string>
     <string name="theme_builder">Theme Builder</string>
+    <string name="reset_password">Reset password</string>
 </resources>
