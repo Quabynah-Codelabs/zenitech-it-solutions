@@ -2,6 +2,7 @@ package io.codelabs.zenitech.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Patterns
 import android.view.Menu
@@ -29,7 +30,6 @@ import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.dbutil.LoginRequest
 import io.codelabs.zenitech.core.dbutil.OAuthRequest
 import io.codelabs.zenitech.core.theme.BaseActivity
-import io.codelabs.zenitech.core.util.isNotEmpty
 import io.codelabs.zenitech.core.util.isValidEmail
 import io.codelabs.zenitech.core.util.isValidPassword
 import io.codelabs.zenitech.data.User
@@ -43,7 +43,6 @@ class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var authSnackbar: Snackbar
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -56,6 +55,18 @@ class MainActivity : BaseActivity() {
             "Please wait while we sign you in...",
             Snackbar.LENGTH_INDEFINITE
         )
+
+        onNewIntent(intent)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val data = intent?.data
+
+        if (data != null /*&& data.pathSegments.contains("code")*/) {
+            debugLog("URI returned as: ${data.pathSegments}")
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -67,6 +78,10 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_google_login -> googleLogin()
+
+            R.id.menu_instagram_login -> instagramLogin()
+
+            R.id.menu_facebook_login -> facebookLogin()
 
             R.id.menu_reset_password -> {
 
@@ -195,35 +210,69 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    private fun instagramLogin() {
+        /*val url =
+            "https://www.instagram.com/oauth/authorize/?client_id=${BuildConfig.INSTAGRAM_CLIENT_ID}&redirect_uri=${BuildConfig.INSTAGRAM_AUTH_REDIRECT_URI}&response_type=code"
+        startActivityForResult(Intent(Intent.ACTION_VIEW, Uri.parse(url)), RC_LOGIN)*/
+        toast("Not available")
+    }
+
+    private fun facebookLogin() {
+        /*val url =
+            "https://www.instagram.com/oauth/authorize/?client_id=${BuildConfig.INSTAGRAM_CLIENT_ID}&redirect_uri=${BuildConfig.INSTAGRAM_AUTH_REDIRECT_URI}&response_type=code"
+        startActivityForResult(Intent(Intent.ACTION_VIEW, Uri.parse(url)), RC_LOGIN)*/
+        toast("Not available")
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_GOOGLE_LOGIN) {
-            when (resultCode) {
-                Activity.RESULT_OK -> {
-                    authSnackbar.show()
-                    val acctTask = GoogleSignIn.getSignedInAccountFromIntent(data)
-                    try {
-                        val account = acctTask.getResult(ApiException::class.java)
-                        updateUI(account)
-                    } catch (ex: ApiException) {
-                        // Login failed
-                        if (authSnackbar.isShown) authSnackbar.dismiss()
-                        debugLog(ex.localizedMessage)
-                        toast(ex.localizedMessage)
+        when (requestCode) {
+            RC_GOOGLE_LOGIN -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        authSnackbar.show()
+                        val acctTask = GoogleSignIn.getSignedInAccountFromIntent(data)
+                        try {
+                            val account = acctTask.getResult(ApiException::class.java)
+                            updateUI(account)
+                        } catch (ex: ApiException) {
+                            // Login failed
+                            if (authSnackbar.isShown) authSnackbar.dismiss()
+                            debugLog(ex.localizedMessage)
+                            toast(ex.localizedMessage)
+
+                            TransitionManager.beginDelayedTransition(binding.container)
+                            binding.loading.visibility = View.GONE
+                            binding.content.visibility = View.VISIBLE
+                        }
+                    }
+
+                    else -> {
+                        debugLog("Result Code: $resultCode")
+                        // Login cancelled
+                        authSnackbar.setText("Login failed").setDuration(BaseTransientBottomBar.LENGTH_LONG).show()
 
                         TransitionManager.beginDelayedTransition(binding.container)
                         binding.loading.visibility = View.GONE
                         binding.content.visibility = View.VISIBLE
                     }
                 }
+            }
 
-                else -> {
-                    // Login cancelled
-                    authSnackbar.setText("Login failed").setDuration(BaseTransientBottomBar.LENGTH_LONG).show()
+            RC_LOGIN -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        authSnackbar.show()
+                    }
 
-                    TransitionManager.beginDelayedTransition(binding.container)
-                    binding.loading.visibility = View.GONE
-                    binding.content.visibility = View.VISIBLE
+                    else -> {
+                        // Login cancelled
+                        authSnackbar.setText("Login failed").setDuration(BaseTransientBottomBar.LENGTH_LONG).show()
+
+                        TransitionManager.beginDelayedTransition(binding.container)
+                        binding.loading.visibility = View.GONE
+                        binding.content.visibility = View.VISIBLE
+                    }
                 }
             }
         }
@@ -261,5 +310,6 @@ class MainActivity : BaseActivity() {
 
     companion object {
         private const val RC_GOOGLE_LOGIN = 9
+        private const val RC_LOGIN = 8
     }
 }

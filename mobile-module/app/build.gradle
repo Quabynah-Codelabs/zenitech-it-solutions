@@ -30,8 +30,13 @@ android {
 
         // CLOUD FUNCTIONS
         def baseUrl = "https://us-central1-zenitech-solutions.cloudfunctions.net/"
+        def redirectUri = "https://zenitech-solutions.firebaseapp.com/__/auth/handler"
+//        def redirectUri = "zeniteck://auth-callback"
         manifestPlaceholders = [base_url: baseUrl]
+        manifestPlaceholders = [redirect_uri: redirectUri]
         buildConfigField "String", "API_BASE_URL", "\"${baseUrl}\""
+        buildConfigField "String", "INSTAGRAM_AUTH_REDIRECT_URI", "\"${redirectUri}\""
+        buildConfigField "String", "INSTAGRAM_CLIENT_ID", "\"2527b13831bc4888b6aa9473f266f191\""
 
         javaCompileOptions {
             annotationProcessorOptions {

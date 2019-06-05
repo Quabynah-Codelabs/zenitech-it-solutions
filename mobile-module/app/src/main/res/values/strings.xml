@@ -70,4 +70,6 @@
     <string name="logout">Logout</string>
     <string name="theme_builder">Theme Builder</string>
     <string name="reset_password">Reset password</string>
+    <string name="instagram">Instagram Login</string>
+    <string name="facebook">Facebook Login</string>
 </resources>

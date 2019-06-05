@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "326397510467-cif32e8sq8jvpv7o654p9g6igggfn2su.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.codelabs.zenitech",
+            "certificate_hash": "b6c0c216debedfe32b3dd3cdf1f118bcd592ed4f"
+          }
+        },
+        {
           "client_id": "326397510467-81tmocd5emblltbbckacsh17st29t8q5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

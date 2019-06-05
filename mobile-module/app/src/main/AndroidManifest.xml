@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data
                         android:scheme="https"
-                        android:host="${base_url}"
+                        android:host="https://us-central1-zenitech-solutions.cloudfunctions.net/"
                         android:pathPrefix="/products/"/>
             </intent-filter>
 
@@ -42,8 +42,17 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data
+                        android:scheme="https"
+                        android:host="https://zenitech-solutions.firebaseapp.com/__/auth/handler"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
                         android:scheme="io.codelabs.zenitech"
-                        android:host="${base_url}"
+                        android:host="https://us-central1-zenitech-solutions.cloudfunctions.net/"
                         android:pathPrefix="/products/"/>
             </intent-filter>
 
@@ -70,13 +79,13 @@
 
         <meta-data
                 android:name="com.google.firebase.messaging.default_notification_icon"
-                android:resource="@drawable/shr_logo" />
+                android:resource="@drawable/shr_logo"/>
         <meta-data
                 android:name="com.google.firebase.messaging.default_notification_color"
-                android:resource="@color/color_secondary" />
+                android:resource="@color/color_secondary"/>
         <meta-data
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
-                android:value="zenitech-notification-channel" />
+                android:value="zenitech-notification-channel"/>
     </application>
 
 </manifest>

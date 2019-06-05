@@ -4,8 +4,18 @@
 
     <item android:title="@string/google_sign_in"
           android:icon="@drawable/googleg_standard_color_18"
-          app:showAsAction="ifRoom"
+          app:showAsAction="always"
           android:id="@+id/menu_google_login"/>
+
+    <item android:title="@string/instagram"
+          android:icon="@drawable/instagram"
+          app:showAsAction="always"
+          android:id="@+id/menu_instagram_login"/>
+
+    <item android:title="@string/facebook"
+          android:icon="@drawable/facebook"
+          app:showAsAction="always"
+          android:id="@+id/menu_facebook_login"/>
 
     <item android:title="@string/forgot_password"
           android:icon="@drawable/twotone_group_24px"
