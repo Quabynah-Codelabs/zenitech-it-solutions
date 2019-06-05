@@ -22,7 +22,10 @@
         <activity android:name=".ui.HomeActivity"
                   android:label="@string/empty"
                   android:configChanges="orientation|screenLayout|screenSize"/>
-
+        <activity android:name=".ui.AuthActivity"
+                  android:label="@string/empty"
+                  android:screenOrientation="portrait"
+                  android:configChanges="orientation|screenLayout|screenSize"/>
         <activity android:name=".ui.ProductDetailsActivity"
                   android:configChanges="orientation|screenLayout|screenSize"
                   android:label="@string/empty">

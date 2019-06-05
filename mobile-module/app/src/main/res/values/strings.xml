@@ -73,4 +73,8 @@
     <string name="instagram">Instagram Login</string>
     <string name="facebook">Facebook Login</string>
     <string name="skip">Skip</string>
+    <string name="store_auth_prompt">Continue as Store</string>
+    <string name="customer_auth_prompt">Continue as Customer</string>
+    <string name="customer">Customer</string>
+    <string name="store">Store</string>
 </resources>

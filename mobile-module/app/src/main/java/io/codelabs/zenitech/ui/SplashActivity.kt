@@ -53,7 +53,7 @@ class SplashActivity : BaseActivity() {
     }
 
     fun navNext(view: View) =
-        intentTo(if (prefs.isLoggedIn) HomeActivity::class.java else MainActivity::class.java, true)
+        intentTo(if (prefs.isLoggedIn) HomeActivity::class.java else AuthActivity::class.java, true)
 
     class OnBoardingAdapter(private val ctx: Context) : PagerAdapter() {
         private val inflater = ctx.layoutInflater
@@ -88,6 +88,7 @@ class SplashActivity : BaseActivity() {
                         val title = pageOne?.findViewById<BaselineGridTextView>(R.id.title_pager)
                         val desc = pageOne?.findViewById<BaselineGridTextView>(R.id.desc_pager)
                         val image = pageOne?.findViewById<FourThreeImageView>(R.id.main_pager_image)
+
 
                     }
                     pageOne!!

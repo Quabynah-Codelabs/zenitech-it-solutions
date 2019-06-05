@@ -297,7 +297,7 @@ MongoClient.connect(url, {
             } else {
                 return res.status(500).send({
                     message: `Please upload a new token for this customer`
-                })
+                });
             }
 
         });

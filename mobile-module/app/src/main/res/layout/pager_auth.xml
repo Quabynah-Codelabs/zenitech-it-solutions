@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:padding="@dimen/spacing_normal">
+
+    <io.codelabs.widget.FourThreeImageView android:layout_width="match_parent"
+                                           android:layout_height="wrap_content"
+                                           android:id="@+id/image_container"
+                                           android:src="@color/content_placeholder"/>
+
+    <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content"
+                                                       android:layout_marginEnd="@dimen/spacing_xlarge"
+                                                       android:layout_marginTop="@dimen/spacing_xxxlarge"
+                                                       android:layout_marginStart="@dimen/spacing_xlarge"
+                                                       android:id="@+id/auth_button"
+                                                       app:icon="@drawable/twotone_account_circle_24px"
+                                                       android:text="@string/customer_auth_prompt"/>
+
+</LinearLayout>
