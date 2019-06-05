@@ -30,6 +30,8 @@ import io.codelabs.zenitech.core.dbutil.LoginRequest
 import io.codelabs.zenitech.core.dbutil.OAuthRequest
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.core.util.isNotEmpty
+import io.codelabs.zenitech.core.util.isValidEmail
+import io.codelabs.zenitech.core.util.isValidPassword
 import io.codelabs.zenitech.data.User
 import io.codelabs.zenitech.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
@@ -133,7 +135,7 @@ class MainActivity : BaseActivity() {
     }
 
     fun register(v: View?) {
-        if (username.isNotEmpty() && password.isNotEmpty()) {
+        if (username.isValidEmail() && password.isValidPassword()) {
             ioScope.launch {
                 loginUser(
                     authService.createUserWithEmailAndPasswordAsync(
