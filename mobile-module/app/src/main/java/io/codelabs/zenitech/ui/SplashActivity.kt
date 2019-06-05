@@ -44,7 +44,7 @@ class SplashActivity : BaseActivity() {
 
             override fun onPageSelected(position: Int) {
                 TransitionManager.beginDelayedTransition(binding.container, ChangeBounds())
-                binding.skipButton.visibility = if (position == 2) View.VISIBLE else View.GONE
+                binding.skipButton.text = if (position == 2) getString(R.string.get_started) else getString(R.string.skip)
             }
         })
 

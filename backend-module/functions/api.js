@@ -302,6 +302,17 @@ MongoClient.connect(url, {
 
         });
 
+        // Customers
+        app.post('/customers', (req, res) => {
+            customers.find({}).limit(1000).toArray().then(docs => {
+                return res.status(200).send(docs);
+            }).catch(err => {
+                return res.status(400).send({
+                    message: `Unable to load customers.${err}`
+                });
+            });
+        });
+
         // Products
         app.post('/products', (req, res) => {
             products.find({}).limit(1000).toArray().then(docs => {

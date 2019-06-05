@@ -88,7 +88,7 @@ class UserRepository constructor(
         }
     }
 
-    fun addUser(user: User) = GlobalScope.launch(Dispatchers.IO) {
+    suspend fun addUser(user: User) = GlobalScope.launch(Dispatchers.IO) {
         dao.addUser(user)
     }
 

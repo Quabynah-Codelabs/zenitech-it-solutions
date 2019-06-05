@@ -2,7 +2,6 @@ package io.codelabs.zenitech.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Patterns
 import android.view.Menu
@@ -35,7 +34,6 @@ import io.codelabs.zenitech.core.util.isValidPassword
 import io.codelabs.zenitech.data.User
 import io.codelabs.zenitech.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.anko.browse
 
@@ -167,9 +165,8 @@ class MainActivity : BaseActivity() {
 
     private fun loginUser(user: User) {
         ioScope.launch {
-            userViewModel.addUser(user)
             prefs.key = user.key
-            delay(2000)
+            userViewModel.addUser(user)
 
             uiScope.launch {
                 showConfirmationToast(user.avatar, user.email)

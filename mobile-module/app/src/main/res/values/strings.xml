@@ -72,4 +72,5 @@
     <string name="reset_password">Reset password</string>
     <string name="instagram">Instagram Login</string>
     <string name="facebook">Facebook Login</string>
+    <string name="skip">Skip</string>
 </resources>
