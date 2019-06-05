@@ -1,14 +1,17 @@
 package io.codelabs.zenitech.ui
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.annotation.Nullable
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.PagerAdapter
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.google.android.material.button.MaterialButton
+import io.codelabs.sdk.glide.GlideApp
 import io.codelabs.sdk.util.intentTo
-import io.codelabs.widget.FourThreeImageView
 import io.codelabs.zenitech.R
 import io.codelabs.zenitech.core.theme.BaseActivity
 import io.codelabs.zenitech.databinding.ActivityAuthBinding
@@ -49,7 +52,7 @@ class AuthActivity : BaseActivity() {
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
-            return if(position == 0) ctx.getString(R.string.customer) else ctx.getString(R.string.store)
+            return if (position == 0) ctx.getString(R.string.customer) else ctx.getString(R.string.store)
         }
 
         private fun getPage(container: ViewGroup, position: Int): View {
@@ -58,8 +61,14 @@ class AuthActivity : BaseActivity() {
                     if (pageOne == null) {
                         pageOne = inflater.inflate(R.layout.pager_auth, container, false)
 
-                        val image = pageOne?.findViewById<FourThreeImageView>(R.id.image_container)
+                        val image = pageOne?.findViewById<ImageView>(R.id.image_container)
                         val btn = pageOne?.findViewById<MaterialButton>(R.id.auth_button)
+
+                        GlideApp.with(ctx)
+                            .asDrawable()
+                            .load(R.drawable.customer)
+                            .transition(withCrossFade())
+                            .into(image!!)
 
                         btn?.text = ctx.getString(R.string.customer_auth_prompt)
                         btn?.setOnClickListener { ctx.intentTo(MainActivity::class.java, true) }
@@ -71,8 +80,16 @@ class AuthActivity : BaseActivity() {
                     if (pageTwo == null) {
                         pageTwo = inflater.inflate(R.layout.pager_auth, container, false)
 
-                        val image = pageTwo?.findViewById<FourThreeImageView>(R.id.image_container)
+                        val image = pageTwo?.findViewById<ImageView>(R.id.image_container)
                         val btn = pageTwo?.findViewById<MaterialButton>(R.id.auth_button)
+
+                        GlideApp.with(ctx)
+                            .asDrawable()
+                            .load(R.drawable.customer)
+                            .transition(withCrossFade())
+                            .into(image!!)
+
+                        btn?.icon = ctx.resources.getDrawable(R.drawable.twotone_business_24px, ctx.theme)
 
                         btn?.text = ctx.getString(R.string.store_auth_prompt)
                         btn?.setOnClickListener { ctx.intentTo(MainActivity::class.java, true) }

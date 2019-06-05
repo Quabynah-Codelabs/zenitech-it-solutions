@@ -166,7 +166,7 @@ MongoClient.connect(url, {
                             salt: "",
                             name: username,
                             avatar: avatar,
-                            type: 'guest',
+                            type: 'user',
                             createdAt: new Date().getTime()
                         })).then((response) => {
                             if (response.result) {

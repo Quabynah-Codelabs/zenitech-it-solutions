@@ -22,36 +22,40 @@ class UserRepository constructor(
         callback.onInit()
         if (prefs.isLoggedIn) {
             GlobalScope.launch(Dispatchers.Main) {
-                api.getDatabaseService().getCurrentCustomer(CustomerRequest(prefs.key!!))
-                    .observeForever {
-                        debugLog("User query result: $it")
-                        when (it) {
-                            is Outcome.Success -> {
-                                callback.onSuccess(it.data)
+                try {
+                    api.getDatabaseService().getCurrentCustomer(CustomerRequest(prefs.key!!))
+                        .observeForever {
+                            debugLog("User query result: $it")
+                            when (it) {
+                                is Outcome.Success -> {
+                                    callback.onSuccess(it.data)
 
-                                GlobalScope.launch(Dispatchers.IO) {
-                                    try {
-                                        dao.addUser(it.data)
-                                    } catch (e: Exception) {
-                                        debugLog(e.localizedMessage)
+                                    GlobalScope.launch(Dispatchers.IO) {
+                                        try {
+                                            dao.addUser(it.data)
+                                        } catch (e: Exception) {
+                                            debugLog(e.localizedMessage)
+                                        }
+                                        callback.onComplete()
                                     }
-                                    callback.onComplete()
                                 }
-                            }
 
-                            is Outcome.Failure -> {
-                                callback.onError(it.e.localizedMessage)
-                                GlobalScope.launch(Dispatchers.IO) {
-                                    try {
-                                        callback.onSuccess(dao.getUser(prefs.key!!))
-                                    } catch (e: Exception) {
-                                        debugLog(e.localizedMessage)
+                                is Outcome.Failure -> {
+                                    callback.onError(it.e.localizedMessage)
+                                    GlobalScope.launch(Dispatchers.IO) {
+                                        try {
+                                            callback.onSuccess(dao.getUser(prefs.key!!))
+                                        } catch (e: Exception) {
+                                            debugLog(e.localizedMessage)
+                                        }
+                                        callback.onComplete()
                                     }
-                                    callback.onComplete()
                                 }
                             }
                         }
-                    }
+                } catch (e: Exception) {
+                    debugLog(e.localizedMessage)
+                }
             }
         }
     }

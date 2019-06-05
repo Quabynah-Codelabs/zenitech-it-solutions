@@ -58,6 +58,22 @@ class ProductDetailsActivity : BaseActivity() {
             }
         }
 
+        // Setup FAB
+        binding.fabWishlist.icon = resources.getDrawable(
+            if (addToFav) R.drawable.twotone_favorite_24px else R.drawable.twotone_favorite_border_24px,
+            theme
+        )
+
+        binding.fabWishlist.setOnClickListener {
+            addToFav = !addToFav
+            if (addToFav) repository.addFavorite(binding.product as Product) else repository.removeFavorite(binding.product as Product)
+            // Setup FAB
+            binding.fabWishlist.icon = resources.getDrawable(
+                if (addToFav) R.drawable.twotone_favorite_24px else R.drawable.twotone_favorite_border_24px,
+                theme
+            )
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -67,12 +83,12 @@ class ProductDetailsActivity : BaseActivity() {
 
         cartItem?.icon = resources.getDrawable(
             if (addToCart) R.drawable.twotone_remove_shopping_cart_24px
-            else R.drawable.twotone_add_shopping_cart_24px, null
+            else R.drawable.twotone_add_shopping_cart_24px, theme
         )
 
         favItem?.icon = resources.getDrawable(
             if (addToFav) R.drawable.twotone_favorite_24px
-            else R.drawable.twotone_favorite_border_24px, null
+            else R.drawable.twotone_favorite_border_24px, theme
         )
         return true
     }

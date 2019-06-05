@@ -20,7 +20,7 @@ data class User(
     var name: String?,
     var email: String,
     var avatar: String? = null,
-    var type: String = BaseDataModel.ModelType.GUEST,
+    var type: String = BaseDataModel.ModelType.USER,
     var createdAt: Long = System.currentTimeMillis()
 ) : BaseDataModel {
 

@@ -21,7 +21,13 @@
                   android:configChanges="orientation|screenLayout|screenSize"/>
         <activity android:name=".ui.HomeActivity"
                   android:label="@string/empty"
-                  android:configChanges="orientation|screenLayout|screenSize"/>
+                  android:configChanges="orientation|screenLayout|screenSize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
+
+        </activity>
         <activity android:name=".ui.AuthActivity"
                   android:label="@string/empty"
                   android:screenOrientation="portrait"
@@ -60,6 +66,11 @@
             </intent-filter>
 
         </activity>
+        <activity android:name=".ui.WelcomeActivity"
+                  android:label="@string/empty"
+                  android:theme="@style/Theme.Zenitech.FullScreen"
+                  android:configChanges="orientation|screenLayout|screenSize"/>
+
         <activity android:name=".ui.SplashActivity"
                   android:theme="@style/Theme.Zenitech.FullScreen"
                   android:configChanges="orientation|screenLayout|screenSize">
@@ -68,11 +79,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-            </intent-filter>
         </activity>
+
+
         <service android:name=".core.messaging.MessagingService"
                  android:exported="false">
             <intent-filter>

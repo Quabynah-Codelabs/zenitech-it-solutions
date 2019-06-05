@@ -9,6 +9,7 @@
     <item android:title="Add to favorites"
           android:icon="@drawable/twotone_favorite_border_24px"
           android:id="@+id/menu_fav"
+          android:visible="false"
           app:showAsAction="ifRoom"/>
 
     <item android:title="Browse Web"

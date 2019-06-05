@@ -5,7 +5,8 @@
 
     </data>
     <io.codelabs.widget.ForegroundLinearLayout
-            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/container"
             android:orientation="vertical"
             tools:context=".ui.AuthActivity">
@@ -24,8 +25,9 @@
                                                  android:layout_height="wrap_content"
                                                  android:text="@string/zenitech_app_desc"
                                                  android:textAppearance="?textAppearanceSubtitle1"
-                                                 android:alpha="?alphaEmphasisDisabled"
+                                                 android:alpha="?alphaEmphasisMedium"
                                                  android:layout_marginBottom="@dimen/spacing_normal"
+                                                 android:visibility="gone"
                                                  android:layout_gravity="center_horizontal"
                                                  android:gravity="center_horizontal"/>
 

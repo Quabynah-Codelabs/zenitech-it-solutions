@@ -50,6 +50,16 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_anchor="@id/app_bar"
+                android:id="@+id/fab_wishlist"
+                app:icon="@drawable/twotone_favorite_24px"
+                android:translationZ="@dimen/z_fab_over_touchable_app_bar"
+                android:layout_marginEnd="@dimen/fab_margin"
+                app:layout_anchorGravity="bottom|end"/>
+
         <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
                                                android:layout_height="match_parent"
                                                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -75,7 +85,7 @@
                                                          android:paddingBottom="@dimen/spacing_micro"
                                                          android:paddingStart="@dimen/padding_normal"
                                                          android:paddingEnd="@dimen/padding_normal"
-                                                         android:textColor="?colorPrimaryVariant"
+                                                         android:textColor="?colorSecondaryVariant"
                                                          tools:text="GHC 12.99"
                                                          android:paddingTop="@dimen/spacing_normal"
                                                          android:text="@{String.format(`GHC %.2f`, product.price)}"
@@ -102,19 +112,19 @@
                         app:leadingIcon="@drawable/shr_logo"
                         app:linkUrl="https://codelabs.netlify.com/"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"/>
 
             </io.codelabs.widget.ForegroundLinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
-       <!-- <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icon="@drawable/twotone_euro_symbol_24px"
-                android:text="@{String.valueOf(product.price)}"
-                app:layout_anchorGravity="bottom|end"
-                app:layout_anchor="@id/app_bar"/>-->
+        <!-- <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 app:icon="@drawable/twotone_euro_symbol_24px"
+                 android:text="@{String.valueOf(product.price)}"
+                 app:layout_anchorGravity="bottom|end"
+                 app:layout_anchor="@id/app_bar"/>-->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
