@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
+import androidx.transition.AutoTransition
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
 import androidx.viewpager.widget.PagerAdapter
@@ -43,7 +44,7 @@ class SplashActivity : BaseActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                TransitionManager.beginDelayedTransition(binding.container, ChangeBounds())
+                TransitionManager.beginDelayedTransition(binding.container, AutoTransition())
                 binding.skipButton.text = if (position == 2) getString(R.string.get_started) else getString(R.string.skip)
             }
         })
