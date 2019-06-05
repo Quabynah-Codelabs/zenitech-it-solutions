@@ -164,7 +164,7 @@ class MainActivity : BaseActivity() {
     }
 
     fun login(view: View) {
-        if (username.isNotEmpty() && password.isNotEmpty()) {
+        if (username.isValidEmail() && password.isValidPassword()) {
             ioScope.launch {
                 loginUser(
                     authService.loginWithEmailAndPasswordAsync(
