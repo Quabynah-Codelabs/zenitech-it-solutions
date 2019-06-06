@@ -16,27 +16,27 @@ android {
         // MISC
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
         buildConfigField "String", "GIT_COMMIT_COUNT", "\"${gitCommitCount}\""
-        buildConfigField "String", "GOOGLE_AUTH_CLIENT_ID", "\"326397510467-81tmocd5emblltbbckacsh17st29t8q5.apps.googleusercontent.com\""
-        buildConfigField "String", "GOOGLE_AUTH_CLIENT_KEY", "\"jBHU353dmuBRwQgCx8WQTrmo\""
+        buildConfigField "String", "GOOGLE_AUTH_CLIENT_ID", "\"${googleAuthID}\""
+        buildConfigField "String", "GOOGLE_AUTH_CLIENT_KEY", "\"${googleAuthKey}\""
 
         // PAYPAL CREDENTIALS
-        buildConfigField "String", "DEBUG_PAY_PAL_CLIENT_ID", "\"AUOUeWD713WFvhoKg58HvZpJ58u0hd2Qo7F4nNNRHf5URQKnyxi7NRg16y2972Hd9w9Iezy3KNrA5Qsj\""
-        buildConfigField "String", "DEBUG_PAY_PAL_CLIENT_SECRET", "\"ENIg_CowtDaiA63A-cHCisnCFjUlQbv84Y96Mhrc-LWe7wX19CyBmrELEsabiNBF9dXk7DyYzVvL44yv\""
-        buildConfigField "String", "LIVE_PAY_PAL_CLIENT_ID", "\"AWipjwDuooz5Sx7lWsjgGALgU2-rVRmuCZWargFxvmaqSW2GKSKLGTd4PkX899zBglLbSYWuwYnCgcK3\""
-        buildConfigField "String", "LIVE_PAY_PAL_CLIENT_SECRET", "\"ENIg_CowtDaiA63A-cHCisnCFjUlQbv84Y96Mhrc-LWe7wX19CyBmrELEsabiNBF9dXk7DyYzVvL44yv\""
+        buildConfigField "String", "DEBUG_PAY_PAL_CLIENT_ID", "\"${debugPayPalID}\""
+        buildConfigField "String", "DEBUG_PAY_PAL_CLIENT_SECRET", "\"${debugPayPalKey}\""
+        buildConfigField "String", "LIVE_PAY_PAL_CLIENT_ID", "\"${livePayPalID}\""
+        buildConfigField "String", "LIVE_PAY_PAL_CLIENT_SECRET", "\"${livePayPalKey}\""
 
         // MONGODB CREDENTIALS
-        buildConfigField "String", "WEB_HOSTING_SITE", "\"https://zenitech-solutions.web.app/\""
+        buildConfigField "String", "WEB_HOSTING_SITE", "\"${webHostUrl}\""
 
         // CLOUD FUNCTIONS
-        def baseUrl = "https://us-central1-zenitech-solutions.cloudfunctions.net/"
-        def redirectUri = "https://zenitech-solutions.firebaseapp.com/__/auth/handler"
+        def baseUrl = "\"${apiBaseUrl}\""
+        def redirectUri = "\"${authRedirectUrl}\""
 //        def redirectUri = "zeniteck://auth-callback"
         manifestPlaceholders = [base_url: baseUrl]
         manifestPlaceholders = [redirect_uri: redirectUri]
-        buildConfigField "String", "API_BASE_URL", "\"${baseUrl}\""
-        buildConfigField "String", "INSTAGRAM_AUTH_REDIRECT_URI", "\"${redirectUri}\""
-        buildConfigField "String", "INSTAGRAM_CLIENT_ID", "\"2527b13831bc4888b6aa9473f266f191\""
+        buildConfigField "String", "API_BASE_URL", "${baseUrl}"
+        buildConfigField "String", "INSTAGRAM_AUTH_REDIRECT_URI", "${redirectUri}"
+        buildConfigField "String", "INSTAGRAM_CLIENT_ID", "\"${instagramClientID}\""
 
         javaCompileOptions {
             annotationProcessorOptions {
